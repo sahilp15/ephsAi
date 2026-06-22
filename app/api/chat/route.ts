@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       try {
         for await (const chunk of generateAnswer({
           systemInstruction,
-          messages: recent,
+          messages: recent.filter((m) => !("id" in m) || m.id !== "welcome"),
         })) {
           controller.enqueue(encoder.encode(chunk));
         }

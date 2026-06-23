@@ -2,7 +2,11 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { brand } from "@/config/brand";
-import { welcomeMessage, suggestedPrompts } from "@/config/content";
+import {
+  welcomeMessage,
+  suggestedPrompts,
+  quickActions,
+} from "@/config/content";
 
 type Role = "user" | "assistant";
 
@@ -30,6 +34,7 @@ export function ChatClient() {
 
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const autoSentRef = useRef(false);
 
   // Auto-scroll to the latest message.
   useEffect(() => {
@@ -75,7 +80,7 @@ export function ChatClient() {
         // Sources come back in a header.
         let sources: string[] = [];
         try {
-          sources = JSON.parse(res.headers.get("X-Eddy-Sources") ?? "[]");
+          sources = JSON.parse(res.headers.get("X-Knowledge-Sources") ?? "[]");
         } catch {
           sources = [];
         }
@@ -103,7 +108,7 @@ export function ChatClient() {
       } catch (err) {
         console.error(err);
         setError(
-          "Something went wrong reaching Eddy. Please check your connection and try again.",
+          "Something went wrong reaching the assistant. Please check your connection and try again.",
         );
         // Drop the empty assistant bubble on hard failure.
         setMessages((prev) => prev.filter((m) => m.id !== assistantId));
@@ -114,6 +119,18 @@ export function ChatClient() {
     },
     [messages, isStreaming],
   );
+
+  // Deep-link support: if the page is opened with ?prompt=... (from the landing
+  // quick actions), auto-send that question once on first load.
+  useEffect(() => {
+    if (autoSentRef.current) return;
+    const params = new URLSearchParams(window.location.search);
+    const prompt = params.get("prompt");
+    if (prompt && prompt.trim()) {
+      autoSentRef.current = true;
+      void send(prompt);
+    }
+  }, [send]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -136,7 +153,7 @@ export function ChatClient() {
         ref={listRef}
         role="log"
         aria-live="polite"
-        aria-label="Conversation with Eddy"
+        aria-label={`Conversation with ${brand.shortName}`}
         className="flex-1 space-y-4 overflow-y-auto py-4"
       >
         {messages.map((m) => (
@@ -177,6 +194,24 @@ export function ChatClient() {
           </div>
         </div>
       )}
+
+      {/* Quick actions */}
+      <div className="-mx-3 overflow-x-auto px-3 pb-2 sm:mx-0 sm:px-0">
+        <div className="flex gap-2">
+          {quickActions.map((a) => (
+            <button
+              key={a.label}
+              type="button"
+              onClick={() => void send(a.prompt)}
+              disabled={isStreaming}
+              className="flex shrink-0 items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm font-medium text-ink transition hover:border-scarlet hover:bg-scarlet-tint disabled:opacity-40"
+            >
+              <span aria-hidden="true">{a.icon}</span>
+              {a.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Composer */}
       <form onSubmit={onSubmit} className="border-t border-gray-100 pt-3 pb-2">
@@ -232,7 +267,9 @@ function MessageBubble({
         }`}
       >
         {!isUser && (
-          <p className="mb-1 text-xs font-semibold text-scarlet">{brand.name}</p>
+          <p className="mb-1 text-xs font-semibold text-scarlet">
+            {brand.shortName}
+          </p>
         )}
 
         {isEmptyStreaming ? (
@@ -257,7 +294,7 @@ function MessageBubble({
 
 function TypingDots() {
   return (
-    <span className="flex items-center gap-1 py-1" aria-label="Eddy is typing">
+    <span className="flex items-center gap-1 py-1" aria-label="Assistant is typing">
       <span className="eddy-dot h-2 w-2 rounded-full bg-scarlet" />
       <span
         className="eddy-dot h-2 w-2 rounded-full bg-scarlet"

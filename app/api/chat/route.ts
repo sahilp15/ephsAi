@@ -72,7 +72,7 @@ export async function POST(req: NextRequest) {
       "Content-Type": "text/plain; charset=utf-8",
       "Cache-Control": "no-cache, no-transform",
       // Source URLs travel in a header so the UI can render the "Sources" row.
-      "X-Eddy-Sources": JSON.stringify(sources),
+      "X-Knowledge-Sources": JSON.stringify(sources),
     },
   });
 }

@@ -17,7 +17,7 @@ export function Footer() {
             Feedback
           </Link>
           <a
-            href={brand.links.officialSite}
+            href={brand.links.ephsHome}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-scarlet"

@@ -15,18 +15,17 @@ export default function AboutPage() {
       </h1>
 
       <p className="mt-6 text-lg leading-relaxed text-gray-700">
-        {brand.name} is a friendly, student-built AI guide for{" "}
-        {brand.school.name} ({brand.school.shortName}) {brand.school.mascot}. With
-        around 2,800 students and 425+ courses, it's easy to feel lost in the
-        details — which classes to take, how many credits you need, how to change
-        your schedule, what clubs exist, and who to email when you have a
-        question. {brand.name} exists to make those answers easy to find, in
-        plain language, any time of day — so students spend less time hunting
+        The {brand.name} is a friendly, student-built guide for{" "}
+        {brand.school.name} ({brand.school.shortName}) {brand.school.mascot} —
+        for students and families alike. With around 2,800 students and 425+
+        courses, it's easy to feel lost in the details: which classes to take,
+        how many credits you need, how to change your schedule, what clubs exist,
+        and who to email. The {brand.name} makes those answers easy to find, in
+        plain language, any time of day — so families spend less time hunting
         through pages and more time making good decisions. Every answer comes
-        from official EPHS information and links back to the real source, and{" "}
-        {brand.name} always reminds you to confirm big decisions with a real
-        counselor. It's a head start, not a replacement for the people who know
-        you.
+        from official EPHS information and links back to the real source, and it
+        always points you to a real counselor for the big decisions. It's a head
+        start, not a replacement for the people who know you.
       </p>
 
       <section className="mt-12">
@@ -72,7 +71,7 @@ export default function AboutPage() {
           href="/chat"
           className="rounded-full bg-scarlet px-6 py-3 font-semibold text-white transition hover:bg-scarlet/90"
         >
-          Ask {brand.name} →
+          Ask the Assistant →
         </Link>
         <Link
           href="/feedback"

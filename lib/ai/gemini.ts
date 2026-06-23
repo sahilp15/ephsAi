@@ -28,10 +28,17 @@ export class GeminiProvider implements Provider {
 
     // Map our turns to Gemini's history format. The final user message is sent
     // via sendMessageStream; everything before it is history.
-    const history = opts.messages.slice(0, -1).map((m) => ({
+    let history = opts.messages.slice(0, -1).map((m) => ({
       role: m.role === "assistant" ? "model" : "user",
       parts: [{ text: m.content }],
     }));
+
+    // Gemini requires history to START with a user turn. Drop any leading
+    // assistant/model turns (e.g. the assistant's welcome message).
+    while (history.length > 0 && history[0].role !== "user") {
+      history = history.slice(1);
+    }
+
     const last = opts.messages[opts.messages.length - 1];
 
     try {

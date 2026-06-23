@@ -29,7 +29,7 @@ export function Header() {
             href="/chat"
             className="rounded-full bg-scarlet px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-scarlet/90"
           >
-            Ask {brand.name}
+            Ask the Assistant
           </Link>
         </div>
       </nav>

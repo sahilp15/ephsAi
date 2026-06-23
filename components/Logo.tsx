@@ -3,13 +3,13 @@ import { brand } from "@/config/brand";
 type LogoProps = {
   /** Pixel size of the mark (square). */
   size?: number;
-  /** Show the "Eddy" wordmark next to the mark. */
+  /** Show the "EPHS AI" wordmark next to the mark. */
   showWordmark?: boolean;
   className?: string;
 };
 
 /**
- * Eddy wordmark + mark.
+ * EPHS AI wordmark + mark.
  *
  * The mark is an ORIGINAL, simple eagle-feather silhouette drawn from scratch.
  * It intentionally does NOT copy any real Eden Prairie High School logo or
@@ -48,7 +48,7 @@ export function Logo({ size = 32, showWordmark = true, className }: LogoProps) {
       </svg>
       {showWordmark && (
         <span className="text-xl font-extrabold tracking-tight text-ink">
-          {brand.name}
+          {brand.shortName}
         </span>
       )}
     </span>

@@ -1,35 +1,45 @@
 ---
 topic: Graduation Requirements
 category: academics
-source_url: https://www.edenpr.org/ephs/academics/graduation-requirements
-last_updated: 2026-06-22
+source_url: https://my.edenpr.org/high-school/graduation
+last_updated: 2026-06-23
 ---
 
 # Graduation Requirements
 
-> **EXAMPLE — replace with real EPHS info.** The numbers below are placeholders
-> to show the format. Confirm and replace every figure with the official EPHS
-> graduation requirements before going live.
+To earn an Eden Prairie High School diploma, students must complete **54 credits**
+across required subject areas, plus any state-required courses. Students also meet
+the graduation standards required by the State of Minnesota.
 
-To earn an Eden Prairie High School diploma, students complete a set number of
-credits across required subject areas. A typical example layout:
+## Recent requirement change (personal finance vs. technology)
 
-- **English / Language Arts** — 4 years
-- **Mathematics** — 3 years (including specific required courses)
-- **Science** — 3 years (including biology and a physical science)
-- **Social Studies** — 3.5 years (including U.S. History, Government, Economics)
-- **Physical Education / Health** — placeholder credits
-- **Arts** — placeholder credits
-- **Electives** — remaining credits to reach the total
+Minnesota now requires a **personal finance** credit for graduation, phased in by
+graduating class:
 
-**Total credits required:** _placeholder — replace with the official number._
+- **Class of 2027 (current 12th graders):** No change — the **technology credit is
+  still required**, and personal finance is **not** required.
+- **Classes of 2028 and 2029 (and beyond):** The **technology credit is no longer
+  required**, and a **personal finance credit is required**.
 
-## Good to know
+Courses such as **Personal Finance** and **Finance for Your Future** fulfill the
+personal finance requirement.
 
-- Requirements can change by graduation year. Always check your specific year's
-  requirements with your counselor.
-- You can track your progress in your student portal and during planning
-  meetings with your counselor.
+## Arts credit
+
+The arts/fine-arts requirement can be met through many courses across Art, Theatre,
+Music (two semesters of Band, Orchestra, or Choir), Family & Consumer Science,
+Agriculture (e.g. Floral Design), and Industrial Technology. The full list is in the
+Course Guide's Fine/Applied Arts section.
+
+## Important
+
+The exact number of credits required **per subject** (English, Math, Science, Social
+Studies, PE/Health, Arts, electives) depends on your graduating class and can change.
+I don't have the full per-subject breakdown verified here, so please confirm the
+specifics on the official graduation page and with your counselor.
 
 **Talk to your school counselor** to confirm exactly where you stand and which
-courses still count toward each requirement.
+courses still count toward each requirement. You can book a counselor appointment
+through Acuity: https://app.acuityscheduling.com/schedule/1c840dc8
+
+Official graduation requirements: https://my.edenpr.org/high-school/graduation

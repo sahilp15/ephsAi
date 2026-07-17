@@ -1,14 +1,6 @@
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import { aiEnabled } from "@/lib/env";
-import { RecommendClient } from "./RecommendClient";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "AI Advisor" };
-
+/** The recommender was replaced by the EPHS AI Assistant chat. */
 export default function RecommendPage() {
-  return (
-    <Suspense>
-      <RecommendClient aiConfigured={aiEnabled()} />
-    </Suspense>
-  );
+  redirect("/chat");
 }

@@ -3,7 +3,7 @@ import type { CourseMeta } from "./plan-types";
 /**
  * Pathway alignment. The guide defines five official pathways with capstones
  * and supporting courses. It does NOT define completion criteria, so we only
- * ever report "courses aligned with this pathway" — never a completion
+ * ever report "courses aligned with this pathway" - never a completion
  * percentage or a claim that a pathway is finished.
  */
 

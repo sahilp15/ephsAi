@@ -14,7 +14,7 @@ describe("checkEligibility", () => {
     expect(checkEligibility(course, 10, new Set()).status).toBe("eligible");
   });
 
-  it("checks AND groups — every group needs a satisfied option", () => {
+  it("checks AND groups - every group needs a satisfied option", () => {
     const course = makeCourse({
       id: "physics",
       prereq: { kind: "courses", raw: "a and b", groups: [["a"], ["b"]] },
@@ -23,7 +23,7 @@ describe("checkEligibility", () => {
     expect(checkEligibility(course, 11, new Set(["a", "b"])).status).toBe("eligible");
   });
 
-  it("checks OR groups — any option satisfies the group", () => {
+  it("checks OR groups - any option satisfies the group", () => {
     const course = makeCourse({
       id: "adv",
       prereq: { kind: "courses", raw: "a or b", groups: [["a", "b"]] },

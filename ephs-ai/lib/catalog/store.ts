@@ -18,7 +18,7 @@ import type {
  * read-only and shared across all requests.
  *
  * The production persistence path (Supabase Postgres, migrations, and the
- * idempotent `npm run data:import` command) mirrors this exact structure —
+ * idempotent `npm run data:import` command) mirrors this exact structure -
  * see supabase/migrations and docs/DATA_IMPORT_PLAN.md.
  */
 
@@ -45,8 +45,8 @@ export function getDataset(): CourseGuideDataset {
 /**
  * The source guide contains a small number of distinct courses that normalize
  * to the same slug (e.g. the Multilingual Learner and Social Studies versions
- * of "Human Geography 9"). We never merge or drop them — that would fabricate
- * away a real distinction — but downstream code (id map, static params, React
+ * of "Human Geography 9"). We never merge or drop them - that would fabricate
+ * away a real distinction - but downstream code (id map, static params, React
  * keys) requires unique ids. So later collisions are given a stable
  * department-derived suffix. Nothing user-visible changes; only the internal
  * id is disambiguated.

@@ -93,7 +93,7 @@ export default function PathwayDetailPage({
       </Link>
 
       <div>
-        <h1 className="text-2xl font-bold text-ep-charcoal">{pathway.name}</h1>
+        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">{pathway.name}</h1>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ep-ink">
           {pathway.description}
         </p>
@@ -123,7 +123,7 @@ export default function PathwayDetailPage({
             <p className="mt-2 text-xs text-ep-faint">
               Symbols such as *, **, •, TC, and @ are shown exactly as printed
               in the guide. Their full meanings are not defined on the
-              extracted pathway pages — ask your counselor when in doubt.
+              extracted pathway pages - ask your counselor when in doubt.
             </p>
           </section>
         </div>
@@ -136,7 +136,7 @@ export default function PathwayDetailPage({
           />
           <WarningBanner severity="info" title="About pathway progress">
             The guide does not define official pathway-completion criteria, so
-            this tool shows courses aligned with the pathway — never a
+            this tool shows courses aligned with the pathway - never a
             completion percentage.
           </WarningBanner>
         </aside>

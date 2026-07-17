@@ -8,7 +8,7 @@ import type { GradeYear, RigorPreference } from "@/lib/domain/plan-types";
 import { GRADE_YEARS } from "@/lib/domain/plan-types";
 
 /**
- * Onboarding collects only data useful for planning — no sensitive personal
+ * Onboarding collects only data useful for planning - no sensitive personal
  * information. Everything stays in the student's browser.
  */
 export function OnboardingClient({
@@ -62,11 +62,11 @@ export function OnboardingClient({
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ep-charcoal">
+        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
           Set up your planning profile
         </h1>
         <p className="mt-1 text-sm text-ep-muted">
-          Only planning-relevant info — it stays in your browser and is never
+          Only planning-relevant info - it stays in your browser and is never
           sent with your name attached.
         </p>
       </div>

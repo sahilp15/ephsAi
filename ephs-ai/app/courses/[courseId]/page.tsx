@@ -60,7 +60,7 @@ export default function CourseDetailPage({
           <p className="text-xs font-semibold uppercase tracking-wide text-ep-faint">
             {course.departments.join(" · ")}
           </p>
-          <h1 className="mt-1 text-2xl font-bold text-ep-charcoal">
+          <h1 className="mt-1 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
             {course.title}
           </h1>
           {badges.length > 0 ? (
@@ -75,7 +75,7 @@ export default function CourseDetailPage({
             <WarningBanner severity="warning" title="Source data needs review">
               The guide contains conflicting or incomplete information for this
               course across its appearances. All source appearances are shown
-              below — verify details with your counselor.
+              below - verify details with your counselor.
             </WarningBanner>
           ) : null}
 
@@ -179,7 +179,7 @@ export default function CourseDetailPage({
             <details className="mt-6 rounded-lg border border-ep-border bg-ep-bg p-3">
               <summary className="cursor-pointer text-sm font-semibold text-ep-ink">
                 This course appears {course.source_appearances.length} times in
-                the guide (cross-listed) — view all appearances
+                the guide (cross-listed) - view all appearances
               </summary>
               <div className="mt-3 space-y-3">
                 {course.source_appearances.map((a) => (
@@ -187,12 +187,12 @@ export default function CourseDetailPage({
                     <p className="font-semibold text-ep-charcoal">
                       {a.raw_title}{" "}
                       <span className="font-normal text-ep-muted">
-                        — {a.department}, page {a.source_page}
+                        - {a.department}, page {a.source_page}
                       </span>
                     </p>
                     <p className="mt-1 text-xs text-ep-muted">
-                      Prerequisite: {a.prerequisite_raw ?? "—"} · Grades:{" "}
-                      {a.grades_raw ?? "—"} · Credits: {a.credits_raw ?? "—"}
+                      Prerequisite: {a.prerequisite_raw ?? "-"} · Grades:{" "}
+                      {a.grades_raw ?? "-"} · Credits: {a.credits_raw ?? "-"}
                     </p>
                   </div>
                 ))}
@@ -206,7 +206,7 @@ export default function CourseDetailPage({
         <aside className="space-y-4">
           <AddToPlan courseId={course.id} />
           <Link
-            href={`/recommend?about=${encodeURIComponent(course.title)}`}
+            href={`/chat?about=${encodeURIComponent(course.title)}`}
             className="flex items-center gap-2 rounded-xl border border-ep-border-soft bg-white p-4 text-sm font-semibold text-ep-charcoal shadow-card transition-shadow hover:shadow-card-hover"
           >
             <MessageCircleQuestion aria-hidden className="h-5 w-5 text-ep-red" />

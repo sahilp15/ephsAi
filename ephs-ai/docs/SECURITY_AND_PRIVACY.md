@@ -31,7 +31,7 @@ This is a school application. Defaults are privacy-first and conservative.
 - Per-IP fixed-window rate limiting on the AI endpoint
   (`AI_RATE_LIMIT_PER_HOUR`, default 20/h); friendly 429s.
 - 30-second model timeout; requests abort when the client disconnects.
-- AI failures degrade to deterministic Smart match mode — never a broken page.
+- AI failures degrade to deterministic Smart match mode - never a broken page.
 
 ## Prompt-injection defenses
 
@@ -53,7 +53,7 @@ This is a school application. Defaults are privacy-first and conservative.
   plan entries.
 - **Admins** manage guide versions, view audit events and import jobs.
 - Catalog tables are public-read (they contain only published guide content).
-- Authorization is enforced at the database layer — never only by hidden UI.
+- Authorization is enforced at the database layer - never only by hidden UI.
 - Auth: Supabase Auth with Google OAuth; restrictable to approved district
   account domains when the district enables it.
 - `audit_events` records administrative actions.

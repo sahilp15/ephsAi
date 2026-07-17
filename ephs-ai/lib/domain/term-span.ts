@@ -4,7 +4,7 @@
  *
  * EPHS runs a four-term school year; the guide describes a "semester" as two
  * consecutive academic terms. Where the guide's wording does not determine an
- * exact span, we return `terms: null` and require counselor verification —
+ * exact span, we return `terms: null` and require counselor verification -
  * we never guess scheduling the source does not state.
  */
 

@@ -13,8 +13,8 @@ export default function CounselorPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="flex items-center gap-2 text-2xl font-bold text-ep-charcoal">
-          <Users aria-hidden className="h-6 w-6 text-ep-red" />
+        <h1 className="flex items-center gap-2.5 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
+          <Users aria-hidden className="h-8 w-8 text-ep-red" />
           Counselor View
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-ep-muted">

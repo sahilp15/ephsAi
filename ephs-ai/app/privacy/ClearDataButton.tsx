@@ -26,6 +26,7 @@ export function ClearDataButton() {
               clearAll();
               try {
                 window.localStorage.removeItem("ephs-ai:recommendations:v1");
+                window.localStorage.removeItem("ephs-ai:chat:v1");
               } catch {
                 /* ignore */
               }

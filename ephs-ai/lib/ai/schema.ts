@@ -39,7 +39,40 @@ export type RecommendationResponse = z.infer<
   typeof recommendationResponseSchema
 >;
 
-/** Request body accepted by POST /api/recommend. */
+/** A single turn in the chat conversation. */
+export const chatMessageSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().min(1).max(4000),
+});
+
+export type ChatMessage = z.infer<typeof chatMessageSchema>;
+
+/** Request body accepted by POST /api/chat. */
+export const chatRequestSchema = z.object({
+  messages: z.array(chatMessageSchema).min(1).max(24),
+  profile: z
+    .object({
+      graduationYear: z.number().int().min(2026).max(2035),
+      currentGrade: z.union([
+        z.literal(9),
+        z.literal(10),
+        z.literal(11),
+        z.literal(12),
+      ]),
+      interests: z.array(z.string().max(100)).max(20).default([]),
+      careerIdeas: z.array(z.string().max(100)).max(20).default([]),
+      rigor: z.enum(["standard", "balanced", "challenging"]).default("balanced"),
+      apInterest: z.boolean().default(false),
+      pathwayIds: z.array(z.string().max(100)).max(5).default([]),
+    })
+    .optional(),
+  completedCourseIds: z.array(z.string().max(200)).max(200).default([]),
+  plannedCourseIds: z.array(z.string().max(200)).max(200).default([]),
+});
+
+export type ChatRequest = z.infer<typeof chatRequestSchema>;
+
+/** Legacy recommendation request shape (kept for the deterministic pipeline and its tests). */
 export const recommendRequestSchema = z.object({
   message: z.string().min(1).max(2000),
   profile: z.object({

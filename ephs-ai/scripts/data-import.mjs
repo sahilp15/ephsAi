@@ -5,7 +5,7 @@
  * SHA-256; re-importing the same file replaces that version's rows and leaves
  * other versions untouched. Activation is explicit.
  *
- * Requires (server-side only — never expose these to a browser):
+ * Requires (server-side only - never expose these to a browser):
  *   NEXT_PUBLIC_SUPABASE_URL
  *   SUPABASE_SERVICE_ROLE_KEY
  *

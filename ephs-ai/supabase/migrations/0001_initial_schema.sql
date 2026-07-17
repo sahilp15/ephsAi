@@ -1,4 +1,4 @@
--- EPHS AI — initial schema
+-- EPHS AI - initial schema
 -- Production persistence path: Supabase Postgres + Auth + RLS.
 -- The local MVP serves the same data from the versioned JSON dataset; this
 -- schema mirrors it 1:1 so `npm run data:import` can load it idempotently.

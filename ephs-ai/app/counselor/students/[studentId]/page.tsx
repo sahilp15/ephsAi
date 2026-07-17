@@ -58,7 +58,7 @@ export default function CounselorStudentPage({
 
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-ep-charcoal">
+          <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
             {student.profile.displayName}
           </h1>
           <p className="mt-1 text-sm text-ep-muted">

@@ -20,7 +20,7 @@ export const DEMO_STUDENTS: DemoStudent[] = [
   {
     id: "demo-engineering",
     profile: {
-      displayName: "Demo Student — Engineering",
+      displayName: "Demo Student - Engineering",
       graduationYear: 2030,
       currentGrade: 9,
       interests: ["engineering", "robotics", "physics", "computer science"],
@@ -73,7 +73,7 @@ export const DEMO_STUDENTS: DemoStudent[] = [
       },
     ],
     counselorNotes: [
-      "Interested in the Engineering, Technology & Manufacturing capstone sequence — review math placement before junior year.",
+      "Interested in the Engineering, Technology & Manufacturing capstone sequence - review math placement before junior year.",
     ],
     exampleQuestions: [
       "I love robotics and want to become a mechanical engineer. What should I take in 10th grade?",
@@ -83,7 +83,7 @@ export const DEMO_STUDENTS: DemoStudent[] = [
   {
     id: "demo-business",
     profile: {
-      displayName: "Demo Student — Business",
+      displayName: "Demo Student - Business",
       graduationYear: 2029,
       currentGrade: 10,
       interests: ["business", "marketing", "entrepreneurship", "investing"],
@@ -110,7 +110,7 @@ export const DEMO_STUDENTS: DemoStudent[] = [
         status: "planned",
       },
       {
-        // Class of 2028+ personal finance requirement — planned senior year.
+        // Class of 2028+ personal finance requirement - planned senior year.
         id: "bus-2",
         courseId: "personal-finance",
         gradeYear: 12,
@@ -148,7 +148,7 @@ export const DEMO_STUDENTS: DemoStudent[] = [
   {
     id: "demo-arts",
     profile: {
-      displayName: "Demo Student — Communication & Arts",
+      displayName: "Demo Student - Communication & Arts",
       graduationYear: 2030,
       currentGrade: 9,
       interests: ["theatre", "film", "writing", "photography"],

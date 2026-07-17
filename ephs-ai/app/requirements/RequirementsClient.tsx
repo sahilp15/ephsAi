@@ -86,7 +86,7 @@ export function RequirementsClient({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ep-charcoal">
+        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
           Graduation Requirements
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-ep-muted">{sourceOfTruthNote}</p>
@@ -208,7 +208,7 @@ export function RequirementsClient({
                 <span className="font-medium">Fulfills {m.statement}</span>
                 <span className="text-ep-muted">
                   {" "}
-                  — {m.courseIds.map((id) => catalogMeta.get(id)?.title ?? id).join(", ")}
+                  - {m.courseIds.map((id) => catalogMeta.get(id)?.title ?? id).join(", ")}
                 </span>
               </li>
             ))}

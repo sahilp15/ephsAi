@@ -64,7 +64,7 @@ export default function CoursesPage({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-ep-charcoal">Course Catalog</h1>
+        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">Course Catalog</h1>
         <p className="mt-1 text-sm text-ep-muted">
           Every course from the official EPHS Course Guide 2026-27, with exact
           descriptions, prerequisites, and page citations.

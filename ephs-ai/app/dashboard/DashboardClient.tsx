@@ -85,14 +85,14 @@ export function DashboardClient({
   const quickActions = [
     { href: "/courses", label: "Browse courses", icon: BookOpen },
     { href: "/plan", label: "Open planner", icon: CalendarRange },
-    { href: "/recommend", label: "Ask the AI advisor", icon: Sparkles },
+    { href: "/chat", label: "Ask EPHS AI", icon: Sparkles },
     { href: "/onboarding", label: "Edit profile", icon: UserRound },
   ];
 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ep-charcoal">
+        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
           {profile.displayName
             ? `Welcome back, ${profile.displayName}`
             : "Your dashboard"}
@@ -177,7 +177,8 @@ export function DashboardClient({
             </Link>
           }
         >
-          Start by adding courses from the catalog or asking the AI advisor.
+          Start by adding courses from the catalog or asking the EPHS AI
+          Assistant.
         </EmptyState>
       ) : null}
 

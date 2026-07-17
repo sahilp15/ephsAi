@@ -2,7 +2,7 @@ import type { CourseMeta } from "./plan-types";
 import type { ParsedPrerequisite } from "./prerequisites";
 
 /**
- * Deterministic eligibility engine — the single authority for eligibility
+ * Deterministic eligibility engine - the single authority for eligibility
  * labels. The AI layer may explain these results but never overrides them.
  */
 

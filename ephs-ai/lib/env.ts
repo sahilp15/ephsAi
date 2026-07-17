@@ -6,7 +6,7 @@ import { z } from "zod";
  */
 const envSchema = z.object({
   OPENAI_API_KEY: z.string().min(1).optional(),
-  OPENAI_MODEL: z.string().min(1).default("gpt-4o-mini"),
+  OPENAI_MODEL: z.string().min(1).default("gpt-4o"),
   APP_URL: z.string().url().default("http://localhost:3000"),
   AI_RATE_LIMIT_PER_HOUR: z.coerce.number().int().positive().default(20),
   DEMO_MODE: z

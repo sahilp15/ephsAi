@@ -11,12 +11,12 @@
    cross-listings) and regenerates `docs/DATA_AUDIT.md`. It exits non-zero on
    schema problems.
 3. **Serving (MVP).** The app serves the dataset directly from
-   `lib/catalog/store.ts` — read-only, indexed in memory, never shipped whole
+   `lib/catalog/store.ts` - read-only, indexed in memory, never shipped whole
    to the browser.
 4. **Serving (hosted).** `npm run data:import` loads the same dataset into
    Supabase Postgres for the production path.
 
-## `npm run data:import` — behavior
+## `npm run data:import` - behavior
 
 - **Idempotent.** Each guide version is keyed by the source PDF SHA-256.
   Re-running with the same file refreshes that version's rows

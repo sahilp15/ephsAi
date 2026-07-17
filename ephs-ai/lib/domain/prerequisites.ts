@@ -5,7 +5,7 @@
  * structured interpretation when every referenced name resolves exactly to a
  * catalog course. Teacher recommendations, applications, auditions, GPA
  * criteria, concurrent enrollment, and any ambiguous phrasing are surfaced
- * as manual/unknown so the deterministic engine stays conservative — the
+ * as manual/unknown so the deterministic engine stays conservative - the
  * exact raw wording is always shown to the student alongside our label.
  */
 
@@ -70,7 +70,7 @@ export function parsePrerequisite(
   if (whole) return { kind: "courses", raw: text, groups: [[whole]] };
 
   // Split into AND segments (";", ",", " and "), then OR options (" or ").
-  // "&" is NOT a separator — it appears inside official titles
+  // "&" is NOT a separator - it appears inside official titles
   // ("Earth & Space Science", "Chemistry A & B").
   const andSegments = text
     .split(/;|,|\band\b/i)
@@ -88,7 +88,7 @@ export function parsePrerequisite(
     for (const option of options) {
       const id = tryResolveOption(option, ctx);
       if (!id) {
-        // Any unresolvable name makes the whole prerequisite unknown —
+        // Any unresolvable name makes the whole prerequisite unknown -
         // we never silently drop part of a requirement.
         return { kind: "unknown", raw: text };
       }

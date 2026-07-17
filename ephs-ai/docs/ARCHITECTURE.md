@@ -10,7 +10,7 @@ EPHS AI is a Next.js (App Router) application with three clean layers:
 │  Server components for catalog/pathways/admin;              │
 │  client components for planner, onboarding, recommender     │
 ├─────────────────────────────────────────────────────────────┤
-│ Domain engine (lib/domain/) — pure, deterministic, tested   │
+│ Domain engine (lib/domain/) - pure, deterministic, tested   │
 │  prerequisites · eligibility · plan-validation ·            │
 │  graduation-rules · pathways · smart-match · term-span      │
 ├─────────────────────────────────────────────────────────────┤
@@ -22,10 +22,10 @@ EPHS AI is a Next.js (App Router) application with three clean layers:
 
 ## Source of truth
 
-`data/ephs-course-guide-2026-27.json` — extracted from the official PDF
+`data/ephs-course-guide-2026-27.json` - extracted from the official PDF
 (SHA-256 pinned in the file and surfaced on `/admin`). `lib/catalog/store.ts`
 loads and indexes it once per server process (~3 MB read-only, shared across
-requests — comfortably serves thousands of students). The 2.3 MB dataset never
+requests - comfortably serves thousands of students). The 2.3 MB dataset never
 ships to the browser; clients receive:
 
 - **Paginated search results** (server-rendered `/courses`).
@@ -37,32 +37,32 @@ ships to the browser; clients receive:
 All modules in `lib/domain/` are pure functions with no I/O, imported by both
 server and client code, and unit-tested:
 
-- `prerequisites.ts` — conservative parser: structured matching only when
+- `prerequisites.ts` - conservative parser: structured matching only when
   every referenced name resolves exactly to a catalog course; teacher
   recommendations / applications / auditions / GPA / concurrent enrollment →
   `manual`; anything ambiguous → `unknown`. Raw wording is always displayed.
-- `eligibility.ts` — the single authority for eligibility labels
+- `eligibility.ts` - the single authority for eligibility labels
   (`eligible`, `not_eligible_grade`, `missing_prerequisite`,
   `prerequisite_unknown`, `counselor_verification_required`).
-- `plan-validation.ts` — grade eligibility, plan-order prerequisite checks,
+- `plan-validation.ts` - grade eligibility, plan-order prerequisite checks,
   duplicates, multi-term overflow, unknown-scheduling notices. It deliberately
   does *not* claim same-term conflicts (the guide has no period data).
-- `graduation-rules.ts` — Class of 2027 vs 2028+ rules, arts requirement,
+- `graduation-rules.ts` - Class of 2027 vs 2028+ rules, arts requirement,
   honest three-bucket reporting. GPA projection intentionally unimplemented
   (no official policy in the guide).
-- `smart-match.ts` — deterministic recommender used as the AI fallback and
+- `smart-match.ts` - deterministic recommender used as the AI fallback and
   as the candidate-ranking stage of the AI pipeline.
 
 ## AI pipeline (`lib/ai/`)
 
-- `provider.ts` — vendor-neutral interface; `openai-provider.ts` is the only
+- `provider.ts` - vendor-neutral interface; `openai-provider.ts` is the only
   OpenAI-specific file, so the model vendor can be swapped in one place.
-- `prompt.ts` — hard grounding rules; student message and catalog text are
+- `prompt.ts` - hard grounding rules; student message and catalog text are
   delimited as untrusted data (prompt-injection defense).
-- `validate.ts` — pure post-validation: Zod parse, hallucinated-ID rejection,
+- `validate.ts` - pure post-validation: Zod parse, hallucinated-ID rejection,
   engine eligibility re-applied, citations restricted to real source pages.
-- `pipeline.ts` — orchestration + Smart match fallback.
-- `rate-limit.ts` — per-IP fixed-window limiter (swap for a shared store when
+- `pipeline.ts` - orchestration + Smart match fallback.
+- `rate-limit.ts` - per-IP fixed-window limiter (swap for a shared store when
   multi-region).
 
 Defense in depth: even a successful prompt injection cannot fabricate a
@@ -72,7 +72,7 @@ enforced deterministically after the model responds.
 ## State & persistence
 
 MVP: student profile and plan persist in the student's browser
-(`lib/client/student-context.tsx`, localStorage) — privacy-first, zero-config,
+(`lib/client/student-context.tsx`, localStorage) - privacy-first, zero-config,
 deployable anywhere. Demo students are server-seeded fixtures.
 
 Production path: Supabase Auth (Google OAuth, district-restrictable) +

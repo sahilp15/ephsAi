@@ -23,12 +23,12 @@ import { engineStatusToResponseStatus, sanitizeModelResponse } from "./validate"
  * Grounded recommendation pipeline:
  *
  *  1. Deterministic candidate retrieval (grade eligibility, interest and
- *     query relevance, pathway alignment, rigor fit) — never the full guide.
+ *     query relevance, pathway alignment, rigor fit) - never the full guide.
  *  2. Deterministic eligibility per candidate, computed BEFORE the model runs.
  *  3. Model call (OpenAI, JSON mode) restricted to candidate course IDs.
  *  4. Zod validation of the raw output.
  *  5. Rejection of any course ID outside the candidate set (hallucination guard).
- *  6. Engine eligibility re-applied — the model can never upgrade a status.
+ *  6. Engine eligibility re-applied - the model can never upgrade a status.
  *  7. Citations restricted to each course's real source pages.
  *  8. Deterministic "Smart match mode" fallback when the model is
  *     unavailable, unconfigured, or returns unusable output.

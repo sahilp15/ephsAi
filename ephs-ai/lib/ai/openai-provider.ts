@@ -52,7 +52,38 @@ export class OpenAIProvider implements AIProvider {
   }
 }
 
-/** Factory — swap providers here without touching the pipeline. */
+/** Factory - swap providers here without touching the pipeline. */
 export function getAIProvider(): AIProvider {
   return new OpenAIProvider();
+}
+
+export interface ChatStreamRequest {
+  system: string;
+  messages: Array<{ role: "user" | "assistant"; content: string }>;
+  maxTokens: number;
+  signal?: AbortSignal;
+}
+
+/**
+ * Streaming chat completion for the assistant. Yields text deltas as the
+ * model produces them so the UI can render the reply token by token.
+ */
+export async function* streamChatCompletion(
+  req: ChatStreamRequest,
+): AsyncGenerator<string, void, void> {
+  const model = getEnv().OPENAI_MODEL;
+  const stream = await getClient().chat.completions.create(
+    {
+      model,
+      stream: true,
+      max_tokens: req.maxTokens,
+      temperature: 0.3,
+      messages: [{ role: "system" as const, content: req.system }, ...req.messages],
+    },
+    { signal: req.signal },
+  );
+  for await (const chunk of stream) {
+    const delta = chunk.choices[0]?.delta?.content;
+    if (delta) yield delta;
+  }
 }

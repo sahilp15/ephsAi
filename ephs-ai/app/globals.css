@@ -3,12 +3,14 @@
 @tailwind utilities;
 
 :root {
-  /* EPHS design tokens — extracted from the official 2026-27 Course Guide */
+  /* EPHS "varsity editorial" tokens. EP red and charcoal come from the
+     official 2026-27 Course Guide; the rest support them. */
   --ep-red: #d8272e;
-  --ep-red-dark: #b01f25;
-  --ep-charcoal: #231f20;
-  --ep-bg: #f5f5f5;
-  --ep-border: #d9d9d9;
+  --ep-red-dark: #a61e24;
+  --ep-charcoal: #1c181a;
+  --ep-coal: #131013;
+  --ep-bg: #f5f3ef;
+  --ep-border: #ddd8d1;
 }
 
 html {
@@ -32,11 +34,92 @@ body {
   @apply bg-ep-bg text-ep-charcoal antialiased;
 }
 
+/* Display type: condensed varsity headlines. */
+h1 {
+  @apply font-display uppercase;
+  letter-spacing: 0.01em;
+}
+
 /* Visible, consistent focus states for keyboard users */
 :focus-visible {
   outline: 2px solid var(--ep-red);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+::selection {
+  background: var(--ep-red);
+  color: #fff;
+}
+
+@layer components {
+  /* Signature motif: three swept wing stripes, echoing the EP eagle. */
+  .wing-stripes {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .wing-stripes > i {
+    display: block;
+    height: 12px;
+    transform: skewX(-28deg);
+    background: var(--ep-red);
+    border-radius: 1px;
+  }
+  .wing-stripes > i:nth-child(1) {
+    width: 34px;
+  }
+  .wing-stripes > i:nth-child(2) {
+    width: 20px;
+    opacity: 0.72;
+  }
+  .wing-stripes > i:nth-child(3) {
+    width: 11px;
+    opacity: 0.45;
+  }
+  .wing-stripes--light > i {
+    background: #fff;
+  }
+
+  /* Dark panel texture: faint diagonal grain, like a printed program cover. */
+  .panel-grain {
+    background-image: repeating-linear-gradient(
+        -55deg,
+        rgba(255, 255, 255, 0.028) 0px,
+        rgba(255, 255, 255, 0.028) 1px,
+        transparent 1px,
+        transparent 9px
+      ),
+      radial-gradient(
+        1100px 520px at 88% -10%,
+        rgba(216, 39, 46, 0.32),
+        transparent 60%
+      );
+  }
+
+  /* Kicker label above headlines. */
+  .kicker {
+    @apply font-mono text-[11px] font-semibold uppercase;
+    letter-spacing: 0.22em;
+  }
+}
+
+/* Blinking caret shown while the assistant is streaming. */
+.stream-caret::after {
+  content: "";
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--ep-red);
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 @media print {

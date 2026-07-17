@@ -7,8 +7,8 @@ export const metadata: Metadata = { title: "Privacy Notice" };
 export default function PrivacyPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <h1 className="flex items-center gap-2 text-2xl font-bold text-ep-charcoal">
-        <ShieldCheck aria-hidden className="h-6 w-6 text-ep-red" />
+      <h1 className="flex items-center gap-2.5 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
+        <ShieldCheck aria-hidden className="h-8 w-8 text-ep-red" />
         Privacy Notice
       </h1>
 
@@ -25,10 +25,11 @@ export default function PrivacyPage() {
             a server.
           </li>
           <li>
-            <strong>AI requests are anonymized.</strong> When you ask for
-            recommendations, only planning context is sent: grade level,
-            graduation year, interest keywords, and course titles/IDs. Your
-            name, email, and counselor notes are never sent to the AI model.
+            <strong>AI requests are anonymized.</strong> When you chat with
+            the assistant, only your messages and planning context are sent:
+            grade level, graduation year, interest keywords, and course
+            titles/IDs. Your name, email, and counselor notes are never sent
+            to the AI model.
           </li>
           <li>
             <strong>No advertising or sale of data.</strong> Student data is
@@ -39,9 +40,9 @@ export default function PrivacyPage() {
             planning-relevant information. Nothing sensitive is required.
           </li>
           <li>
-            <strong>Rate limiting and logging.</strong> The recommendation
-            endpoint logs latency and failure categories for reliability — not
-            the content of your questions tied to your identity.
+            <strong>Rate limiting and logging.</strong> The assistant endpoint
+            logs latency and failure categories for reliability - not the
+            content of your questions tied to your identity.
           </li>
         </ul>
         <p>
@@ -58,8 +59,8 @@ export default function PrivacyPage() {
           Delete my planning data
         </h2>
         <p className="mt-1 text-sm text-ep-muted">
-          Remove your profile, plan, and recommendation history from this
-          browser. This cannot be undone.
+          Remove your profile, plan, and chat history from this browser. This
+          cannot be undone.
         </p>
         <ClearDataButton />
       </div>

@@ -22,7 +22,7 @@ ephs-ai/
 ```bash
 cd ephs-ai
 npm install
-npm run dev          # http://localhost:3000 — fully functional with zero config
+npm run dev          # http://localhost:3000 - fully functional with zero config
 ```
 
 Add an OpenAI key in `ephs-ai/.env.local` to enable AI recommendations

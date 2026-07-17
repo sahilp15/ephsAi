@@ -166,7 +166,7 @@ function EntryCard({
       </div>
       {entry.termSpan > 1 ? (
         <p className="mt-0.5 text-xs text-ep-muted">
-          Terms {entry.startTerm}–{Math.min(4, entry.startTerm + entry.termSpan - 1)}
+          Terms {entry.startTerm}-{Math.min(4, entry.startTerm + entry.termSpan - 1)}
         </p>
       ) : null}
       {hasError || hasWarning ? (
@@ -263,7 +263,7 @@ export function PlanClient() {
     <div className="space-y-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-ep-charcoal">
+          <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
             Four-Year Plan
           </h1>
           <p className="mt-1 text-sm text-ep-muted">

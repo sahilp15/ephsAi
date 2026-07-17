@@ -21,7 +21,7 @@ import { DEFAULT_PROFILE } from "@/lib/domain/plan-types";
  * Privacy-first MVP persistence: the student's profile and plan live in
  * their own browser (localStorage) and are never written to a server.
  * The production path (Supabase Auth + Postgres with RLS) replaces this
- * store behind the same interface — see docs/ARCHITECTURE.md.
+ * store behind the same interface - see docs/ARCHITECTURE.md.
  */
 
 const PROFILE_KEY = "ephs-ai:profile:v1";
@@ -97,7 +97,7 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
     try {
       window.localStorage.setItem(PROFILE_KEY, JSON.stringify(p));
     } catch {
-      /* storage unavailable (private mode) — state stays in memory */
+      /* storage unavailable (private mode) - state stays in memory */
     }
   }, []);
 
@@ -107,7 +107,7 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
       try {
         window.localStorage.setItem(PLAN_KEY, JSON.stringify(next));
       } catch {
-        /* storage unavailable — state stays in memory */
+        /* storage unavailable - state stays in memory */
       }
       return next;
     });

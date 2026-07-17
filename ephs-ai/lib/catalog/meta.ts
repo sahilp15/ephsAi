@@ -8,7 +8,7 @@ import type { Course } from "./types";
 /**
  * Compact course metadata for the deterministic engine and the client
  * planner. Built once per server process from the authoritative dataset.
- * (~269 records, a small fraction of the full dataset size — the full 2.3 MB
+ * (~269 records, a small fraction of the full dataset size - the full 2.3 MB
  * guide never ships to the browser.)
  */
 

@@ -1,7 +1,7 @@
 /**
  * Student profile and four-year plan models.
  *
- * EPHS runs a four-term school year (Term 1–4). A "semester" course spans
+ * EPHS runs a four-term school year (Term 1-4). A "semester" course spans
  * two consecutive terms per the guide's EP Online definition.
  */
 
@@ -17,7 +17,7 @@ export interface PlanEntry {
   id: string;
   courseId: string;
   gradeYear: GradeYear;
-  /** First term the course occupies (1–4). */
+  /** First term the course occupies (1-4). */
   startTerm: Term;
   /** Number of consecutive terms occupied (derived from the guide; 1 when unknown). */
   termSpan: number;

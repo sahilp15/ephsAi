@@ -12,7 +12,7 @@ function IdList({ title, ids }: { title: string; ids: string[] }) {
         {title} <span className="font-normal text-ep-muted">({ids.length})</span>
       </h3>
       {ids.length === 0 ? (
-        <p className="mt-1 text-sm text-emerald-700">None — clean.</p>
+        <p className="mt-1 text-sm text-emerald-700">None - clean.</p>
       ) : (
         <ul className="mt-1 max-h-48 list-inside list-disc overflow-y-auto text-xs text-ep-muted">
           {ids.map((id) => (
@@ -30,8 +30,8 @@ export default function AdminPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="flex items-center gap-2 text-2xl font-bold text-ep-charcoal">
-          <Database aria-hidden className="h-6 w-6 text-ep-red" />
+        <h1 className="flex items-center gap-2.5 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
+          <Database aria-hidden className="h-8 w-8 text-ep-red" />
           Data Audit &amp; Guide Version
         </h1>
         <p className="mt-1 max-w-2xl text-sm text-ep-muted">

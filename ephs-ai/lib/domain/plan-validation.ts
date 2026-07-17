@@ -5,7 +5,7 @@ import type { CourseMeta, GradeYear, PlanEntry, StudentProfile } from "./plan-ty
  * Deterministic plan validation, re-run after every plan change.
  *
  * The guide does not publish period assignments or term offerings, so we do
- * NOT claim two courses in the same term conflict — students take several
+ * NOT claim two courses in the same term conflict - students take several
  * courses per term. We validate what the source actually supports: grade
  * eligibility, prerequisites relative to plan order, duplicates, term
  * overflow, and class-year rules; anything else gets a counselor-verification
@@ -137,7 +137,7 @@ export function validatePlan(input: PlanValidationInput): PlanWarning[] {
         entryId: e.id,
         courseId: e.courseId,
         title: `${meta.title}: prerequisite needs review`,
-        detail: `The guide states: “${meta.prereq.kind !== "none" ? meta.prereq.raw : ""}”. This wording could not be verified automatically — review it with your counselor.`,
+        detail: `The guide states: “${meta.prereq.kind !== "none" ? meta.prereq.raw : ""}”. This wording could not be verified automatically - review it with your counselor.`,
       });
     } else if (prereqResult.status === "counselor_verification_required") {
       warnings.push({

@@ -6,7 +6,7 @@ import type { Course } from "./types";
  * Server-side catalog search and filtering.
  *
  * The in-memory index covers title, description, departments, prerequisites,
- * notes, pathway names, and graduation statements — the same fields the
+ * notes, pathway names, and graduation statements - the same fields the
  * production Postgres migration indexes with tsvector/trigram (see
  * supabase/migrations). Results are paginated server-side; the client never
  * receives the whole catalog.

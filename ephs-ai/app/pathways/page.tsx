@@ -12,7 +12,7 @@ export default function PathwaysPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-ep-charcoal">EPHS Pathways</h1>
+        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">EPHS Pathways</h1>
         <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ep-ink">
           {overview.description}
         </p>

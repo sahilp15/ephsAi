@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MessageCircle, Menu, X } from "lucide-react";
 import clsx from "clsx";
 import { EPHSLogo } from "./EPHSLogo";
+import { AccountMenu } from "./auth/AccountMenu";
 
 const NAV = [
   { href: "/dashboard", label: "Dashboard" },
@@ -61,6 +62,9 @@ export function EPHSHeader() {
               Ask EPHS AI
             </span>
           </Link>
+          <div className="ml-2 border-l border-white/10 pl-2">
+            <AccountMenu />
+          </div>
         </nav>
         <button
           type="button"
@@ -105,6 +109,7 @@ export function EPHSHeader() {
               );
             },
           )}
+          <AccountMenu variant="mobile" />
         </nav>
       ) : null}
     </header>

@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, CircleDashed, HelpCircle } from "lucide-react";
-import { useStudent } from "@/lib/client/student-context";
+import type { CourseMeta } from "@/lib/domain/plan-types";
 import {
   buildGraduationReport,
   type RequirementState,
@@ -37,35 +37,57 @@ export function RequirementsClient({
   artsEligibleByDepartment,
   rulesSourcePage,
   sourceOfTruthNote,
+  graduationYear,
+  completedCourseIds,
+  plannedCourseIds,
 }: {
   qualifyingPersonalFinanceCourses: string[];
   artsEligibleByDepartment: Record<string, string[]>;
   rulesSourcePage: number;
   sourceOfTruthNote: string;
+  graduationYear: number;
+  completedCourseIds: string[];
+  plannedCourseIds: string[];
 }) {
-  const { profile, plan, catalogList, catalogMeta, metaReady } = useStudent();
+  const [catalogList, setCatalogList] = useState<CourseMeta[]>([]);
+  const [metaReady, setMetaReady] = useState(false);
   const [gradYear, setGradYear] = useState<number | null>(null);
   const [projection, setProjection] = useState<"current" | "projected">(
     "projected",
   );
 
-  const effectiveGradYear = gradYear ?? profile.graduationYear;
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/catalog/planner-meta")
+      .then((r) => r.json())
+      .then((data: { courses: CourseMeta[] }) => {
+        if (!cancelled) {
+          setCatalogList(data.courses);
+          setMetaReady(true);
+        }
+      })
+      .catch(() => !cancelled && setMetaReady(true));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const catalogMeta = useMemo(
+    () => new Map(catalogList.map((c) => [c.id, c])),
+    [catalogList],
+  );
+
+  const effectiveGradYear = gradYear ?? graduationYear;
 
   const report = useMemo(() => {
     if (!metaReady) return null;
-    const planIds = plan
-      .filter((e) =>
-        projection === "projected"
-          ? e.status === "planned" || e.status === "completed"
-          : e.status === "completed",
-      )
-      .map((e) => e.courseId);
+    const planIds = projection === "projected" ? plannedCourseIds : [];
     return buildGraduationReport({
       profile: {
         graduationYear: effectiveGradYear,
-        completedCourseIds: profile.completedCourseIds,
+        completedCourseIds,
       },
-      plannedOrCompletedIds: [...profile.completedCourseIds, ...planIds],
+      plannedOrCompletedIds: [...completedCourseIds, ...planIds],
       catalog: catalogList,
       qualifyingPersonalFinanceCourses,
       artsEligibleByDepartment,
@@ -73,10 +95,10 @@ export function RequirementsClient({
     });
   }, [
     metaReady,
-    plan,
     projection,
+    plannedCourseIds,
     effectiveGradYear,
-    profile.completedCourseIds,
+    completedCourseIds,
     catalogList,
     qualifyingPersonalFinanceCourses,
     artsEligibleByDepartment,

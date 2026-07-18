@@ -204,7 +204,12 @@ export default function CourseDetailPage({
         </article>
 
         <aside className="space-y-4">
-          <AddToPlan courseId={course.id} />
+          <AddToPlan
+            courseId={course.id}
+            termSpan={meta.termSpan}
+            termLabel={meta.termLabel}
+            spanRequiresVerification={meta.spanRequiresVerification}
+          />
           <Link
             href={`/chat?about=${encodeURIComponent(course.title)}`}
             className="flex items-center gap-2 rounded-xl border border-ep-border-soft bg-white p-4 text-sm font-semibold text-ep-charcoal shadow-card transition-shadow hover:shadow-card-hover"

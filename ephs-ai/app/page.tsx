@@ -78,19 +78,36 @@ export default function LandingPage() {
               {dataset.generated_from.document_title}. It cites its pages, checks
               your eligibility, and never makes things up.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Link
-                href="/chat"
+                href="/login/student"
                 className="inline-flex -skew-x-12 items-center rounded-[3px] bg-ep-red px-6 py-3 shadow-[4px_4px_0_rgba(0,0,0,0.4)] transition-colors hover:bg-ep-red-dark"
               >
                 <span className="flex skew-x-12 items-center gap-2 font-display text-lg font-bold uppercase tracking-wider text-white">
-                  <MessageCircle aria-hidden className="h-5 w-5" />
-                  Ask EPHS AI
+                  <GraduationCap aria-hidden className="h-5 w-5" />
+                  Student Login
                 </span>
               </Link>
               <Link
+                href="/login/admin"
+                className="inline-flex -skew-x-12 items-center rounded-[3px] border border-white/25 bg-white/5 px-6 py-3 transition-colors hover:bg-white/10"
+              >
+                <span className="flex skew-x-12 items-center gap-2 font-display text-lg font-bold uppercase tracking-wider text-white/85">
+                  <ShieldCheck aria-hidden className="h-5 w-5" />
+                  Admin Login
+                </span>
+              </Link>
+            </div>
+            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
+              <Link
+                href="/chat"
+                className="inline-flex items-center gap-1.5 font-semibold text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+              >
+                <MessageCircle aria-hidden className="h-4 w-4" /> Ask EPHS AI
+              </Link>
+              <Link
                 href="/courses"
-                className="font-display text-lg font-semibold uppercase tracking-wider text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+                className="font-semibold text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
               >
                 Browse the catalog
               </Link>

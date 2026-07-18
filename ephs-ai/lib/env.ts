@@ -16,6 +16,27 @@ const envSchema = z.object({
   NEXT_PUBLIC_SUPABASE_URL: z.string().url().optional(),
   NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().optional(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().optional(),
+
+  // --- Authentication / authorization (server-side, never exposed to client) --
+  // Exact domain an approved student's Google email must end with.
+  STUDENT_EMAIL_DOMAIN: z.string().min(1).default("ep-student.org"),
+  // Exact domain that confers administrator access.
+  ADMIN_EMAIL_DOMAIN: z.string().min(1).default("edenpr.k12.mn.us"),
+  // Comma-separated allowlist of explicitly approved administrator emails
+  // (in addition to the admin domain). The temporary exception lives here.
+  ADMIN_EMAIL_ALLOWLIST: z
+    .string()
+    .default("sahil.parasharami@gmail.com"),
+
+  // --- Transcript pipeline ---------------------------------------------------
+  // Private Supabase Storage bucket that holds uploaded transcript files.
+  TRANSCRIPT_BUCKET: z.string().min(1).default("transcripts"),
+  // Extraction provider: "heuristic" (built-in, no external calls) or "openai".
+  TRANSCRIPT_EXTRACTION_PROVIDER: z
+    .enum(["heuristic", "openai"])
+    .default("heuristic"),
+  // Max transcript upload size in megabytes.
+  MAX_TRANSCRIPT_UPLOAD_MB: z.coerce.number().positive().default(15),
 });
 
 export type Env = z.infer<typeof envSchema>;

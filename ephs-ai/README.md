@@ -19,9 +19,11 @@ which answers only from the official guide with page-level citations.
    overrides.
 3. **Useful without AI.** With no API key the app is fully functional; the
    assistant answers with deterministic catalog lookups.
-4. **Privacy-first.** Student plans live in the student's browser in this MVP.
-   AI requests carry anonymized planning context only. The production path is
-   Supabase Auth + Postgres with row-level security.
+4. **Privacy-first, secured server-side.** Google-only sign-in, role
+   derivation, session handling, transcript storage, and every protected
+   operation are enforced on the backend (Supabase Auth + Postgres with
+   row-level security) - never by a frontend route guard alone. AI requests
+   carry anonymized planning context only.
 
 ## Local setup
 
@@ -39,10 +41,47 @@ Optional configuration (`cp .env.example .env.local`):
 | `AI_RATE_LIMIT_PER_HOUR` | Per-IP hourly cap on the AI endpoint (default 20). |
 | `DEMO_MODE` | `true` (default) seeds three fictional demo students in the counselor view. |
 | `APP_URL` | Public URL of the deployment. |
-| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | Production persistence path (optional - see below). |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | Enable Google sign-in, accounts, transcripts, saved plans, admin (see below). |
+| `STUDENT_EMAIL_DOMAIN` | Exact domain an approved student email must end with (default `ep-student.org`). |
+| `ADMIN_EMAIL_DOMAIN` | Exact domain that confers admin access (default `edenpr.k12.mn.us`). |
+| `ADMIN_EMAIL_ALLOWLIST` | Comma-separated extra admin emails (default includes the temporary `sahil.parasharami@gmail.com` exception). |
+| `TRANSCRIPT_BUCKET` / `TRANSCRIPT_EXTRACTION_PROVIDER` / `MAX_TRANSCRIPT_UPLOAD_MB` | Transcript storage bucket, extraction backend (`heuristic` or `openai`), and upload size cap. |
 
 Environment variables are validated with a typed Zod schema at first use
-(`lib/env.ts`).
+(`lib/env.ts`). Authorization rules live only in server configuration
+(`lib/auth/config.ts` reads them; `lib/auth/rules.ts` is the pure, unit-tested
+policy) and are never bundled into client code.
+
+## Authentication, accounts & transcripts
+
+Google-only OAuth via Supabase Auth, with two clearly separated entry points on
+the landing page - **Student Login** and **Admin Login**.
+
+- **Students** may sign in only with a verified Google account whose email ends
+  exactly with `@ep-student.org` (normalized to lowercase). **Admins** need a
+  verified `@edenpr.k12.mn.us` account or an allowlisted email
+  (`ADMIN_EMAIL_ALLOWLIST`, plus the in-app **Admin → Access** list). The role
+  is derived from the verified identity, never from which button was pressed -
+  so choosing "Admin Login" cannot by itself grant admin.
+- Enforcement is server-side: the OAuth callback (`app/auth/callback`) verifies
+  the email and provisions an idempotent `profiles` row with the derived role;
+  `middleware.ts` refreshes the session and gates protected routes;
+  `requireStudent` / `requireAdmin` (`lib/auth/session.ts`) re-check on every
+  protected page, API route, and server action; Postgres RLS enforces ownership
+  at the database. Sessions use secure, HTTP-only cookies (no privileged tokens
+  in localStorage).
+- **First-time students** complete a multi-step, autosaving onboarding wizard
+  (new vs. returning). **Returning students** upload a transcript (PDF/PNG/
+  JPG/JPEG) to a private bucket; it's processed (provider-abstracted extraction:
+  built-in heuristic, or OpenAI vision), each course is matched to the EPHS
+  catalog with a confidence level, and the student reviews/corrects and confirms
+  before anything touches their plan. Confirmed courses become structured
+  `academic_records` that flow into the four-year planner and live graduation
+  tracking. See `docs/SECURITY_AND_PRIVACY.md`.
+
+> Running the authenticated experience requires a Supabase project and Google
+> OAuth credentials (see below). Without them, the public catalog, planner-meta,
+> and assistant still work; sign-in shows a clear "not configured" state.
 
 ## Commands
 
@@ -81,13 +120,19 @@ The MVP serves the catalog from the versioned dataset and keeps student data
 in the browser. To move to hosted Postgres + Auth + RLS:
 
 1. Create a Supabase project.
-2. Run `supabase/migrations/0001_initial_schema.sql` (Supabase SQL editor or CLI).
-3. Set the Supabase env vars in `.env.local` (service-role key is used only by
-   the server-side import script).
-4. `npm run data:import` - idempotent, versioned by the source PDF's SHA-256,
+2. Run the migrations in order: `supabase/migrations/0001_initial_schema.sql`
+   then `0002_auth_transcripts_records.sql` (Supabase SQL editor or CLI). `0002`
+   adds the Google-identity fields, onboarding, transcripts, academic records,
+   equivalencies, audit columns, RLS policies, and the private `transcripts`
+   storage bucket.
+3. In Supabase **Auth → Providers**, enable **Google** and paste your Google
+   OAuth client id/secret (from Google Cloud Console). Add
+   `${APP_URL}/auth/callback` as an authorized redirect URL. The OAuth client
+   *secret* lives in Supabase, never in this repo or client code.
+4. Set the Supabase + authorization env vars in `.env.local` (see the table and
+   `.env.example`).
+5. `npm run data:import` - idempotent, versioned by the source PDF's SHA-256,
    with explicit activation. Keeps older guide versions for audit.
-5. Enable Google OAuth in Supabase Auth; restrict to district accounts when
-   the district is ready.
 
 See `docs/DATA_IMPORT_PLAN.md` and `docs/SECURITY_AND_PRIVACY.md`.
 

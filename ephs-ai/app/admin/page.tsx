@@ -1,124 +1,91 @@
 import type { Metadata } from "next";
-import { Database } from "lucide-react";
-import { buildDataAudit } from "@/lib/catalog/audit";
-import { StatCard, WarningBanner } from "@/components/ui";
+import Link from "next/link";
+import { Search } from "lucide-react";
+import { adminListStudents, adminStats } from "@/lib/data/admin";
+import { StatCard } from "@/components/ui";
 
-export const metadata: Metadata = { title: "Admin · Data Audit" };
+export const metadata: Metadata = { title: "Admin · Overview" };
+export const dynamic = "force-dynamic";
 
-function IdList({ title, ids }: { title: string; ids: string[] }) {
-  return (
-    <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
-      <h3 className="text-sm font-bold text-ep-charcoal">
-        {title} <span className="font-normal text-ep-muted">({ids.length})</span>
-      </h3>
-      {ids.length === 0 ? (
-        <p className="mt-1 text-sm text-emerald-700">None - clean.</p>
-      ) : (
-        <ul className="mt-1 max-h-48 list-inside list-disc overflow-y-auto text-xs text-ep-muted">
-          {ids.map((id) => (
-            <li key={id}>{id}</li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-}
-
-export default function AdminPage() {
-  const audit = buildDataAudit();
+export default async function AdminOverviewPage({
+  searchParams,
+}: {
+  searchParams: { q?: string };
+}) {
+  const q = searchParams.q ?? "";
+  const [stats, students] = await Promise.all([adminStats(), adminListStudents(q)]);
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="flex items-center gap-2.5 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
-          <Database aria-hidden className="h-8 w-8 text-ep-red" />
-          Data Audit &amp; Guide Version
-        </h1>
-        <p className="mt-1 max-w-2xl text-sm text-ep-muted">
-          Integrity report for the active course-guide dataset. In production
-          this page is admin-only and also shows import jobs and version
-          activation (see supabase/migrations).
-        </p>
-      </div>
-
-      <section aria-label="Active guide version" className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
-          Active guide version
-        </h2>
-        <dl className="mt-2 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
-          <div>
-            <dt className="font-semibold text-ep-charcoal">Dataset</dt>
-            <dd className="text-ep-muted">{audit.datasetId} (schema {audit.schemaVersion})</dd>
-          </div>
-          <div>
-            <dt className="font-semibold text-ep-charcoal">Source document</dt>
-            <dd className="text-ep-muted">{audit.sourceFilename} ({audit.pageCount} pages)</dd>
-          </div>
-          <div className="sm:col-span-2">
-            <dt className="font-semibold text-ep-charcoal">Source PDF SHA-256</dt>
-            <dd className="break-all font-mono text-xs text-ep-muted">{audit.sourceSha256}</dd>
-          </div>
-        </dl>
+    <div className="space-y-6">
+      <section aria-label="Statistics" className="grid grid-cols-2 gap-4 lg:grid-cols-5">
+        <StatCard label="Students" value={stats.students} />
+        <StatCard label="Onboarded" value={stats.onboarded} />
+        <StatCard label="Transcripts confirmed" value={stats.transcriptsProcessed} />
+        <StatCard label="Processing errors" value={stats.transcriptsFailed} />
+        <StatCard label="Low-confidence rows" value={stats.lowConfidenceRows} hint="Awaiting review" />
       </section>
 
-      <section aria-label="Counts" className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Courses" value={audit.courseCount} />
-        <StatCard label="Source appearances" value={audit.appearanceCount} />
-        <StatCard label="Departments" value={audit.departmentCount} />
-        <StatCard label="Cross-listed courses" value={audit.crossListedCourses.length} />
-        <StatCard label="AP courses" value={audit.flagCounts.ap ?? 0} />
-        <StatCard label="Honors courses" value={audit.flagCounts.honors ?? 0} />
-        <StatCard label="Capstones" value={audit.flagCounts.capstone ?? 0} />
-        <StatCard label="College credit" value={audit.flagCounts.college_credit ?? 0} />
-      </section>
+      <section aria-label="Students" className="space-y-3">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-ep-charcoal">Registered students</h2>
+        </div>
+        <form action="/admin" method="get" className="relative max-w-md">
+          <Search className="pointer-events-none absolute left-2.5 top-2.5 h-4 w-4 text-ep-faint" aria-hidden />
+          <input
+            name="q"
+            defaultValue={q}
+            placeholder="Search by name or email…"
+            className="w-full rounded-md border border-ep-border bg-white py-2 pl-8 pr-3 text-sm outline-none focus:border-ep-red"
+          />
+        </form>
 
-      <section aria-label="Data quality" className="grid gap-4 md:grid-cols-2">
-        <IdList title="Courses missing descriptions" ids={audit.coursesMissingDescription} />
-        <IdList title="Courses missing grade data" ids={audit.coursesMissingGrades} />
-        <IdList title="Courses missing credit data" ids={audit.coursesMissingCredits} />
-        <IdList title="Courses with source conflicts" ids={audit.coursesWithConflicts} />
-        <IdList title="Invalid source-page references" ids={audit.invalidSourcePageRefs} />
-        <IdList title="Cross-listed (multiple appearances)" ids={audit.crossListedCourses} />
-      </section>
-
-      <section aria-label="Unresolved pathway names" className="space-y-3">
-        <h2 className="text-lg font-bold text-ep-charcoal">
-          Pathway course names not resolved to catalog entries
-        </h2>
-        <p className="text-sm text-ep-muted">
-          These names are preserved exactly as printed on the guide&apos;s
-          pathway pages (often external courses, course groups, or entries with
-          undefined markers). They are shown to students as-is, never invented.
-        </p>
-        {audit.unresolvedPathwayNames.map((p) => (
-          <div key={p.pathway} className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
-            <h3 className="text-sm font-bold text-ep-charcoal">
-              {p.pathway} <span className="font-normal text-ep-muted">({p.names.length})</span>
-            </h3>
-            {p.names.length === 0 ? (
-              <p className="mt-1 text-sm text-emerald-700">All names resolved.</p>
-            ) : (
-              <ul className="mt-1 list-inside list-disc text-xs text-ep-muted">
-                {p.names.map((n) => (
-                  <li key={n}>{n}</li>
+        {students.length === 0 ? (
+          <p className="rounded-xl border border-dashed border-ep-border bg-white p-6 text-center text-sm text-ep-muted">
+            {q ? "No students match that search." : "No students have registered yet."}
+          </p>
+        ) : (
+          <div className="overflow-x-auto rounded-xl border border-ep-border-soft bg-white shadow-card">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-ep-border-soft text-xs uppercase tracking-wide text-ep-faint">
+                  <th className="px-4 py-2.5">Student</th>
+                  <th className="px-4 py-2.5">Grade</th>
+                  <th className="px-4 py-2.5">Onboarding</th>
+                  <th className="px-4 py-2.5">Type</th>
+                  <th className="px-4 py-2.5">Last login</th>
+                </tr>
+              </thead>
+              <tbody>
+                {students.map((s) => (
+                  <tr key={s.userId} className="border-b border-ep-border-soft last:border-0 hover:bg-ep-bg/50">
+                    <td className="px-4 py-2.5">
+                      <Link href={`/admin/students/${s.userId}`} className="font-semibold text-ep-charcoal hover:text-ep-red-dark">
+                        {s.displayName || "—"}
+                      </Link>
+                      <p className="text-xs text-ep-faint">{s.email}</p>
+                    </td>
+                    <td className="px-4 py-2.5 text-ep-muted">
+                      {s.currentGrade ? `Grade ${s.currentGrade}` : "—"}
+                    </td>
+                    <td className="px-4 py-2.5">
+                      <span
+                        className={`rounded-[2px] px-1.5 py-0.5 text-[10px] font-bold uppercase ${
+                          s.onboardingCompleted ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
+                        }`}
+                      >
+                        {s.onboardingCompleted ? "Complete" : "Pending"}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2.5 text-ep-muted">{s.studentType ?? "—"}</td>
+                    <td className="px-4 py-2.5 text-ep-muted">
+                      {s.lastLoginAt ? new Date(s.lastLoginAt).toLocaleDateString() : "—"}
+                    </td>
+                  </tr>
                 ))}
-              </ul>
-            )}
+              </tbody>
+            </table>
           </div>
-        ))}
-      </section>
-
-      <section aria-label="Known limitations">
-        <h2 className="text-lg font-bold text-ep-charcoal">
-          Known limitations (from the dataset)
-        </h2>
-        <ul className="mt-2 space-y-2">
-          {audit.knownLimitations.map((l) => (
-            <li key={l}>
-              <WarningBanner severity="info">{l}</WarningBanner>
-            </li>
-          ))}
-        </ul>
+        )}
       </section>
     </div>
   );

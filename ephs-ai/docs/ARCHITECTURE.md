@@ -69,19 +69,52 @@ Defense in depth: even a successful prompt injection cannot fabricate a
 course, upgrade eligibility, or forge a citation, because those guarantees are
 enforced deterministically after the model responds.
 
+## Authentication, roles & sessions
+
+Google-only OAuth via Supabase Auth. `lib/auth/rules.ts` is the pure,
+unit-tested policy (normalize email → derive role from the approved student
+domain, admin domain, and admin allowlist); `lib/auth/config.ts` resolves the
+concrete rules from server-only env. `app/auth/callback` verifies the email
+server-side and idempotently provisions a `profiles` row with the derived role
+(`lib/auth/provision.ts`). `middleware.ts` refreshes the secure HTTP-only
+session cookie and gates protected routes; `lib/auth/session.ts`
+(`requireUser` / `requireStudent` / `requireAdmin`) re-checks on every protected
+page, route handler, and server action; Postgres RLS enforces ownership at the
+database. Selecting a login button never confers privilege - the role always
+comes from the verified identity.
+
 ## State & persistence
 
-MVP: student profile and plan persist in the student's browser
-(`lib/client/student-context.tsx`, localStorage) - privacy-first, zero-config,
-deployable anywhere. Demo students are server-seeded fixtures.
+Authenticated data lives in Supabase Postgres with row-level security:
+`profiles`, `student_onboarding`, `transcripts` + `transcript_jobs` +
+`transcript_extracted_rows`, `academic_records`, `academic_plans` +
+`plan_entries` (with `locked` / `source` / `recommendation_reason`),
+`course_equivalencies`, `admin_allowlist`, and `audit_events`. Migrations
+`0001` (catalog + base) and `0002` (auth/transcripts/records/audit + private
+storage bucket) define the schema and owner/admin policies;
+`scripts/data-import.mjs` performs the idempotent versioned catalog import.
 
-Production path: Supabase Auth (Google OAuth, district-restrictable) +
-Postgres with row-level security. `supabase/migrations/0001_initial_schema.sql`
-defines catalog versioning, profiles, plans, history, recommendation sessions,
-feedback, and audit tables with owner/counselor/admin policies;
-`scripts/data-import.mjs` performs the idempotent versioned import. The client
-store is a thin interface, so swapping localStorage for Supabase queries does
-not touch the domain engine or UI structure.
+Data access is layered in `lib/data/*` (onboarding, academic, plan, graduation,
+equivalencies, admin) behind the RLS client, with the service-role client used
+only for trusted server work (transcript file download/processing, audit).
+The domain engine consumes DB-derived inputs unchanged: confirmed
+`academic_records` are projected (`lib/domain/academic-history.ts`) into the
+completed-course ids and plan entries the existing planner, eligibility, and
+graduation modules already expect.
+
+The legacy browser store (`lib/client/student-context.tsx`) remains only for
+the demo/counselor fixtures.
+
+## Transcript pipeline
+
+`app/api/transcript/*` handles upload (private storage, type/size validation),
+processing, review, confirmation, and deletion. Extraction is provider-
+abstracted (`lib/transcript/provider.ts`): a no-external-calls heuristic parser
+(`lib/transcript/parse.ts`, unit-tested) or an OpenAI vision provider. Matching
+(`lib/domain/transcript-match.ts`, unit-tested) proposes a catalog course with
+an honest confidence level (high / possible / needs-review / none); admin-
+managed equivalencies take priority and transfers stay identifiable. Nothing
+enters academic history until the student explicitly confirms.
 
 ## Performance
 

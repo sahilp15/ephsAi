@@ -11,8 +11,10 @@
 
 import type { ExtractedCourseRow } from "./types";
 
-const GRADE_TOKEN = /\b(A\+|A-|A|B\+|B-|B|C\+|C-|C|D\+|D-|D|F|P|NP|I|W|IP)\b/;
-const CREDIT_TOKEN = /\b(\d(?:\.\d{1,2})?)\s*(?:cr|credit|credits)?\b/i;
+// Two-character grades are listed first so "B+" wins over a bare "B"; lookarounds
+// (not \b) are used so the trailing "+"/"-" is not truncated.
+const GRADE_TOKEN =
+  /(?<![A-Za-z+])(A\+|A-|B\+|B-|C\+|C-|D\+|D-|IP|NP|A|B|C|D|F|P|I|W)(?![A-Za-z])/;
 const YEAR_TOKEN = /\b(20\d{2})\s*[-/]\s*(20\d{2}|\d{2})\b/;
 const GRADE_LEVEL_TOKEN = /\b(?:grade|gr)\s*(9|10|11|12)\b/i;
 

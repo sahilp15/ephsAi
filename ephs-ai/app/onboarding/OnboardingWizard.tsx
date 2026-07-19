@@ -44,10 +44,17 @@ export function OnboardingWizard({
   initialDraft,
   pathways,
   firstName,
+  demo = false,
 }: {
   initialDraft: OnboardingDraft;
   pathways: { id: string; name: string }[];
   firstName: string;
+  /**
+   * Demo mode renders the exact student onboarding UI but never touches the
+   * database or the authenticated server actions. Used by the public `/demo`
+   * preview so the student experience can be shown without a real sign-in.
+   */
+  demo?: boolean;
 }) {
   const router = useRouter();
   const [step, setStep] = useState(0);
@@ -61,8 +68,10 @@ export function OnboardingWizard({
     setDraft((d) => ({ ...d, [key]: value }));
   }, []);
 
-  // Debounced autosave whenever the draft changes.
+  // Debounced autosave whenever the draft changes. Skipped entirely in demo
+  // mode, which has no authenticated session to save against.
   useEffect(() => {
+    if (demo) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(async () => {
       setSaveState("saving");
@@ -84,9 +93,11 @@ export function OnboardingWizard({
   }
 
   async function next() {
-    setSaveState("saving");
-    const res = await autosaveOnboarding(draft, step + 1);
-    setSaveState(res.ok ? "saved" : "error");
+    if (!demo) {
+      setSaveState("saving");
+      const res = await autosaveOnboarding(draft, step + 1);
+      setSaveState(res.ok ? "saved" : "error");
+    }
     setStep((s) => Math.min(STEPS.length - 1, s + 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -99,6 +110,12 @@ export function OnboardingWizard({
   async function submit() {
     setSubmitting(true);
     setSubmitError(null);
+    // In demo mode there is nothing to persist — go straight to the demo
+    // dashboard so the reviewer can see where onboarding lands a student.
+    if (demo) {
+      router.push("/demo/dashboard");
+      return;
+    }
     const res = await completeOnboarding(draft);
     if (!res.ok) {
       setSubmitError("We couldn't save your onboarding. Please try again.");

@@ -111,6 +111,12 @@ export default function LandingPage() {
               >
                 Browse the catalog
               </Link>
+              <Link
+                href="/demo"
+                className="font-semibold text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+              >
+                Preview the student experience
+              </Link>
             </div>
           </div>
 

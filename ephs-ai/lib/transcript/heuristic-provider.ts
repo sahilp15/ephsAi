@@ -1,5 +1,6 @@
 import "server-only";
 import { parseTranscriptText } from "./parse";
+import { extractPdfCourseRows } from "./pdf-text";
 import type {
   ExtractionInput,
   ExtractionResult,
@@ -32,6 +33,20 @@ export const heuristicProvider: TranscriptExtractionProvider = {
           "This looks like a scanned image. Automatic reading of images requires the AI extraction provider; you can add your courses manually below.",
         ],
       };
+    }
+
+    // Primary path for real text-based PDFs: pdf.js handles compressed streams,
+    // font-subset encoding, and multi-column table layouts that the raw-bytes
+    // reader below cannot.
+    if (isPdf) {
+      try {
+        const pdfRows = await extractPdfCourseRows(input.bytes);
+        if (pdfRows && pdfRows.length > 0) {
+          return { rows: pdfRows, provider: this.name, warnings: [] };
+        }
+      } catch {
+        // Fall through to the raw-bytes reader below.
+      }
     }
 
     const text = recoverText(input.bytes);

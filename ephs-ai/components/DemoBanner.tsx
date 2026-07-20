@@ -19,7 +19,7 @@ export function DemoBanner() {
           sign-in required and nothing is saved.
         </span>
       </p>
-      <div className="flex flex-shrink-0 gap-3 pl-6 sm:pl-0">
+      <div className="flex flex-shrink-0 flex-wrap gap-x-3 gap-y-1 pl-6 sm:pl-0">
         <Link
           href="/demo/onboarding"
           className="font-semibold underline-offset-4 hover:underline"
@@ -31,6 +31,18 @@ export function DemoBanner() {
           className="font-semibold underline-offset-4 hover:underline"
         >
           Dashboard
+        </Link>
+        <Link
+          href="/demo/transcript"
+          className="font-semibold underline-offset-4 hover:underline"
+        >
+          Transcript
+        </Link>
+        <Link
+          href="/demo/plan"
+          className="font-semibold underline-offset-4 hover:underline"
+        >
+          Plan
         </Link>
       </div>
     </div>

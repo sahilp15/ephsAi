@@ -33,8 +33,8 @@ const STATE_STYLE: Record<RequirementState, { icon: typeof CheckCircle2; classNa
 
 const QUICK_ACTIONS = [
   { href: "/courses", label: "Browse courses", icon: BookOpen },
-  { href: "/plan", label: "Open planner", icon: CalendarRange },
-  { href: "/transcript", label: "Upload transcript", icon: Upload },
+  { href: "/demo/plan", label: "Open planner", icon: CalendarRange },
+  { href: "/demo/transcript", label: "Upload transcript", icon: Upload },
   { href: "/chat", label: "Ask EPHS AI", icon: MessageCircle },
 ];
 
@@ -101,13 +101,13 @@ export default function DemoDashboardPage() {
       </div>
 
       <Link
-        href="/demo/onboarding"
+        href="/demo/transcript"
         className="flex items-center gap-3 rounded-xl border-l-4 border-ep-red bg-ep-red-soft p-4 text-sm text-ep-red-dark transition-colors hover:bg-ep-red-soft/70"
       >
         <FileText className="h-5 w-5 flex-shrink-0" aria-hidden />
         <span>
-          You have a transcript ready to review. Confirm your courses so they
-          count toward your plan and graduation progress.
+          Upload your transcript to see your completed courses matched to the
+          EPHS catalog and added to your four-year plan.
         </span>
       </Link>
 

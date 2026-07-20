@@ -60,16 +60,45 @@ function nextKey(): string {
   return `manual-${counter}`;
 }
 
+export interface ConfirmRow {
+  rowId: string | null;
+  include: boolean;
+  courseId: string | null;
+  originalCourseName: string;
+  recordType: ReviewRowInit["recordType"];
+  gradeLevel: number | null;
+  term: string | null;
+  finalGrade: string | null;
+  creditsEarned: number | null;
+  isHonors: boolean;
+  isAp: boolean;
+  isTransfer: boolean;
+  confidence: string;
+}
+
 export function TranscriptReview({
   transcriptId,
   initialRows,
   catalog,
   warning,
+  confirmUrl,
+  redirectTo = "/plan?imported=1",
+  onConfirm,
 }: {
   transcriptId: string;
   initialRows: ReviewRowInit[];
   catalog: { id: string; title: string; department: string }[];
   warning?: string | null;
+  /** Endpoint the confirmation POSTs to. Defaults to the authenticated route. */
+  confirmUrl?: string;
+  /** Where to send the student once their courses are saved. */
+  redirectTo?: string;
+  /**
+   * Alternate confirmation handler. When provided it replaces the network
+   * POST entirely - the no-login preview uses it to persist confirmed courses
+   * in the browser instead of the database. Returns true on success.
+   */
+  onConfirm?: (rows: ConfirmRow[]) => Promise<boolean> | boolean;
 }) {
   const router = useRouter();
   const [rows, setRows] = useState<ReviewRow[]>(() =>
@@ -123,34 +152,39 @@ export function TranscriptReview({
   async function confirm() {
     setSubmitting(true);
     setError(null);
-    const payload = {
-      rows: rows.map((r) => ({
-        rowId: r.rowId ?? null,
-        include: r.include,
-        courseId: r.courseId,
-        originalCourseName: r.originalCourseName || r.rawName || "Untitled course",
-        recordType: r.recordType,
-        gradeLevel: r.gradeLevel,
-        term: r.term,
-        finalGrade: r.finalGrade,
-        creditsEarned: r.creditsEarned,
-        isHonors: r.isHonors,
-        isAp: r.isAp,
-        isTransfer: r.isTransfer || (!r.courseId && r.recordType === "transfer"),
-        confidence: r.confidence,
-      })),
-    };
-    const res = await fetch(`/api/transcript/${transcriptId}/confirm`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
+    const confirmRows: ConfirmRow[] = rows.map((r) => ({
+      rowId: r.rowId ?? null,
+      include: r.include,
+      courseId: r.courseId,
+      originalCourseName: r.originalCourseName || r.rawName || "Untitled course",
+      recordType: r.recordType,
+      gradeLevel: r.gradeLevel,
+      term: r.term,
+      finalGrade: r.finalGrade,
+      creditsEarned: r.creditsEarned,
+      isHonors: r.isHonors,
+      isAp: r.isAp,
+      isTransfer: r.isTransfer || (!r.courseId && r.recordType === "transfer"),
+      confidence: r.confidence,
+    }));
+
+    let ok: boolean;
+    if (onConfirm) {
+      ok = await onConfirm(confirmRows);
+    } else {
+      const res = await fetch(confirmUrl ?? `/api/transcript/${transcriptId}/confirm`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ rows: confirmRows }),
+      });
+      ok = res.ok;
+    }
+    if (!ok) {
       setError("We couldn't save your confirmation. Please try again.");
       setSubmitting(false);
       return;
     }
-    router.push("/plan?imported=1");
+    router.push(redirectTo);
     router.refresh();
   }
 

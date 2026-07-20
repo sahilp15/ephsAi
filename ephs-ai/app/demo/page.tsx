@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, CalendarRange, GraduationCap, Sparkles } from "lucide-react";
+import { ArrowRight, CalendarRange, GraduationCap, Sparkles, Upload } from "lucide-react";
 import { DemoBanner } from "@/components/DemoBanner";
 
 export const metadata: Metadata = { title: "Student Experience Demo" };
@@ -30,6 +30,14 @@ export default function DemoLandingPage() {
       title: "Student dashboard",
       body: "Where onboarding lands: graduation progress, credits earned and in progress, quick actions, and requirement checks — shown with a sample student.",
       cta: "View the dashboard",
+    },
+    {
+      href: "/demo/transcript",
+      icon: Upload,
+      step: "03",
+      title: "Transcript upload",
+      body: "Upload a real transcript (PDF or image). It runs the same extraction and catalog-matching the live app uses, then confirms your completed courses straight into the four-year plan. Nothing is saved to a server.",
+      cta: "Try uploading a transcript",
     },
   ];
 

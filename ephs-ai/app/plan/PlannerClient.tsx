@@ -14,7 +14,7 @@ import {
 import { GRADE_YEARS, TERMS, type CourseMeta, type PlanEntry } from "@/lib/domain/plan-types";
 import { validatePlan, slotIndex, type PlanWarning } from "@/lib/domain/plan-validation";
 import { WarningBanner, CounselorVerificationNotice } from "@/components/ui";
-import type { FuturePlanEntry } from "@/lib/data/plan";
+import type { FuturePlanEntry, AddPlanEntryInput } from "@/lib/data/plan";
 import {
   addPlanEntryAction,
   movePlanEntryAction,
@@ -34,6 +34,25 @@ export interface Recommendation {
   reasons: string[];
 }
 
+/**
+ * How the planner persists edits. The authenticated planner uses the default
+ * server-action adapter (Postgres via RLS); the no-login preview swaps in a
+ * localStorage-backed adapter so the same UI works without a session.
+ */
+export interface PlannerPersistence {
+  add(input: AddPlanEntryInput): Promise<{ ok: boolean; id?: string; error?: string }>;
+  move(entryId: string, gradeYear: number, startTerm: number): Promise<{ ok: boolean; error?: string }>;
+  remove(entryId: string): Promise<{ ok: boolean }>;
+  setLock(entryId: string, locked: boolean): Promise<{ ok: boolean }>;
+}
+
+const serverPersistence: PlannerPersistence = {
+  add: (input) => addPlanEntryAction(input),
+  move: (entryId, gradeYear, startTerm) => movePlanEntryAction(entryId, gradeYear, startTerm),
+  remove: (entryId) => removePlanEntryAction(entryId),
+  setLock: (entryId, locked) => setPlanEntryLockAction(entryId, locked),
+};
+
 const SOURCE_LABEL: Record<string, string> = {
   transcript: "From transcript",
   recommended: "Recommended",
@@ -46,12 +65,14 @@ export function PlannerClient({
   history,
   recommendations,
   imported,
+  persistence = serverPersistence,
 }: {
   profile: PlannerProfile;
   initialFuture: FuturePlanEntry[];
   history: PlanEntry[];
   recommendations: Recommendation[];
   imported: boolean;
+  persistence?: PlannerPersistence;
 }) {
   const [future, setFuture] = useState<FuturePlanEntry[]>(initialFuture);
   const [catalog, setCatalog] = useState<Map<string, CourseMeta>>(new Map());
@@ -154,7 +175,7 @@ export function PlannerClient({
     setFuture((prev) =>
       prev.map((f) => (f.id === entryId ? { ...f, gradeYear, startTerm } : f)),
     );
-    await movePlanEntryAction(entryId, gradeYear, startTerm);
+    await persistence.move(entryId, gradeYear, startTerm);
   }
 
   async function toggleLock(entryId: string) {
@@ -162,18 +183,18 @@ export function PlannerClient({
     if (!entry) return;
     const locked = !entry.locked;
     setFuture((prev) => prev.map((f) => (f.id === entryId ? { ...f, locked } : f)));
-    await setPlanEntryLockAction(entryId, locked);
+    await persistence.setLock(entryId, locked);
   }
 
   async function remove(entryId: string) {
     setFuture((prev) => prev.filter((f) => f.id !== entryId));
-    await removePlanEntryAction(entryId);
+    await persistence.remove(entryId);
   }
 
   async function add(courseId: string, gradeYear: number, startTerm: number, source: FuturePlanEntry["source"], reason?: string) {
     const meta = catalog.get(courseId);
     const termSpan = meta?.termSpan ?? 1;
-    const res = await addPlanEntryAction({
+    const res = await persistence.add({
       courseId,
       gradeYear,
       startTerm,

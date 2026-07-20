@@ -9,7 +9,26 @@ const ACCEPTED_MIME = ["application/pdf", "image/png", "image/jpeg", "image/jpg"
 
 type Phase = "idle" | "uploading" | "processing" | "error";
 
-export function TranscriptUploader({ maxMb }: { maxMb: number }) {
+export interface UploadResponse {
+  id: string;
+  [key: string]: unknown;
+}
+
+export function TranscriptUploader({
+  maxMb,
+  uploadUrl = "/api/transcript/upload",
+  /**
+   * Called on a successful upload instead of the default navigation. The
+   * authenticated flow leaves this undefined and simply routes to the stored
+   * transcript; the no-login preview uses it to stash the returned rows in the
+   * browser before routing to the demo review screen.
+   */
+  onUploaded,
+}: {
+  maxMb: number;
+  uploadUrl?: string;
+  onUploaded?: (data: UploadResponse) => void;
+}) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [phase, setPhase] = useState<Phase>("idle");
@@ -44,7 +63,7 @@ export function TranscriptUploader({ maxMb }: { maxMb: number }) {
     body.append("file", file);
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/api/transcript/upload");
+    xhr.open("POST", uploadUrl);
     xhr.upload.onprogress = (e) => {
       if (e.lengthComputable) setProgress(Math.round((e.loaded / e.total) * 100));
     };
@@ -52,8 +71,9 @@ export function TranscriptUploader({ maxMb }: { maxMb: number }) {
       if (xhr.status >= 200 && xhr.status < 300) {
         setPhase("processing");
         try {
-          const data = JSON.parse(xhr.responseText) as { id: string };
-          router.push(`/transcript/${data.id}`);
+          const data = JSON.parse(xhr.responseText) as UploadResponse;
+          if (onUploaded) onUploaded(data);
+          else router.push(`/transcript/${data.id}`);
         } catch {
           setError("Upload finished but we couldn't read the response.");
           setPhase("error");

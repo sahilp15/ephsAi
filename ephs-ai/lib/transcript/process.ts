@@ -1,10 +1,8 @@
 import "server-only";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { getEnv } from "@/lib/env";
-import { getCatalogMatchIndex } from "@/lib/catalog/match-index";
-import { matchTranscriptCourse } from "@/lib/domain/transcript-match";
-import { getEquivalencyMap } from "@/lib/data/equivalencies";
 import { getExtractionProvider } from "./provider";
+import { extractAndMatchTranscript } from "./extract";
 
 export interface ProcessOutcome {
   ok: boolean;
@@ -57,54 +55,42 @@ export async function processTranscript(transcriptId: string): Promise<ProcessOu
     if (dlErr || !file) throw new Error("download_failed");
 
     const bytes = Buffer.from(await file.arrayBuffer());
-    const result = await provider.extract({
-      bytes,
-      mimeType: transcript.mime_type,
-      filename: transcript.original_filename,
-    });
-
-    const index = getCatalogMatchIndex();
-    const equivalencies = await getEquivalencyMap();
+    const result = await extractAndMatchTranscript(
+      {
+        bytes,
+        mimeType: transcript.mime_type,
+        filename: transcript.original_filename,
+      },
+      provider,
+    );
 
     // Idempotency: clear any previous extraction for this transcript.
     await admin.from("transcript_extracted_rows").delete().eq("transcript_id", transcriptId);
 
-    const rowsToInsert = result.rows.map((r, i) => {
-      const match = matchTranscriptCourse(
-        {
-          name: r.rawCourseName,
-          code: r.rawCourseCode,
-          isHonors: r.isHonors,
-          isAp: r.isAp,
-          isTransfer: r.isTransfer,
-        },
-        { entries: index, equivalencies },
-      );
-      return {
-        transcript_id: transcriptId,
-        row_index: i,
-        raw_course_name: r.rawCourseName,
-        raw_course_code: r.rawCourseCode ?? null,
-        school_year: r.schoolYear ?? null,
-        grade_level: r.gradeLevel ?? null,
-        term: r.term ?? null,
-        final_grade: r.finalGrade ?? null,
-        credits_attempted: r.creditsAttempted ?? null,
-        credits_earned: r.creditsEarned ?? null,
-        course_level: r.courseLevel ?? null,
-        is_honors: Boolean(r.isHonors),
-        is_ap: Boolean(r.isAp),
-        in_progress: Boolean(r.inProgress),
-        is_repeat: Boolean(r.isRepeat),
-        is_incomplete: Boolean(r.isIncomplete),
-        is_transfer: Boolean(r.isTransfer),
-        matched_course_id: match.courseId,
-        match_confidence: match.confidence,
-        match_method: match.method,
-        confirmed: false,
-        raw: r as unknown as Record<string, unknown>,
-      };
-    });
+    const rowsToInsert = result.rows.map((r) => ({
+      transcript_id: transcriptId,
+      row_index: r.rowIndex,
+      raw_course_name: r.rawCourseName,
+      raw_course_code: r.rawCourseCode,
+      school_year: r.schoolYear,
+      grade_level: r.gradeLevel,
+      term: r.term,
+      final_grade: r.finalGrade,
+      credits_attempted: r.creditsAttempted,
+      credits_earned: r.creditsEarned,
+      course_level: r.courseLevel,
+      is_honors: r.isHonors,
+      is_ap: r.isAp,
+      in_progress: r.inProgress,
+      is_repeat: r.isRepeat,
+      is_incomplete: r.isIncomplete,
+      is_transfer: r.isTransfer,
+      matched_course_id: r.matchedCourseId,
+      match_confidence: r.matchConfidence,
+      match_method: r.matchMethod,
+      confirmed: false,
+      raw: r.raw,
+    }));
 
     if (rowsToInsert.length > 0) {
       await admin.from("transcript_extracted_rows").insert(rowsToInsert);

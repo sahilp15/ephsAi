@@ -105,24 +105,38 @@ export async function POST(request: NextRequest) {
     const encoder = new TextEncoder();
     const stream = new ReadableStream<Uint8Array>({
       async start(controller) {
+        let emitted = false;
         try {
           if (!first.done && first.value) {
             controller.enqueue(encoder.encode(first.value));
+            emitted = true;
           }
           for await (const delta of generator) {
             controller.enqueue(encoder.encode(delta));
+            emitted = true;
           }
           console.info(`[chat] mode=ai ms=${Date.now() - started}`);
         } catch (err) {
-          if (!request.signal.aborted) {
+          // Only surface a reconnect notice when the failure prevented us from
+          // delivering any answer at all. A late error after the reply has
+          // already streamed (e.g. an upstream keep-alive close as the stream
+          // finalizes) must not tack an alarming message onto a complete reply.
+          if (!request.signal.aborted && !emitted) {
             console.error(
-              "[chat] stream interrupted:",
+              "[chat] stream failed before any output:",
               err instanceof Error ? err.message : err,
             );
             controller.enqueue(
               encoder.encode(
-                "\n\nSorry, the connection dropped before I could finish. Please send that again.",
+                "Sorry, I could not reach the assistant just now. Please try again.",
               ),
+            );
+          } else if (!request.signal.aborted) {
+            // Content already reached the student; log the trailing error but
+            // leave their answer intact.
+            console.error(
+              "[chat] stream ended with trailing error:",
+              err instanceof Error ? err.message : err,
             );
           }
         } finally {

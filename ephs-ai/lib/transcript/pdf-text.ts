@@ -131,7 +131,16 @@ export async function extractPdfCourseRows(
 ): Promise<ExtractedCourseRow[] | null> {
   let pdfjs: typeof import("pdfjs-dist/legacy/build/pdf.mjs");
   try {
-    pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
+    // Load pdf.js at runtime via a non-analyzable dynamic import so webpack
+    // never tries to bundle or resolve this server-only, ESM-only package at
+    // build time (which otherwise fails the Next build). Node resolves it from
+    // node_modules when the route actually runs.
+    const runtimeImport = new Function("s", "return import(s)") as (
+      s: string,
+    ) => Promise<unknown>;
+    pdfjs = (await runtimeImport(
+      "pdfjs-dist/legacy/build/pdf.mjs",
+    )) as typeof import("pdfjs-dist/legacy/build/pdf.mjs");
     // In the bundled server runtime pdf.js can't auto-locate its worker entry,
     // so point it at the real file. It runs on the main thread (no separate
     // worker process); this just satisfies the fake-worker setup.
@@ -144,7 +153,10 @@ export async function extractPdfCourseRows(
       /* fall back to pdf.js default resolution */
     }
   } catch (err) {
-    console.error("[transcript] pdf.js load failed:", err instanceof Error ? err.message : err);
+    console.error(
+      "[transcript] pdf.js unavailable, falling back to raw text:",
+      err instanceof Error ? err.message : err,
+    );
     return null;
   }
 

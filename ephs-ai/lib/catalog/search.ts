@@ -26,6 +26,8 @@ export interface CatalogFilters {
   gradRequirement?: boolean;
   page?: number;
   pageSize?: number;
+  /** Course ids an administrator has deactivated; hidden from students. */
+  excludeIds?: Set<string>;
 }
 
 export interface CatalogPage {
@@ -91,6 +93,7 @@ export function searchCatalog(filters: CatalogFilters): CatalogPage {
     gradRequirement,
     page = 1,
     pageSize = 24,
+    excludeIds,
   } = filters;
 
   const terms = (q ?? "")
@@ -102,6 +105,7 @@ export function searchCatalog(filters: CatalogFilters): CatalogPage {
   let matched: Array<{ doc: SearchDoc; score: number }> = [];
   for (const doc of getDocs()) {
     const c = doc.course;
+    if (excludeIds && excludeIds.has(c.id)) continue;
     if (department && !c.departments.includes(department)) continue;
     if (grade && !c.grades_allowed.includes(grade)) continue;
     if (ap && !c.flags.ap) continue;

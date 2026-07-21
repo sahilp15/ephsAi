@@ -6,6 +6,8 @@ import clsx from "clsx";
 
 const TABS = [
   { href: "/admin", label: "Overview" },
+  { href: "/admin/clubs", label: "Clubs" },
+  { href: "/admin/courses", label: "Courses" },
   { href: "/admin/mappings", label: "Course Mappings" },
   { href: "/admin/access", label: "Admin Access" },
   { href: "/admin/audit", label: "Audit Log" },

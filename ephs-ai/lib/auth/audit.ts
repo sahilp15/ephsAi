@@ -24,6 +24,10 @@ export type AuditAction =
   | "academic_record.delete"
   | "graduation_requirements.edit"
   | "course_equivalency.edit"
+  | "club.edit"
+  | "club.delete"
+  | "club.restore"
+  | "course_override.edit"
   | "admin.grant"
   | "admin.revoke"
   | "admin.view_student";

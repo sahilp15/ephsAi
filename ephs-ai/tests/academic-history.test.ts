@@ -55,4 +55,40 @@ describe("historyToPlanEntries", () => {
     // Unmatched and transfer-without-match courses take no planner slot.
     expect(entries.every((e) => e.courseId)).toBe(true);
   });
+
+  it("distributes unlabeled courses across terms instead of stacking them in Term 1", () => {
+    const noTerm: AcademicRecordInput[] = Array.from({ length: 8 }, (_, i) => ({
+      id: `n${i}`,
+      courseId: `course-${i}`,
+      recordType: "completed" as const,
+      gradeLevel: 9,
+      term: null,
+    }));
+    const entries = historyToPlanEntries(noTerm);
+    const perTerm = [1, 2, 3, 4].map(
+      (t) => entries.filter((e) => e.startTerm === t).length,
+    );
+    // 8 courses, no term info → 2 per term, none exceeding four.
+    expect(perTerm).toEqual([2, 2, 2, 2]);
+    expect(Math.max(...perTerm)).toBeLessThanOrEqual(4);
+  });
+
+  it("respects explicit term codes (T1-T4) exactly", () => {
+    const explicit: AcademicRecordInput[] = [
+      { id: "a", courseId: "c-a", recordType: "completed", gradeLevel: 10, term: "T4" },
+      { id: "b", courseId: "c-b", recordType: "completed", gradeLevel: 10, term: "T2" },
+    ];
+    const entries = historyToPlanEntries(explicit);
+    expect(entries.find((e) => e.courseId === "c-a")?.startTerm).toBe(4);
+    expect(entries.find((e) => e.courseId === "c-b")?.startTerm).toBe(2);
+  });
+
+  it("collapses duplicate course entries within a grade", () => {
+    const dupes: AcademicRecordInput[] = [
+      { id: "d1", courseId: "dup", recordType: "completed", gradeLevel: 11, term: "T1" },
+      { id: "d2", courseId: "dup", recordType: "completed", gradeLevel: 11, term: "T1" },
+    ];
+    const entries = historyToPlanEntries(dupes);
+    expect(entries.filter((e) => e.courseId === "dup")).toHaveLength(1);
+  });
 });

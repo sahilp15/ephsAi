@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Settings,
   Upload,
+  Users,
 } from "lucide-react";
 import { requireStudent } from "@/lib/auth/session";
 import { buildStudentGraduation } from "@/lib/data/graduation";
@@ -29,6 +30,7 @@ const STATE_STYLE: Record<RequirementState, { icon: typeof CheckCircle2; classNa
 
 const QUICK_ACTIONS = [
   { href: "/courses", label: "Browse courses", icon: BookOpen },
+  { href: "/clubs", label: "Explore clubs", icon: Users },
   { href: "/plan", label: "Open planner", icon: CalendarRange },
   { href: "/transcript", label: "Upload transcript", icon: Upload },
   { href: "/chat", label: "Ask EPHS AI", icon: MessageCircle },

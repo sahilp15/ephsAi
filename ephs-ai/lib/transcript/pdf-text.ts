@@ -102,13 +102,16 @@ function toRow(
 
   const lower = name.toLowerCase();
   const inProgress = finalGrade === "IP";
+  // EPHS course codes encode the four-term year as an S1-S4 suffix. These are
+  // terms, not semesters, so normalize them to T1-T4 (a bare S1/S2 would be
+  // misread as a two-term semester downstream).
   const termMatch = code.match(/S([1-4])\b/);
   return {
     rawCourseName: name,
     rawCourseCode: code,
     schoolYear,
     gradeLevel,
-    term: termMatch ? `S${termMatch[1]}` : null,
+    term: termMatch ? `T${termMatch[1]}` : null,
     finalGrade: inProgress ? null : finalGrade,
     creditsEarned: credits,
     creditsAttempted: credits,

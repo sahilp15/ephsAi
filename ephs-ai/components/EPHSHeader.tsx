@@ -11,6 +11,7 @@ import { AccountMenu } from "./auth/AccountMenu";
 const NAV = [
   { href: "/dashboard", label: "Dashboard" },
   { href: "/courses", label: "Courses" },
+  { href: "/clubs", label: "Clubs" },
   { href: "/plan", label: "Four-Year Plan" },
   { href: "/requirements", label: "Requirements" },
   { href: "/pathways", label: "Pathways" },

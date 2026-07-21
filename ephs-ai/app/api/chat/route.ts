@@ -83,10 +83,10 @@ export async function POST(request: NextRequest) {
   const req = parsed.data;
 
   if (!aiEnabled()) {
-    return textResponse(offlineAnswer(req), "offline");
+    return textResponse(await offlineAnswer(req), "offline");
   }
 
-  const system = buildChatSystemPrompt(req);
+  const system = await buildChatSystemPrompt(req);
   const history = trimmedHistory(req.messages);
   const started = Date.now();
 
@@ -161,6 +161,6 @@ export async function POST(request: NextRequest) {
       "[chat] provider error:",
       err instanceof Error ? err.message : err,
     );
-    return textResponse(offlineAnswer(req), "error");
+    return textResponse(await offlineAnswer(req), "error");
   }
 }

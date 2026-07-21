@@ -175,7 +175,12 @@ function allowedEdits(term: string): number {
 export function fuzzyTokenMatch(haystackTokens: string[], term: string): boolean {
   if (term.length <= 1) return false;
   for (const tok of haystackTokens) {
-    if (tok === term || tok.includes(term) || term.includes(tok)) return true;
+    if (tok === term) return true;
+    // Substring matching only for tokens of length >= 3, so short tokens like
+    // "ai" or "cs" match exactly and don't hit unrelated words ("ai" in "brain").
+    if (term.length >= 3 && tok.length >= 3 && (tok.includes(term) || term.includes(tok))) {
+      return true;
+    }
   }
   const budget = allowedEdits(term);
   if (budget === 0) return false;

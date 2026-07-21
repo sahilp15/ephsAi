@@ -3,8 +3,8 @@
   "dataset_id": "ephs-clubs-2026-27",
   "generated_from": {
     "source_url": "https://eagles.edenpr.org/clubs",
-    "method": "Extracted from the official EPHS clubs page (eagles.edenpr.org/clubs), including every high-school club link. Club names and per-club official page URLs are authoritative. Descriptions are concise plain-language summaries (descriptionSource='general'); advisor, meeting time, and room are 'Not listed' because the clubs index does not publish them (advisors submit them separately each year). Categories and typical Tuesday EP-Focus meeting days are best-effort and admin-editable.",
-    "note": "Student-led clubs typically meet during 'EP Focus time' on Tuesdays; join by adding yourself to the club's Schoology group. New/returning clubs apply annually (2026-2027 window: June 2 - September 8, 2026).",
+    "method": "Club names and per-club official page URLs are extracted from the official EPHS clubs index (eagles.edenpr.org/clubs) and are authoritative. Per-club advisor, contact email, EP Focus Group, meeting location, meeting days, and meeting times live on each club's individual page; those are filled in where verified (e.g. Aerospace Team) and can be auto-populated for every club by running `npm run clubs:enrich` from a network-enabled environment (or against saved club pages). Where a club's page has not yet been read, advisor/room/time are null ('Not listed') rather than guessed. Descriptions are concise plain-language summaries (descriptionSource='general'); categories and the typical Tuesday EP-Focus default are admin-editable.",
+    "note": "Student-led clubs typically meet during 'EP Focus time' on Tuesdays; join by adding yourself to the club's Schoology group. New/returning clubs apply annually (2026-2027 window: June 2 - September 8, 2026). Run `npm run clubs:enrich` to pull advisor and meeting details from each club's official page.",
     "retrieved": "2026-07-21"
   },
   "categories": [
@@ -32,12 +32,14 @@
       "description": "Students explore aerospace, rocketry, and flight through hands-on projects and competition.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Mike Maas",
       "studentLeaders": [],
-      "meetingDays": [],
-      "meetingTime": null,
-      "meetingFrequency": null,
-      "location": null,
+      "meetingDays": [
+        "Tuesday"
+      ],
+      "meetingTime": "3:30 p.m.",
+      "meetingFrequency": "After School (EP Focus Group)",
+      "location": "Room 337",
       "grades": [
         "9",
         "10",
@@ -45,11 +47,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "mmaas@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Official EPHS club. Details verified from the official club page (advisor, meeting day/time, room).",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/aerospace-team",
       "active": true
     },
@@ -2103,6 +2105,36 @@
       "registrationUrl": null,
       "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/youth-in-government-model-un",
+      "active": true
+    },
+    {
+      "id": "speech-and-debate",
+      "name": "Speech and Debate",
+      "description": "Competitive speech and debate team where students build public speaking, argumentation, research, and critical-thinking skills through tournaments.",
+      "descriptionSource": "general",
+      "category": "Academic",
+      "advisor": "Nolan Trinh and Pranita Keenigi",
+      "studentLeaders": [],
+      "meetingDays": [
+        "Monday",
+        "Thursday"
+      ],
+      "meetingTime": "Approximately 4:00-6:00 p.m.",
+      "meetingFrequency": "Weekly",
+      "location": null,
+      "grades": [
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "membershipRequirements": null,
+      "contactEmail": "ntrinh@edenpr.org",
+      "joinInstructions": "Contact an advisor to join. Advisors: Nolan Trinh (ntrinh@edenpr.org) and Pranita Keenigi (pkeenigi@edenpr.org).",
+      "website": null,
+      "registrationUrl": null,
+      "additionalNotes": "Advisors: Nolan Trinh and Pranita Keenigi. Advisor emails follow the district pattern (first initial + last name @edenpr.org) and should be confirmed with the Activities Office. Meeting time is approximate.",
+      "sourceUrl": "https://eagles.edenpr.org/clubs",
       "active": true
     }
   ]

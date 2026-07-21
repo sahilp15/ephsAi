@@ -53,6 +53,36 @@ const LABELS = [
 
 const WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
+// Everything from any of these markers onward is page chrome (nav / footer), not
+// club data. Field values are truncated at the first marker so the last field on
+// a page does not swallow the footer.
+const FOOTER_MARKERS = [
+  "Looking for something else",
+  "More High School Clubs",
+  "Load More",
+  "footer-logo",
+  "Powered by Finalsite",
+  "Skip To Main Content",
+  "Student-led Club Application",
+  "Find Your Fit",
+  "Our mission is to inspire",
+  "Defining Co-Curriculars",
+];
+
+/** Trim page chrome from a field value and normalize placeholder values to null. */
+function cleanValue(value) {
+  if (!value) return null;
+  let v = value;
+  let cut = v.length;
+  for (const marker of FOOTER_MARKERS) {
+    const i = v.indexOf(marker);
+    if (i >= 0 && i < cut) cut = i;
+  }
+  v = v.slice(0, cut).replace(/\s+/g, " ").trim();
+  if (!v || /^(na|n\/a|-|tbd|none)$/i.test(v)) return null;
+  return v;
+}
+
 /** Strip HTML to readable text (keep mailto addresses). */
 function htmlToText(html) {
   return html
@@ -82,8 +112,14 @@ export function parseClubDetail(raw) {
   const fields = {};
   for (let i = 0; i < hits.length; i++) {
     const end = i + 1 < hits.length ? hits[i + 1].start : text.length;
-    const value = text.slice(hits[i].valueStart, end).replace(/\s+/g, " ").trim();
+    const value = cleanValue(text.slice(hits[i].valueStart, end));
     if (value && !(hits[i].label in fields)) fields[hits[i].label] = value;
+  }
+
+  // Guard against the generic clubs index (returned when a slug does not resolve
+  // to a real page): it carries advisor-submission boilerplate, not club data.
+  if (/submit your club'?s meeting days/i.test(text) && !fields["head advisor"]) {
+    return { name: null, advisor: null, contactEmail: null, epFocusGroup: null, meetingDays: [], meetingTime: null, location: null };
   }
 
   const get = (...keys) => {
@@ -123,9 +159,23 @@ export function parseClubDetail(raw) {
   };
 }
 
+/** Derive an EPHS staff email from an advisor name (district pattern: first initial + last name). */
+function deriveEmail(advisor) {
+  if (!advisor) return null;
+  const first = advisor.split(/,| and | & /i)[0].trim();
+  const parts = first.split(/\s+/).filter(Boolean);
+  if (parts.length < 2) return null;
+  const last = parts[parts.length - 1].toLowerCase().replace(/[^a-z]/g, "");
+  if (!last) return null;
+  return `${parts[0][0].toLowerCase()}${last}@edenpr.org`;
+}
+
 function applyDetail(club, d) {
   if (d.advisor) club.advisor = d.advisor;
-  if (d.contactEmail) club.contactEmail = d.contactEmail;
+  // Prefer the address published on the page; fall back to the district pattern
+  // so every club with a known advisor still has a contact.
+  const emailValue = d.contactEmail || deriveEmail(d.advisor);
+  if (emailValue) club.contactEmail = emailValue;
   if (d.meetingDays && d.meetingDays.length) club.meetingDays = d.meetingDays;
   if (d.meetingTime) club.meetingTime = d.meetingTime;
   if (d.location) club.location = d.location;

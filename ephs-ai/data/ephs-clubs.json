@@ -3,7 +3,7 @@
   "dataset_id": "ephs-clubs-2026-27",
   "generated_from": {
     "source_url": "https://eagles.edenpr.org/clubs",
-    "method": "Club names and per-club official page URLs are extracted from the official EPHS clubs index (eagles.edenpr.org/clubs) and are authoritative. Per-club advisor, contact email, EP Focus Group, meeting location, meeting days, and meeting times live on each club's individual page; those are filled in where verified (e.g. Aerospace Team) and can be auto-populated for every club by running `npm run clubs:enrich` from a network-enabled environment (or against saved club pages). Where a club's page has not yet been read, advisor/room/time are null ('Not listed') rather than guessed. Descriptions are concise plain-language summaries (descriptionSource='general'); categories and the typical Tuesday EP-Focus default are admin-editable.",
+    "method": "Club names and official page URLs are from the EPHS clubs index. Advisors, meeting times, and rooms are extracted from each club's official page via `npm run clubs:enrich`. Contact emails are derived from the district pattern (first initial + last name @edenpr.org) and should be verified; re-running clubs:enrich also captures the exact Contact address published on each page. Descriptions are plain-language summaries. Meeting DAYS still reflect the general Tuesday EP-Focus default for most clubs and should be confirmed per club.",
     "note": "Student-led clubs typically meet during 'EP Focus time' on Tuesdays; join by adding yourself to the club's Schoology group. New/returning clubs apply annually (2026-2027 window: June 2 - September 8, 2026). Run `npm run clubs:enrich` to pull advisor and meeting details from each club's official page.",
     "retrieved": "2026-07-21"
   },
@@ -51,7 +51,7 @@
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Details verified from the official club page (advisor, meeting day/time, room).",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/aerospace-team",
       "active": true
     },
@@ -61,14 +61,14 @@
       "description": "Open studio for students to create and share visual art in a variety of media.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Amanda Budde",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 165",
       "grades": [
         "9",
         "10",
@@ -76,11 +76,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "abudde@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/art-club",
       "active": true
     },
@@ -90,14 +90,14 @@
       "description": "EPHS chapter exploring artificial intelligence and its role in education.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Zach Hanson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 313 (Math Resource Center)",
       "grades": [
         "9",
         "10",
@@ -105,11 +105,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "zhanson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/athena-chapter",
       "active": true
     },
@@ -119,14 +119,14 @@
       "description": "A community and support space celebrating Black students' culture, identity, and leadership.",
       "descriptionSource": "general",
       "category": "Affinity",
-      "advisor": null,
+      "advisor": "Nolana Holloway",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 154",
       "grades": [
         "9",
         "10",
@@ -134,11 +134,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "nholloway@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/black-student-union-bsu",
       "active": true
     },
@@ -148,14 +148,14 @@
       "description": "Students gather to play a wide range of board games.",
       "descriptionSource": "general",
       "category": "Gaming",
-      "advisor": null,
+      "advisor": "Perry Kennedy",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 257",
       "grades": [
         "9",
         "10",
@@ -163,11 +163,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "pkennedy@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/board-game-club",
       "active": true
     },
@@ -177,14 +177,14 @@
       "description": "Students read and discuss books together.",
       "descriptionSource": "general",
       "category": "Academic",
-      "advisor": null,
+      "advisor": "Kelsey Cornwell",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "8-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 210",
       "grades": [
         "9",
         "10",
@@ -192,11 +192,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "kcornwell@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/book-club",
       "active": true
     },
@@ -206,14 +206,14 @@
       "description": "For students interested in plants, gardening, and botany.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Jayson Sandeen",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:50-8:25 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "The EPHS Greenhouse",
       "grades": [
         "9",
         "10",
@@ -221,11 +221,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "jsandeen@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/botany-club",
       "active": true
     },
@@ -235,14 +235,14 @@
       "description": "Students make and share handmade bracelets.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Levi Zak",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:30-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 138",
       "grades": [
         "9",
         "10",
@@ -250,11 +250,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "lzak@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/bracelet-making-club",
       "active": true
     },
@@ -264,14 +264,14 @@
       "description": "Casual and competitive chess for players of all skill levels.",
       "descriptionSource": "general",
       "category": "Recreation",
-      "advisor": null,
+      "advisor": "Ifiok Olofinboba",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:25 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "South Commons",
       "grades": [
         "9",
         "10",
@@ -279,11 +279,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "iolofinboba@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Join the Chess Club group on Schoology. Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/chess-club",
       "active": true
     },
@@ -293,14 +293,14 @@
       "description": "Celebrates Chinese language and culture.",
       "descriptionSource": "general",
       "category": "Language",
-      "advisor": null,
+      "advisor": "Ergan Xu",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 303",
       "grades": [
         "9",
         "10",
@@ -308,11 +308,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "exu@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/chinese-club",
       "active": true
     },
@@ -322,12 +322,12 @@
       "description": "Honor society recognizing achievement in computer science; members often tutor and serve the CS community.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Jessica Brent",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 320",
       "grades": [
         "9",
         "10",
@@ -335,11 +335,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "jbrent@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/computer-science-honor-society",
       "active": true
     },
@@ -349,7 +349,7 @@
       "description": "Helps new students in grades 10-12 get connected and feel at home at EPHS.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Marissa Brandt & Arika Stottler",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
@@ -363,11 +363,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "mbrandt@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/connect-10-12-new-students",
       "active": true
     },
@@ -377,7 +377,7 @@
       "description": "Helps 9th graders transition to high school and build connections.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Sherae Zaccardi",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
@@ -389,11 +389,11 @@
         "9"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "szaccardi@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/connect-9",
       "active": true
     },
@@ -403,14 +403,14 @@
       "description": "Students make a variety of crafts together.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Ellen Degler",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 322",
       "grades": [
         "9",
         "10",
@@ -418,11 +418,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "edegler@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/crafts-club",
       "active": true
     },
@@ -432,14 +432,14 @@
       "description": "Students crochet items to donate to people in need.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Michelle Rada and Chloe Brown",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 222",
       "grades": [
         "9",
         "10",
@@ -447,11 +447,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "mrada@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/crochet-for-charity-club",
       "active": true
     },
@@ -461,14 +461,14 @@
       "description": "A group focused on building authentic relationships, inclusion, and belonging.",
       "descriptionSource": "general",
       "category": "Affinity",
-      "advisor": null,
+      "advisor": "Kelsey Snyder and Brian Sibley",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30-4:15 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 135",
       "grades": [
         "9",
         "10",
@@ -476,11 +476,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "ksnyder@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/dare-2-be-real",
       "active": true
     },
@@ -490,14 +490,14 @@
       "description": "Students explore data science and machine learning concepts and projects.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Allison Grajkowske",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30-5:30 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 317",
       "grades": [
         "9",
         "10",
@@ -505,11 +505,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "agrajkowske@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/data-science-machine-learning",
       "active": true
     },
@@ -519,24 +519,24 @@
       "description": "Prepares students for careers in marketing, finance, hospitality, and management through competitive events and leadership.",
       "descriptionSource": "general",
       "category": "Business",
-      "advisor": null,
+      "advisor": "Margot Cowing and Scott Sayles",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
       "meetingFrequency": null,
-      "location": null,
+      "location": "Focus Room 259 (BS PAC)",
       "grades": [
         "9",
         "10",
         "11",
         "12"
       ],
-      "membershipRequirements": null,
-      "contactEmail": null,
+      "membershipRequirements": "Not open to all students (application/enrollment required).",
+      "contactEmail": "mcowing@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/deca",
       "active": true
     },
@@ -546,14 +546,14 @@
       "description": "Promotes safe, focused living and reducing distracted driving and device use.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Vanessa Warren",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 138",
       "grades": [
         "9",
         "10",
@@ -561,11 +561,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "vwarren@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/distracted-free-life-club",
       "active": true
     },
@@ -575,14 +575,14 @@
       "description": "For students interested in acting, theater, and stagecraft.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Laurie Nebeker, Jay Asfeld, Kathleen Ross",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "PAC",
       "grades": [
         "9",
         "10",
@@ -590,11 +590,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "lnebeker@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/drama-club",
       "active": true
     },
@@ -604,14 +604,14 @@
       "description": "Students play Dungeons & Dragons and other tabletop role-playing games.",
       "descriptionSource": "general",
       "category": "Gaming",
-      "advisor": null,
+      "advisor": "Alex Bauer",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 207",
       "grades": [
         "9",
         "10",
@@ -619,11 +619,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "abauer@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/dungeons-and-dragons-club",
       "active": true
     },
@@ -633,12 +633,12 @@
       "description": "Competitive video gaming teams representing EPHS.",
       "descriptionSource": "general",
       "category": "Gaming",
-      "advisor": null,
+      "advisor": "Jessica Brent",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 320",
       "grades": [
         "9",
         "10",
@@ -646,11 +646,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "jbrent@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/e-sports",
       "active": true
     },
@@ -660,14 +660,14 @@
       "description": "Student-run news and video broadcast for the school community.",
       "descriptionSource": "general",
       "category": "Media",
-      "advisor": null,
+      "advisor": "Alex Bauer",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "Third period, all terms (enroll one semester at a time)",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Publications Room (257)",
       "grades": [
         "9",
         "10",
@@ -675,11 +675,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "abauer@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/eagle-news-network-enn",
       "active": true
     },
@@ -689,14 +689,14 @@
       "description": "Explores economics, markets, and financial topics.",
       "descriptionSource": "general",
       "category": "Business",
-      "advisor": null,
+      "advisor": "Mark Anderson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "5 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 123",
       "grades": [
         "9",
         "10",
@@ -704,11 +704,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "manderson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/economics-club",
       "active": true
     },
@@ -718,7 +718,7 @@
       "description": "Supports and connects students who have transferred to EPHS.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Arika Stottler, Marissa Brandt, Lisa Quirring, Jenny Hanson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
@@ -733,11 +733,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "astottler@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/ep-transfer-student-club",
       "active": true
     },
@@ -747,12 +747,12 @@
       "description": "Students compete in the Wharton Global High School Investment Competition, learning about investing and portfolio management.",
       "descriptionSource": "general",
       "category": "Business",
-      "advisor": null,
+      "advisor": "Lee Moen",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 264 or the Perch",
       "grades": [
         "9",
         "10",
@@ -760,11 +760,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "lmoen@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/ephs-winc",
       "active": true
     },
@@ -828,14 +828,14 @@
       "description": "A faith-based community for athletes and students centered on Christian fellowship.",
       "descriptionSource": "general",
       "category": "Faith",
-      "advisor": null,
+      "advisor": "Bridget Johnson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:45-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 261",
       "grades": [
         "9",
         "10",
@@ -843,11 +843,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "bjohnson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/fellowship-of-christian-athletes-fca",
       "active": true
     },
@@ -857,14 +857,14 @@
       "description": "Students create and share short films and learn filmmaking.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Jacquelyn Books",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 118",
       "grades": [
         "9",
         "10",
@@ -872,11 +872,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "jbooks@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/film-makers-club",
       "active": true
     },
@@ -886,14 +886,14 @@
       "description": "Welcomes exchange students and fosters cross-cultural friendships.",
       "descriptionSource": "general",
       "category": "Cultural",
-      "advisor": null,
+      "advisor": "Shannon Montheard",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 306",
       "grades": [
         "9",
         "10",
@@ -901,11 +901,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "smontheard@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/international-exchange-student-club",
       "active": true
     },
@@ -915,14 +915,14 @@
       "description": "Celebrates French language and Francophone culture.",
       "descriptionSource": "general",
       "category": "Language",
-      "advisor": null,
+      "advisor": "Laurie Hennen",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 325",
       "grades": [
         "9",
         "10",
@@ -930,11 +930,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "lhennen@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/french-club",
       "active": true
     },
@@ -944,14 +944,14 @@
       "description": "An inclusion club building friendships across abilities and backgrounds.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Brenda Walsh",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Possibly PAC if cycle C",
       "grades": [
         "9",
         "10",
@@ -959,11 +959,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "bwalsh@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/friends-forever",
       "active": true
     },
@@ -973,14 +973,14 @@
       "description": "A Gender and Sexuality Alliance providing a supportive space for LGBTQ+ students and allies.",
       "descriptionSource": "general",
       "category": "Affinity",
-      "advisor": null,
+      "advisor": "MJ Yarusso",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 168",
       "grades": [
         "9",
         "10",
@@ -988,11 +988,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "myarusso@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/deca-association-of-marketing-students-1727375213205",
       "active": true
     },
@@ -1002,14 +1002,14 @@
       "description": "For students who enjoy exploring and discussing history.",
       "descriptionSource": "general",
       "category": "Academic",
-      "advisor": null,
+      "advisor": "Brett Pederson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "8-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 121",
       "grades": [
         "9",
         "10",
@@ -1017,11 +1017,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "bpederson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/history-club",
       "active": true
     },
@@ -1031,12 +1031,12 @@
       "description": "HOSA - Future Health Professionals prepares students for careers in healthcare and medicine through competition and service.",
       "descriptionSource": "general",
       "category": "Health",
-      "advisor": null,
+      "advisor": "Kjersten Welter",
       "studentLeaders": [],
       "meetingDays": [],
-      "meetingTime": null,
+      "meetingTime": "7:50-8:25 a.m.",
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 347",
       "grades": [
         "9",
         "10",
@@ -1044,11 +1044,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "kwelter@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/hosa",
       "active": true
     },
@@ -1058,14 +1058,14 @@
       "description": "Rotary-sponsored service club organizing local and international service projects.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Mark Anderson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:50-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 261",
       "grades": [
         "9",
         "10",
@@ -1073,11 +1073,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "manderson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/interact-club",
       "active": true
     },
@@ -1087,14 +1087,14 @@
       "description": "Explores interior design and creative spaces.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Brianna Kruschke",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:45-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Before school (south)",
       "grades": [
         "9",
         "10",
@@ -1102,11 +1102,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "bkruschke@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/interior-design-club",
       "active": true
     },
@@ -1116,14 +1116,14 @@
       "description": "Student chapter exploring neuroscience and brain science.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Carol Snyder",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:55 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 341",
       "grades": [
         "9",
         "10",
@@ -1131,11 +1131,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "csnyder@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/international-youth-neuroscience-association",
       "active": true
     },
@@ -1145,14 +1145,14 @@
       "description": "Celebrates Korean pop music and culture.",
       "descriptionSource": "general",
       "category": "Cultural",
-      "advisor": null,
+      "advisor": "Kari Beutz and Kaitlyn Minarsich",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30-4:30 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Music Rehearsal Hall",
       "grades": [
         "9",
         "10",
@@ -1160,11 +1160,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "kbeutz@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/k-pop",
       "active": true
     },
@@ -1174,14 +1174,14 @@
       "description": "Student-led community service organization sponsored by Kiwanis.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Brenda Walsh",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:30-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Auditorium",
       "grades": [
         "9",
         "10",
@@ -1189,11 +1189,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "bwalsh@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/key-club",
       "active": true
     },
@@ -1203,14 +1203,14 @@
       "description": "Celebrates Korean language and culture.",
       "descriptionSource": "general",
       "category": "Language",
-      "advisor": null,
+      "advisor": "Kari Beutz",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 206",
       "grades": [
         "9",
         "10",
@@ -1218,11 +1218,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "kbeutz@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/korean-club",
       "active": true
     },
@@ -1232,14 +1232,14 @@
       "description": "Celebrates Latino culture, identity, and community.",
       "descriptionSource": "general",
       "category": "Cultural",
-      "advisor": null,
+      "advisor": "Heriberto Vargas",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Mr. Vargas' office",
       "grades": [
         "9",
         "10",
@@ -1247,11 +1247,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "hvargas@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/latino-club",
       "active": true
     },
@@ -1261,14 +1261,14 @@
       "description": "Students write letters to bring comfort and encouragement to people in need.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Lee Moen",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:45 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "South Commons",
       "grades": [
         "9",
         "10",
@@ -1276,11 +1276,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "lmoen@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/letters-of-love",
       "active": true
     },
@@ -1290,12 +1290,12 @@
       "description": "Competitive mathematics team preparing for league meets and contests.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Mark Kingsbury",
       "studentLeaders": [],
       "meetingDays": [],
-      "meetingTime": null,
+      "meetingTime": "3:30 p.m.",
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 314",
       "grades": [
         "9",
         "10",
@@ -1303,11 +1303,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "mkingsbury@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/math-team",
       "active": true
     },
@@ -1317,12 +1317,12 @@
       "description": "Students learn courtroom procedure and compete in simulated trials.",
       "descriptionSource": "general",
       "category": "Academic",
-      "advisor": null,
+      "advisor": "Josh Gudahl and Mariela Ramirez",
       "studentLeaders": [],
       "meetingDays": [],
-      "meetingTime": null,
+      "meetingTime": "5 p.m.",
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 307",
       "grades": [
         "9",
         "10",
@@ -1330,11 +1330,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "jgudahl@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/mock-trial",
       "active": true
     },
@@ -1344,14 +1344,14 @@
       "description": "Promotes student-athlete mental health awareness and support.",
       "descriptionSource": "general",
       "category": "Health",
-      "advisor": null,
+      "advisor": "DJ Brown",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:30-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Auditorium",
       "grades": [
         "9",
         "10",
@@ -1359,11 +1359,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "dbrown@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/morgans-message",
       "active": true
     },
@@ -1373,14 +1373,14 @@
       "description": "A community and support space for Muslim students.",
       "descriptionSource": "general",
       "category": "Affinity",
-      "advisor": null,
+      "advisor": "Hani Abdi",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 154",
       "grades": [
         "9",
         "10",
@@ -1388,11 +1388,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "habdi@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/muslim-student-union",
       "active": true
     },
@@ -1402,7 +1402,7 @@
       "description": "Honor society recognizing scholarship, leadership, service, and character.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Quynh Vu",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
@@ -1415,11 +1415,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "qvu@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/national-honor-society",
       "active": true
     },
@@ -1458,14 +1458,14 @@
       "description": "Official description not listed on the clubs index; open the official club page for details.",
       "descriptionSource": "general",
       "category": "Interest",
-      "advisor": null,
+      "advisor": "Veronica Torres",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30-4:15 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 163",
       "grades": [
         "9",
         "10",
@@ -1473,11 +1473,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "vtorres@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/phlegm",
       "active": true
     },
@@ -1487,14 +1487,14 @@
       "description": "Recreational table tennis for all skill levels.",
       "descriptionSource": "general",
       "category": "Recreation",
-      "advisor": null,
+      "advisor": "Mike Halloran",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Main Gym",
       "grades": [
         "9",
         "10",
@@ -1502,11 +1502,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "mhalloran@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/ping-pong-club",
       "active": true
     },
@@ -1516,14 +1516,14 @@
       "description": "Official description not listed on the clubs index; open the official club page for details.",
       "descriptionSource": "general",
       "category": "Interest",
-      "advisor": null,
+      "advisor": "Vanessa Warren",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:45-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "South Commons",
       "grades": [
         "9",
         "10",
@@ -1531,11 +1531,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "vwarren@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/project-gimmer",
       "active": true
     },
@@ -1545,14 +1545,14 @@
       "description": "Plans and organizes the school prom.",
       "descriptionSource": "general",
       "category": "Interest",
-      "advisor": null,
+      "advisor": "Sherae Zaccardi",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Student Activities Conference Room",
       "grades": [
         "9",
         "10",
@@ -1560,11 +1560,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "szaccardi@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/prom-committee",
       "active": true
     },
@@ -1574,12 +1574,12 @@
       "description": "Fast-paced buzzer-based academic quiz competition.",
       "descriptionSource": "general",
       "category": "Academic",
-      "advisor": null,
+      "advisor": "Liza Anderson",
       "studentLeaders": [],
       "meetingDays": [],
-      "meetingTime": null,
+      "meetingTime": "3:30-4:30 p.m.",
       "meetingFrequency": null,
-      "location": null,
+      "location": "Rooms 119-122",
       "grades": [
         "9",
         "10",
@@ -1587,11 +1587,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "landerson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/quiz-bowl",
       "active": true
     },
@@ -1601,12 +1601,12 @@
       "description": "Students design, build, and program competitive robots and develop engineering and coding skills.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Ellie Feist",
       "studentLeaders": [],
       "meetingDays": [],
-      "meetingTime": null,
+      "meetingTime": "7 p.m.",
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 165",
       "grades": [
         "9",
         "10",
@@ -1614,11 +1614,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "efeist@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/robotics",
       "active": true
     },
@@ -1628,14 +1628,14 @@
       "description": "Official description not listed on the clubs index; open the official club page for details.",
       "descriptionSource": "general",
       "category": "Interest",
-      "advisor": null,
+      "advisor": "Mike Whipkey",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 246",
       "grades": [
         "9",
         "10",
@@ -1643,11 +1643,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "mwhipkey@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/rock-club",
       "active": true
     },
@@ -1657,14 +1657,14 @@
       "description": "Students play and discuss real-time strategy games.",
       "descriptionSource": "general",
       "category": "Gaming",
-      "advisor": null,
+      "advisor": "Scott Sayles",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 259",
       "grades": [
         "9",
         "10",
@@ -1672,11 +1672,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "ssayles@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/rts-club",
       "active": true
     },
@@ -1713,12 +1713,12 @@
       "description": "Team science competition spanning biology, chemistry, physics, and engineering events.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Katie Foley",
       "studentLeaders": [],
       "meetingDays": [],
-      "meetingTime": null,
+      "meetingTime": "3:30-5:30 p.m.",
       "meetingFrequency": null,
-      "location": null,
+      "location": "Rooms 332",
       "grades": [
         "9",
         "10",
@@ -1726,11 +1726,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "kfoley@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/science-olympiad",
       "active": true
     },
@@ -1740,14 +1740,14 @@
       "description": "A student dance team and performance group.",
       "descriptionSource": "general",
       "category": "Arts",
-      "advisor": null,
+      "advisor": "Nolana Holloway",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:45-5:15 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Common Ground (Room 154)",
       "grades": [
         "9",
         "10",
@@ -1755,11 +1755,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "nholloway@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Tryouts are held in late October, 3:45-5:15 p.m.; wear clothes to dance in, sneakers, and bring water. Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/shades-dance",
       "active": true
     },
@@ -1769,14 +1769,14 @@
       "description": "Students make and share slime.",
       "descriptionSource": "general",
       "category": "Interest",
-      "advisor": null,
+      "advisor": "Andrea Benzine",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 166",
       "grades": [
         "9",
         "10",
@@ -1784,11 +1784,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "abenzine@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/slime-club",
       "active": true
     },
@@ -1798,14 +1798,14 @@
       "description": "Celebrates South Asian cultures and traditions.",
       "descriptionSource": "general",
       "category": "Cultural",
-      "advisor": null,
+      "advisor": "Oli Gaston",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Main Gym",
       "grades": [
         "9",
         "10",
@@ -1813,11 +1813,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "ogaston@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/south-asian-culture-club",
       "active": true
     },
@@ -1827,14 +1827,14 @@
       "description": "A community and support space for South Asian students.",
       "descriptionSource": "general",
       "category": "Affinity",
-      "advisor": null,
+      "advisor": "Oli Gaston",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Main Gym",
       "grades": [
         "9",
         "10",
@@ -1842,11 +1842,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "ogaston@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/asian-student-union-asu",
       "active": true
     },
@@ -1856,14 +1856,14 @@
       "description": "Celebrates Spanish language and Hispanic cultures.",
       "descriptionSource": "general",
       "category": "Language",
-      "advisor": null,
+      "advisor": "Jenna Knutson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "8-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 309",
       "grades": [
         "9",
         "10",
@@ -1871,11 +1871,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "jknutson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/spanish-club",
       "active": true
     },
@@ -1885,14 +1885,14 @@
       "description": "Hands-on exploration of science, technology, engineering, and math.",
       "descriptionSource": "general",
       "category": "STEM",
-      "advisor": null,
+      "advisor": "Alyce Price",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 323",
       "grades": [
         "9",
         "10",
@@ -1900,11 +1900,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "aprice@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/stem-club",
       "active": true
     },
@@ -1914,7 +1914,7 @@
       "description": "Elected student leadership organizing school events, spirit, and student voice.",
       "descriptionSource": "general",
       "category": "Leadership",
-      "advisor": null,
+      "advisor": "Abby Kuzara and Natalie Sell",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
@@ -1929,11 +1929,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "akuzara@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/student-council",
       "active": true
     },
@@ -1943,14 +1943,14 @@
       "description": "Students support a cause through clothing and textile donation and awareness.",
       "descriptionSource": "general",
       "category": "Service",
-      "advisor": null,
+      "advisor": "Liza Anderson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
       "meetingTime": null,
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 164",
       "grades": [
         "9",
         "10",
@@ -1958,11 +1958,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "landerson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/threads-for-change",
       "active": true
     },
@@ -1972,14 +1972,14 @@
       "description": "Students play and trade collectible card games.",
       "descriptionSource": "general",
       "category": "Gaming",
-      "advisor": null,
+      "advisor": "Alex Bauer",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "7:30-8:30 a.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 207",
       "grades": [
         "9",
         "10",
@@ -1987,11 +1987,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "abauer@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/trading-card-games-tcg",
       "active": true
     },
@@ -2001,7 +2001,7 @@
       "description": "Clay-target trap shooting team.",
       "descriptionSource": "general",
       "category": "Recreation",
-      "advisor": null,
+      "advisor": "Hans Froseth",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
@@ -2014,11 +2014,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "hfroseth@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/trap-shooting",
       "active": true
     },
@@ -2028,14 +2028,14 @@
       "description": "Official description not listed on the clubs index; open the official club page for details.",
       "descriptionSource": "general",
       "category": "Interest",
-      "advisor": null,
+      "advisor": "Nicole Hager",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "3:30-5:30 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "South Commons",
       "grades": [
         "9",
         "10",
@@ -2043,11 +2043,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "nhager@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/ys-act",
       "active": true
     },
@@ -2057,14 +2057,14 @@
       "description": "For students interested in entrepreneurship and starting ventures.",
       "descriptionSource": "general",
       "category": "Business",
-      "advisor": null,
+      "advisor": "Zach Hanson",
       "studentLeaders": [],
       "meetingDays": [
         "Tuesday"
       ],
-      "meetingTime": null,
+      "meetingTime": "4 p.m.",
       "meetingFrequency": "Typically weekly during EP Focus time (Tuesdays)",
-      "location": null,
+      "location": "Room 313 (Math Resource Center)",
       "grades": [
         "9",
         "10",
@@ -2072,11 +2072,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "zhanson@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/young-entrepreneurs-club",
       "active": true
     },
@@ -2086,12 +2086,12 @@
       "description": "Students engage in Youth in Government and Model UN, simulating government and diplomacy.",
       "descriptionSource": "general",
       "category": "Civic",
-      "advisor": null,
+      "advisor": "Brian Sibley",
       "studentLeaders": [],
       "meetingDays": [],
       "meetingTime": null,
       "meetingFrequency": null,
-      "location": null,
+      "location": "Room 135",
       "grades": [
         "9",
         "10",
@@ -2099,11 +2099,11 @@
         "12"
       ],
       "membershipRequirements": null,
-      "contactEmail": null,
+      "contactEmail": "bsibley@edenpr.org",
       "joinInstructions": "Student-led clubs: join by adding yourself to the club's Schoology group. A staff advisor is required and clubs re-charter each year. Confirm the current advisor, meeting day/time, and room on the club's Schoology page or with the EPHS Student Activities Office.",
       "website": null,
       "registrationUrl": null,
-      "additionalNotes": "Official EPHS club. Advisor, meeting day/time, and room are set each year and are not published on the clubs index; see the official club page or the Activities Office.",
+      "additionalNotes": "Advisor, meeting time, and room are from the official EPHS club page. Contact email is derived from the district pattern (first initial + last name @edenpr.org); verify before use.",
       "sourceUrl": "https://eagles.edenpr.org/clubs/club/~board/clubs-high-school/post/youth-in-government-model-un",
       "active": true
     },

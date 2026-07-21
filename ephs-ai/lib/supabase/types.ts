@@ -186,6 +186,45 @@ export type AuditEventRow = {
   created_at: string;
 }
 
+export type ClubRow = {
+  id: string;
+  name: string;
+  description: string;
+  description_source: "official" | "general";
+  category: string;
+  advisor: string | null;
+  student_leaders: string[];
+  meeting_days: string[];
+  meeting_time: string | null;
+  meeting_frequency: string | null;
+  location: string | null;
+  grades: string[];
+  membership_requirements: string | null;
+  contact_email: string | null;
+  join_instructions: string | null;
+  website: string | null;
+  registration_url: string | null;
+  additional_notes: string | null;
+  source_url: string;
+  active: boolean;
+  /** Soft-delete flag so an admin can remove a club without losing history. */
+  deleted: boolean;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type CourseOverrideRow = {
+  course_id: string;
+  active: boolean;
+  /** null = use the guide's duration. */
+  term_count: number | null;
+  note: string | null;
+  updated_by: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 type Table<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
   Row: Row;
   Insert: Insert;
@@ -215,6 +254,8 @@ export type Database = {
       plan_entries: Table<PlanEntryRow>;
       academic_plans: Table<AcademicPlanRow>;
       course_equivalencies: Table<CourseEquivalencyRow>;
+      clubs: Table<ClubRow>;
+      course_overrides: Table<CourseOverrideRow>;
       admin_allowlist: Table<AdminAllowlistRow>;
       audit_events: Table<AuditEventRow>;
     };

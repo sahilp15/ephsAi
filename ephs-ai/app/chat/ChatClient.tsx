@@ -32,9 +32,11 @@ const MAX_TURNS_SENT = 16;
 
 const SUGGESTIONS = [
   "What math courses can I take after Geometry?",
-  "I want to become a nurse. Which EPHS courses should I look at?",
-  "What does the Class of 2028 personal finance rule mean for me?",
-  "Which AP courses does EPHS offer in science?",
+  "What clubs are good for someone interested in engineering?",
+  "I want to become a nurse. Which EPHS courses and clubs should I look at?",
+  "How many classes can I take in one term?",
+  "Which clubs meet on Tuesdays?",
+  "Build me a four-year plan with clubs too",
 ];
 
 export function ChatClient({

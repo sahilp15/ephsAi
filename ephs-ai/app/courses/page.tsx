@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { searchCatalog, type CatalogFilters } from "@/lib/catalog/search";
 import { getDepartments, getPathways } from "@/lib/catalog/store";
+import { getDeactivatedCourseIds } from "@/lib/catalog/overrides";
 import { CourseCard } from "@/components/CourseCard";
 import { EmptyState } from "@/components/ui";
 import { FilterSidebar } from "./FilterSidebar";
@@ -51,12 +52,13 @@ function pageHref(sp: SearchParams, page: number): string {
   return `/courses?${params.toString()}`;
 }
 
-export default function CoursesPage({
+export default async function CoursesPage({
   searchParams,
 }: {
   searchParams: SearchParams;
 }) {
   const filters = toFilters(searchParams);
+  filters.excludeIds = await getDeactivatedCourseIds();
   const result = searchCatalog(filters);
   const departments = getDepartments();
   const pathways = getPathways().map((p) => p.name);

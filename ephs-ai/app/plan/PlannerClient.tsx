@@ -11,8 +11,22 @@ import {
   Sparkles,
   Trash2,
 } from "lucide-react";
-import { GRADE_YEARS, TERMS, type CourseMeta, type PlanEntry } from "@/lib/domain/plan-types";
-import { validatePlan, slotIndex, type PlanWarning } from "@/lib/domain/plan-validation";
+import {
+  GRADE_YEARS,
+  TERMS,
+  MAX_COURSES_PER_TERM,
+  OPEN_PERIOD_LABEL,
+  type CourseMeta,
+  type PlanEntry,
+} from "@/lib/domain/plan-types";
+import {
+  validatePlan,
+  canPlaceCourse,
+  countTermBlocks,
+  openPeriodCount,
+  termsWithRoom,
+  type PlanWarning,
+} from "@/lib/domain/plan-validation";
 import { WarningBanner, CounselorVerificationNotice } from "@/components/ui";
 import type { FuturePlanEntry, AddPlanEntryInput } from "@/lib/data/plan";
 import {
@@ -167,6 +181,21 @@ export function PlannerClient({
   async function move(entryId: string, gradeYear: number, startTerm: number) {
     const entry = future.find((f) => f.id === entryId);
     if (!entry || entry.locked) return;
+    // Four-block rule: never drop a course into a term that is already full
+    // (unless it is already in that same slot).
+    if (
+      !(entry.gradeYear === gradeYear && entry.startTerm === startTerm) &&
+      !canPlaceCourse(domainEntries, gradeYear, startTerm, entry.termSpan, entryId)
+    ) {
+      const room = termsWithRoom(domainEntries, gradeYear)
+        .map((t) => `Term ${t}`)
+        .join(", ");
+      flash(
+        `Grade ${gradeYear}, Term ${startTerm} already has ${MAX_COURSES_PER_TERM} courses.` +
+          (room ? ` Terms with room: ${room}.` : " Remove a course first."),
+      );
+      return;
+    }
     const blocker = moveWouldBeValid(entryId, gradeYear, startTerm);
     if (blocker) {
       flash(`Can't move there: ${blocker.title}`);
@@ -194,6 +223,18 @@ export function PlannerClient({
   async function add(courseId: string, gradeYear: number, startTerm: number, source: FuturePlanEntry["source"], reason?: string) {
     const meta = catalog.get(courseId);
     const termSpan = meta?.termSpan ?? 1;
+    // Four-block rule: block adds that would push a term past four courses and
+    // point the student at a term that still has room.
+    if (!canPlaceCourse(domainEntries, gradeYear, startTerm, termSpan)) {
+      const room = termsWithRoom(domainEntries, gradeYear)
+        .map((t) => `Term ${t}`)
+        .join(", ");
+      flash(
+        `Grade ${gradeYear}, Term ${startTerm} already has ${MAX_COURSES_PER_TERM} courses.` +
+          (room ? ` Try ${room}, or replace an Open Period.` : " Choose another grade or remove a course."),
+      );
+      return;
+    }
     const res = await persistence.add({
       courseId,
       gradeYear,
@@ -297,6 +338,12 @@ export function PlannerClient({
                 const cellFuture = future.filter(
                   (f) => f.gradeYear === grade && f.startTerm === term,
                 );
+                // Real blocks occupying this term (includes multi-term courses
+                // that started earlier); fill the rest with Open Periods so the
+                // term always shows four blocks.
+                const realBlocks = countTermBlocks(domainEntries, grade, term);
+                const openPeriods = openPeriodCount(realBlocks);
+                const full = realBlocks >= MAX_COURSES_PER_TERM;
                 return (
                   <div
                     key={term}
@@ -313,8 +360,14 @@ export function PlannerClient({
                       dragId ? "border-dashed border-ep-red/50 bg-ep-red-soft/30" : "border-ep-border-soft bg-ep-bg/60"
                     }`}
                   >
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wide text-ep-faint">
-                      Term {term}
+                    <p className="mb-2 flex items-center justify-between text-xs font-bold uppercase tracking-wide text-ep-faint">
+                      <span>Term {term}</span>
+                      <span
+                        className={full ? "text-ep-red" : "text-ep-faint"}
+                        title={`${realBlocks} of ${MAX_COURSES_PER_TERM} blocks used`}
+                      >
+                        {realBlocks}/{MAX_COURSES_PER_TERM}
+                      </span>
                     </p>
                     {cellHistory.map((h) => (
                       <HistoryChip key={h.id} entry={h} catalog={catalog} />
@@ -331,6 +384,9 @@ export function PlannerClient({
                         onToggleLock={() => toggleLock(f.id)}
                         onRemove={() => remove(f.id)}
                       />
+                    ))}
+                    {Array.from({ length: openPeriods }, (_, i) => (
+                      <OpenPeriodBlock key={`open-${i}`} />
                     ))}
                   </div>
                 );
@@ -370,6 +426,25 @@ export function PlannerClient({
 
 function severityRank(s: PlanWarning["severity"]): number {
   return s === "error" ? 0 : s === "warning" ? 1 : 2;
+}
+
+/**
+ * An Open Period is a schedule placeholder, not a course: it earns no credit
+ * and satisfies no requirement. It fills a term's remaining blocks so students
+ * see exactly how much room is left, and reads as intentional (not missing data).
+ */
+function OpenPeriodBlock() {
+  return (
+    <div
+      className="mb-1.5 flex items-center gap-1.5 rounded-lg border border-dashed border-ep-border bg-white/40 px-2 py-1.5 text-ep-faint"
+      aria-label={`${OPEN_PERIOD_LABEL} — available block`}
+    >
+      <LockOpen className="h-3.5 w-3.5" aria-hidden />
+      <span className="text-xs font-semibold uppercase tracking-wide">
+        {OPEN_PERIOD_LABEL}
+      </span>
+    </div>
+  );
 }
 
 function HistoryChip({ entry, catalog }: { entry: PlanEntry; catalog: Map<string, CourseMeta> }) {

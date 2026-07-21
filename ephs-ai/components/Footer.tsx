@@ -4,6 +4,7 @@ import { EPHSLogo } from "./EPHSLogo";
 const FOOTER_LINKS = [
   { href: "/chat", label: "EPHS AI Assistant" },
   { href: "/courses", label: "Course Catalog" },
+  { href: "/clubs", label: "Clubs & Activities" },
   { href: "/requirements", label: "Graduation Requirements" },
   { href: "/counselor", label: "Counselor View" },
   { href: "/admin", label: "Data Audit" },
@@ -48,10 +49,15 @@ export function Footer() {
             ))}
           </nav>
         </div>
-        <p className="mt-10 border-t border-white/10 pt-4 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
-          Eden Prairie Eagles · 2026-27 Course Guide · Not an official EPHS
-          publication
-        </p>
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
+            Eden Prairie Eagles · 2026-27 Course Guide · Not an official EPHS
+            publication
+          </p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
+            Developed by Sahil Parasharami with Eden Prairie Schools
+          </p>
+        </div>
       </div>
     </footer>
   );

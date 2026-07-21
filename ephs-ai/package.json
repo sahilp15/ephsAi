@@ -12,7 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "data:audit": "node scripts/data-audit.mjs",
-    "data:import": "node scripts/data-import.mjs"
+    "data:import": "node scripts/data-import.mjs",
+    "clubs:refresh": "node scripts/clubs-refresh.mjs"
   },
   "dependencies": {
     "@supabase/ssr": "0.5.2",

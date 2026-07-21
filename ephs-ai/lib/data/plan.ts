@@ -6,6 +6,8 @@ import {
   historyToPlanEntries,
   type AcademicRecordInput,
 } from "@/lib/domain/academic-history";
+import { canPlaceCourse } from "@/lib/domain/plan-validation";
+import type { PlanEntry } from "@/lib/domain/plan-types";
 import { listAcademicRecords } from "./academic";
 
 /**
@@ -142,6 +144,27 @@ export async function addPlanEntry(
     .eq("course_id", input.courseId)
     .maybeSingle();
   if (dupe) return { ok: false, error: "duplicate" };
+
+  // Four-block rule: a term holds at most four real course blocks. Enforced on
+  // the server so the limit can't be bypassed by calling the API directly.
+  const { data: existing } = await supabase
+    .from("plan_entries")
+    .select("grade_year, starting_term, occupied_terms, status")
+    .eq("plan_id", planId)
+    .eq("grade_year", input.gradeYear);
+  const siblingEntries: PlanEntry[] = (existing ?? []).map((e, i) => ({
+    id: `sib-${i}`,
+    courseId: "x",
+    gradeYear: e.grade_year as PlanEntry["gradeYear"],
+    startTerm: e.starting_term as PlanEntry["startTerm"],
+    termSpan: e.occupied_terms,
+    status: (e.status === "considering" ? "considering" : "planned") as PlanEntry["status"],
+  }));
+  if (
+    !canPlaceCourse(siblingEntries, input.gradeYear, input.startTerm, input.termSpan)
+  ) {
+    return { ok: false, error: "term_full" };
+  }
 
   const { data, error } = await supabase
     .from("plan_entries")

@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { validatePlan } from "@/lib/domain/plan-validation";
+import {
+  validatePlan,
+  canPlaceCourse,
+  countTermBlocks,
+  openPeriodCount,
+  termsWithRoom,
+} from "@/lib/domain/plan-validation";
 import type { PlanEntry } from "@/lib/domain/plan-types";
 import { makeCourse } from "./helpers";
 
@@ -33,6 +39,43 @@ function entry(overrides: Partial<PlanEntry> & { courseId: string }): PlanEntry 
     ...overrides,
   };
 }
+
+describe("four-block term rule", () => {
+  const full = [1, 2, 3, 4].map((i) =>
+    entry({ courseId: `c${i}`, gradeYear: 9, startTerm: 1 }),
+  );
+
+  it("counts real blocks in a term (multi-term courses occupy each term)", () => {
+    expect(countTermBlocks(full, 9, 1)).toBe(4);
+    const spanning = [entry({ courseId: "yr", gradeYear: 10, startTerm: 1, termSpan: 4 })];
+    expect(countTermBlocks(spanning, 10, 3)).toBe(1);
+  });
+
+  it("ignores 'considering' ideas in capacity", () => {
+    const withIdea = [...full.slice(0, 3), entry({ courseId: "maybe", status: "considering" })];
+    expect(countTermBlocks(withIdea, 9, 1)).toBe(3);
+    expect(canPlaceCourse(withIdea, 9, 1, 1)).toBe(true);
+  });
+
+  it("blocks a fifth course in a full term but allows a term with room", () => {
+    expect(canPlaceCourse(full, 9, 1, 1)).toBe(false);
+    expect(canPlaceCourse(full, 9, 2, 1)).toBe(true);
+    expect(termsWithRoom(full, 9)).toEqual([2, 3, 4]);
+  });
+
+  it("flags an over-capacity term as an error", () => {
+    const over = [...full, entry({ courseId: "c5", gradeYear: 9, startTerm: 1 })];
+    const warnings = validatePlan({ entries: over, profile, catalog });
+    expect(warnings.some((w) => w.id === "capacity-9-1" && w.severity === "error")).toBe(true);
+  });
+
+  it("computes open periods to fill a term to four blocks", () => {
+    expect(openPeriodCount(0)).toBe(4);
+    expect(openPeriodCount(3)).toBe(1);
+    expect(openPeriodCount(4)).toBe(0);
+    expect(openPeriodCount(5)).toBe(0);
+  });
+});
 
 describe("validatePlan", () => {
   it("passes a clean plan", () => {

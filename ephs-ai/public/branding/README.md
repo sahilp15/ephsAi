@@ -8,6 +8,7 @@ Rules (from the project branding policy):
 - Preserve the native aspect ratio.
 - Never substitute a generated logo.
 
-Until the asset is present, the app renders an accessible **text-only
-"EPHS AI" fallback mark**. The single replacement point is
-`components/EPHSLogo.tsx` - follow the instructions in that file's comment.
+The official asset is present as `ephs-ai-logo.png` and is rendered through
+`next/image` by the shared `components/EPHSLogo.tsx`. That component is the
+single replacement point for the logo; it uses the asset exactly as supplied
+(no crop, stretch, recolor, or redraw) and preserves its native aspect ratio.

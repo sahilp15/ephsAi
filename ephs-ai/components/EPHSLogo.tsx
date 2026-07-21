@@ -1,54 +1,40 @@
 import Link from "next/link";
-import clsx from "clsx";
+import Image from "next/image";
 
 /**
- * EPHS AI wordmark: a red swept "EP" block in the school's varsity style
- * with a condensed "EPHS AI" lockup. Rendered as type so it stays crisp at
- * every size. Swap in an official asset at public/branding when supplied.
+ * EPHS AI logo lockup.
+ *
+ * Renders the official Eden Prairie Schools logo supplied at
+ * `public/branding/ephs-ai-logo.png`. The asset is used exactly as provided:
+ * it is not cropped, stretched, recolored, or redrawn. Because the source is a
+ * transparent square PNG, `next/image` keeps its native aspect ratio (a fixed
+ * display height with `w-auto`), and the mark reads clearly on both light and
+ * dark backgrounds.
  */
 export function EPHSLogo({
   withLink = true,
-  onDark = false,
 }: {
   withLink?: boolean;
+  /** Accepted for call-site compatibility; the raster asset renders identically on any background. */
   onDark?: boolean;
 }) {
   const mark = (
-    <span className="inline-flex items-center gap-2.5">
-      <span
-        aria-hidden
-        className="flex h-8 w-10 -skew-x-12 items-center justify-center rounded-[3px] bg-ep-red shadow-[3px_3px_0_rgba(19,16,19,0.35)]"
-      >
-        <span className="skew-x-12 font-display text-lg font-bold leading-none text-white">
-          EP
-        </span>
-      </span>
-      <span className="flex flex-col leading-none">
-        <span
-          className={clsx(
-            "font-display text-xl font-bold uppercase tracking-wide",
-            onDark ? "text-white" : "text-ep-charcoal",
-          )}
-        >
-          EPHS <span className="text-ep-red">AI</span>
-        </span>
-        <span
-          className={clsx(
-            "mt-0.5 font-mono text-[9px] font-medium uppercase tracking-[0.18em]",
-            onDark ? "text-white/50" : "text-ep-faint",
-          )}
-        >
-          Eden Prairie Eagles
-        </span>
-      </span>
-    </span>
+    <Image
+      src="/branding/ephs-ai-logo.png"
+      alt="Eden Prairie Schools logo"
+      width={1080}
+      height={1080}
+      priority
+      sizes="(max-width: 640px) 44px, 48px"
+      className="h-11 w-auto sm:h-12"
+    />
   );
   if (!withLink) return mark;
   return (
     <Link
       href="/"
       aria-label="EPHS AI home"
-      className="rounded focus-visible:outline-ep-red"
+      className="inline-flex rounded focus-visible:outline-ep-red"
     >
       {mark}
     </Link>

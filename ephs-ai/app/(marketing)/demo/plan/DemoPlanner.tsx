@@ -11,7 +11,7 @@ import {
 } from "@/lib/domain/academic-history";
 import { smartMatch, extractKeywords } from "@/lib/domain/smart-match";
 import type { FuturePlanEntry } from "@/lib/data/plan";
-import { PlannerClient, type Recommendation } from "@/app/plan/PlannerClient";
+import { PlannerClient, type Recommendation } from "@/app/(app)/plan/PlannerClient";
 import {
   readDemoRecords,
   readDemoFuture,

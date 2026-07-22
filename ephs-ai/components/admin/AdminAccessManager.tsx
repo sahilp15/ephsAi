@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Trash2, UserPlus } from "lucide-react";
-import { addAdminAction, removeAdminAction } from "@/app/admin/actions";
+import { addAdminAction, removeAdminAction } from "@/app/(staff)/admin/actions";
 import type { AdminAllowlistRow } from "@/lib/supabase/types";
 
 export function AdminAccessManager({

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { CheckCircle2, Loader2, Plus } from "lucide-react";
 import type { GradeYear, Term } from "@/lib/domain/plan-types";
 import { GRADE_YEARS, TERMS } from "@/lib/domain/plan-types";
-import { addPlanEntryAction } from "@/app/plan/actions";
+import { addPlanEntryAction } from "@/app/(app)/plan/actions";
 
 /**
  * Add-to-plan control used on course detail pages. Persists to the student's

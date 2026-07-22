@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getPathways } from "@/lib/catalog/store";
 import { emptyDraft } from "@/lib/data/onboarding";
 import { DemoBanner } from "@/components/DemoBanner";
-import { OnboardingWizard } from "@/app/onboarding/OnboardingWizard";
+import { OnboardingWizard } from "@/app/(focused)/onboarding/OnboardingWizard";
 
 export const metadata: Metadata = { title: "Onboarding Demo" };
 

@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Save } from "lucide-react";
 import clsx from "clsx";
-import { setCourseActiveAction, setCourseDurationAction } from "@/app/admin/actions";
+import { setCourseActiveAction, setCourseDurationAction } from "@/app/(staff)/admin/actions";
 
 export interface CourseSummary {
   id: string;

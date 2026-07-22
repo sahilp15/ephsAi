@@ -9,7 +9,7 @@ import {
   setClubActiveAction,
   deleteClubAction,
   restoreClubAction,
-} from "@/app/admin/actions";
+} from "@/app/(staff)/admin/actions";
 import { ChipInput } from "@/components/forms/ChipInput";
 import type { Club, ClubInput } from "@/lib/clubs/types";
 

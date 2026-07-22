@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { getPathways } from "@/lib/catalog/store";
 import { requireStudent } from "@/lib/auth/session";
 import { loadOnboardingDraft } from "@/lib/data/onboarding";
-import { OnboardingWizard } from "../onboarding/OnboardingWizard";
+import { OnboardingWizard } from "@/app/(focused)/onboarding/OnboardingWizard";
 import { PageHeader } from "@/components/ui";
 
 export const metadata: Metadata = { title: "Profile & Settings" };

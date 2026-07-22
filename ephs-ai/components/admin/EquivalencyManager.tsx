@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Plus, Trash2 } from "lucide-react";
-import { upsertEquivalencyAction, deleteEquivalencyAction } from "@/app/admin/actions";
+import { upsertEquivalencyAction, deleteEquivalencyAction } from "@/app/(staff)/admin/actions";
 import type { CourseEquivalencyRow } from "@/lib/supabase/types";
 
 export function EquivalencyManager({

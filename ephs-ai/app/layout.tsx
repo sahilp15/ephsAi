@@ -4,8 +4,6 @@ import {
   IBM_Plex_Mono,
   Instrument_Sans,
 } from "next/font/google";
-import { EPHSHeader } from "@/components/EPHSHeader";
-import { Footer } from "@/components/Footer";
 import { StudentProvider } from "@/lib/client/student-context";
 import "./globals.css";
 
@@ -32,9 +30,15 @@ export const metadata: Metadata = {
     template: "%s · EPHS AI",
   },
   description:
-    "Chat with an assistant grounded in the official 2026-27 EPHS Course Guide, explore the full catalog, and build a four-year plan.",
+    "Explore the catalog, build a four-year plan, and get answers grounded in the official 2026-27 EPHS Course Guide.",
 };
 
+/**
+ * Root layout: fonts, global styles, and the client student store only.
+ * The visible chrome lives in per-area shells (route-group layouts) so the
+ * public site, focused flows, student app, and staff areas each get the right
+ * frame.
+ */
 export default function RootLayout({
   children,
 }: {
@@ -45,14 +49,14 @@ export default function RootLayout({
       lang="en"
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
-      <body className="flex min-h-screen flex-col font-sans">
-        <StudentProvider>
-          <EPHSHeader />
-          <main className="mx-auto w-full max-w-shell flex-1 px-4 py-8 sm:px-6">
-            {children}
-          </main>
-          <Footer />
-        </StudentProvider>
+      <body className="min-h-screen font-sans">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-ep-charcoal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"
+        >
+          Skip to content
+        </a>
+        <StudentProvider>{children}</StudentProvider>
       </body>
     </html>
   );

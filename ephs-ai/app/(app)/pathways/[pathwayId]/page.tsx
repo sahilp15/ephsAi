@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ChevronRight, Sparkles } from "lucide-react";
 import {
   getCourseById,
   getPathwayById,
@@ -42,7 +42,7 @@ function CourseRefList({
         return (
           <li
             key={ref.raw_entry}
-            className="flex items-baseline justify-between gap-2 rounded-lg border border-ep-border-soft bg-white px-3 py-2 text-sm"
+            className="flex items-baseline justify-between gap-2 rounded-lg border border-ep-border-soft bg-ep-card px-3 py-2 text-sm"
           >
             {course ? (
               <Link
@@ -84,17 +84,20 @@ export default function PathwayDetailPage({
 
   return (
     <div className="space-y-6">
-      <Link
-        href="/pathways"
-        className="inline-flex items-center gap-1.5 text-sm font-medium text-ep-muted hover:text-ep-charcoal"
-      >
-        <ArrowLeft aria-hidden className="h-4 w-4" />
-        All pathways
-      </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-ep-muted">
+        <Link href="/pathways" className="hover:text-ep-charcoal">
+          Pathways
+        </Link>
+        <ChevronRight aria-hidden className="h-3.5 w-3.5 text-ep-faint" />
+        <span className="truncate text-ep-charcoal">{pathway.name}</span>
+      </nav>
 
       <div>
-        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">{pathway.name}</h1>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ep-ink">
+        <p className="kicker">Pathway</p>
+        <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-ep-charcoal sm:text-4xl">
+          {pathway.name}
+        </h1>
+        <p className="mt-2 max-w-prose text-sm leading-relaxed text-ep-ink">
           {pathway.description}
         </p>
         <SourceCitation pages={pathway.source_pages} className="mt-2" />
@@ -134,6 +137,13 @@ export default function PathwayDetailPage({
             pathwayName={pathway.name}
             resolvedCourseIds={pathway.resolved_course_ids}
           />
+          <Link
+            href={`/chat?q=${encodeURIComponent(`Help me build a plan for the ${pathway.name} pathway.`)}`}
+            className="flex items-center gap-2 rounded-xl border border-ep-border-soft bg-ep-card p-4 text-sm font-semibold text-ep-charcoal shadow-card transition-colors hover:bg-ep-bg-sunken"
+          >
+            <Sparkles aria-hidden className="h-5 w-5 text-ep-red" />
+            Ask EPHS AI about this pathway
+          </Link>
           <WarningBanner severity="info" title="About pathway progress">
             The guide does not define official pathway-completion criteria, so
             this tool shows courses aligned with the pathway - never a

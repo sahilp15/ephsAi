@@ -2,13 +2,11 @@ import clsx from "clsx";
 import { CalendarDays, MapPin, User, Users } from "lucide-react";
 import type { Club } from "@/lib/clubs/types";
 
-/** Skewed category pill, matching the CourseBadge motif. */
+/** Category pill, matching the CourseBadge motif. */
 function ClubBadge({ label }: { label: string }) {
   return (
-    <span className="inline-flex -skew-x-12 items-center rounded-[2px] bg-ep-coal px-1.5 py-0.5 text-white">
-      <span className="skew-x-12 font-mono text-[10px] font-semibold uppercase tracking-wide">
-        {label}
-      </span>
+    <span className="inline-flex items-center rounded-md bg-ep-charcoal px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+      {label}
     </span>
   );
 }
@@ -39,9 +37,9 @@ export function ClubCard({
   const grades = gradeSummary(club.grades);
 
   return (
-    <article className="flex h-full flex-col rounded-xl border border-ep-border-soft bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
+    <article className="flex h-full flex-col rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card transition-all duration-micro ease-ep-out hover:-translate-y-0.5 hover:border-ep-border hover:shadow-card-hover">
       <div className="flex items-start justify-between gap-2">
-        <h3 className="text-sm font-bold leading-snug text-ep-charcoal">
+        <h3 className="text-[15px] font-semibold leading-snug text-ep-charcoal">
           <button
             type="button"
             onClick={onView}
@@ -85,7 +83,7 @@ export function ClubCard({
           type="button"
           onClick={onView}
           className={clsx(
-            "w-full rounded-lg border border-ep-border bg-white px-4 py-2 text-sm font-semibold text-ep-charcoal",
+            "w-full rounded-lg border border-ep-border bg-ep-card px-4 py-2 text-sm font-semibold text-ep-charcoal",
             "transition-colors hover:border-ep-red hover:text-ep-red-dark",
           )}
         >

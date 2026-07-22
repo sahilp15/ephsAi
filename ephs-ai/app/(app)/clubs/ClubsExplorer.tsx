@@ -91,14 +91,14 @@ export function ClubsExplorer({
   }
 
   const selectClass =
-    "mt-1 w-full rounded-md border border-ep-border bg-white px-3 py-2 text-sm outline-none focus:border-ep-red";
+    "mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-3 py-2 text-sm outline-none focus:border-ep-red";
   const labelClass =
-    "text-xs font-semibold uppercase tracking-wide text-ep-faint";
+    "text-[11px] font-semibold uppercase tracking-[0.12em] text-ep-faint";
 
   return (
     <div className="space-y-5">
       {/* Search + filters panel */}
-      <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+      <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
         <div>
           <label htmlFor="club-search" className="sr-only">
             Search clubs
@@ -114,7 +114,7 @@ export function ClubsExplorer({
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search by name, interest, or topic…"
-              className="w-full rounded-md border border-ep-border py-2 pl-9 pr-9 text-sm outline-none focus:border-ep-red"
+              className="w-full rounded-lg border border-ep-border bg-ep-card py-2 pl-9 pr-9 text-sm outline-none focus:border-ep-red"
             />
             {q ? (
               <button
@@ -215,7 +215,7 @@ export function ClubsExplorer({
               "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors",
               afterSchool
                 ? "border-ep-red bg-ep-red text-white"
-                : "border-ep-border bg-white text-ep-charcoal hover:border-ep-red",
+                : "border-ep-border bg-ep-card text-ep-charcoal hover:border-ep-red",
             )}
           >
             Has a scheduled meeting time

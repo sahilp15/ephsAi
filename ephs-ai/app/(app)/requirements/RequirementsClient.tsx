@@ -18,17 +18,17 @@ const STATE_META: Record<
   satisfied: {
     label: "Verified requirement satisfied",
     icon: CheckCircle2,
-    className: "text-emerald-700",
+    className: "text-ep-success",
   },
   open: {
     label: "Verified requirement still open",
     icon: CircleDashed,
-    className: "text-amber-700",
+    className: "text-ep-warn",
   },
   needs_confirmation: {
     label: "Needs counselor confirmation",
     icon: HelpCircle,
-    className: "text-ep-muted",
+    className: "text-ep-info",
   },
 };
 
@@ -108,13 +108,14 @@ export function RequirementsClient({
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
-          Graduation Requirements
+        <p className="kicker">Requirements</p>
+        <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-ep-charcoal sm:text-4xl">
+          Graduation requirements
         </h1>
-        <p className="mt-1 max-w-2xl text-sm text-ep-muted">{sourceOfTruthNote}</p>
+        <p className="mt-2 max-w-prose text-sm text-ep-muted">{sourceOfTruthNote}</p>
       </div>
 
-      <div className="no-print flex flex-wrap items-end gap-4 rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+      <div className="no-print flex flex-wrap items-end gap-4 rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
         <div>
           <label htmlFor="grad-year" className="block text-xs font-semibold text-ep-faint">
             Graduation year
@@ -123,7 +124,7 @@ export function RequirementsClient({
             id="grad-year"
             value={effectiveGradYear}
             onChange={(e) => setGradYear(Number(e.target.value))}
-            className="mt-1 rounded-md border border-ep-border bg-white px-3 py-2 text-sm"
+            className="mt-1 rounded-lg border border-ep-border bg-ep-card px-3 py-2 text-sm"
           >
             {[2027, 2028, 2029, 2030].map((y) => (
               <option key={y} value={y}>
@@ -134,7 +135,7 @@ export function RequirementsClient({
         </div>
         <fieldset>
           <legend className="text-xs font-semibold text-ep-faint">View</legend>
-          <div className="mt-1 flex rounded-md border border-ep-border">
+          <div className="mt-1 flex rounded-lg border border-ep-border overflow-hidden">
             {(["current", "projected"] as const).map((mode) => (
               <button
                 key={mode}
@@ -145,7 +146,7 @@ export function RequirementsClient({
                   "px-3 py-1.5 text-sm font-medium first:rounded-l-md last:rounded-r-md",
                   projection === mode
                     ? "bg-ep-red text-white"
-                    : "bg-white text-ep-muted hover:text-ep-charcoal",
+                    : "bg-ep-card text-ep-muted hover:text-ep-charcoal",
                 )}
               >
                 {mode === "current" ? "Completed only" : "Including planned"}
@@ -182,7 +183,7 @@ export function RequirementsClient({
             return (
               <li
                 key={item.id}
-                className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card"
+                className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card"
               >
                 <div className="flex items-start gap-3">
                   <StateIcon aria-hidden className={clsx("mt-0.5 h-5 w-5 shrink-0", meta.className)} />
@@ -226,7 +227,7 @@ export function RequirementsClient({
           </h2>
           <ul className="mt-2 space-y-1.5 text-sm text-ep-ink">
             {report.statementMatches.map((m) => (
-              <li key={m.statement} className="rounded-lg border border-ep-border-soft bg-white p-3">
+              <li key={m.statement} className="rounded-lg border border-ep-border-soft bg-ep-card p-3">
                 <span className="font-medium">Fulfills {m.statement}</span>
                 <span className="text-ep-muted">
                   {" "}
@@ -244,7 +245,7 @@ export function RequirementsClient({
         </h2>
         <div className="mt-2 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {Object.entries(artsEligibleByDepartment).map(([dept, names]) => (
-            <div key={dept} className="rounded-xl border border-ep-border-soft bg-white p-3 shadow-card">
+            <div key={dept} className="rounded-xl border border-ep-border-soft bg-ep-card p-3 shadow-card">
               <p className="text-sm font-bold text-ep-charcoal">{dept}</p>
               <ul className="mt-1 list-inside list-disc text-xs text-ep-muted">
                 {names.map((n) => (

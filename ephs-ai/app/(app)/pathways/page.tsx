@@ -12,15 +12,18 @@ export default function PathwaysPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">EPHS Pathways</h1>
-        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-ep-ink">
+        <p className="kicker">Pathways</p>
+        <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-ep-charcoal sm:text-4xl">
+          EPHS pathways
+        </h1>
+        <p className="mt-2 max-w-prose text-sm leading-relaxed text-ep-ink">
           {overview.description}
         </p>
         <SourceCitation pages={[overview.source_page]} className="mt-2" />
       </div>
 
-      <section aria-label="Pathway benefits" className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
+      <section aria-label="Pathway benefits" className="rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ep-faint">
           Benefits (from the official Pathways page)
         </h2>
         <ul className="mt-2 grid list-inside list-disc gap-1.5 text-sm text-ep-ink sm:grid-cols-2">
@@ -35,9 +38,9 @@ export default function PathwaysPage() {
           <li key={p.id}>
             <Link
               href={`/pathways/${p.id}`}
-              className="group block h-full rounded-xl border border-ep-border-soft bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover"
+              className="group block h-full rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card transition-all duration-micro ease-ep-out hover:-translate-y-0.5 hover:border-ep-border hover:shadow-card-hover"
             >
-              <h2 className="text-lg font-bold text-ep-charcoal group-hover:text-ep-red-dark">
+              <h2 className="text-lg font-bold tracking-tight text-ep-charcoal group-hover:text-ep-red-dark">
                 {p.name}
               </h2>
               <p className="mt-1.5 text-sm text-ep-muted">{p.description}</p>

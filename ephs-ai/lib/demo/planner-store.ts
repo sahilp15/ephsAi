@@ -3,7 +3,7 @@
 import type { AcademicRecordInput } from "@/lib/domain/academic-history";
 import type { FuturePlanEntry, AddPlanEntryInput } from "@/lib/data/plan";
 import type { ConfirmRow } from "@/components/transcript/TranscriptReview";
-import type { PlannerPersistence } from "@/app/plan/PlannerClient";
+import type { PlannerPersistence } from "@/app/(app)/plan/PlannerClient";
 
 /**
  * Browser-only persistence for the no-login preview.

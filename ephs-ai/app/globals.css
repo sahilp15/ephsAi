@@ -3,48 +3,55 @@
 @tailwind utilities;
 
 :root {
-  /* EPHS "varsity editorial" tokens. EP red and charcoal come from the
-     official 2026-27 Course Guide; the rest support them. */
   --ep-red: #d8272e;
   --ep-red-dark: #a61e24;
   --ep-charcoal: #1c181a;
-  --ep-coal: #131013;
-  --ep-bg: #f5f3ef;
-  --ep-border: #ddd8d1;
+  --ep-coal: #141416;
+  --ep-bg: #f7f5f1;
+  --ep-border: #e4dfd8;
+  /* App-shell geometry (kept in one place so shell + content stay in sync) */
+  --sidebar-w: 16rem;
+  --sidebar-w-collapsed: 4.5rem;
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   @apply bg-ep-bg text-ep-charcoal antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* Display type: condensed varsity headlines. */
-h1 {
-  @apply font-display uppercase;
-  letter-spacing: 0.01em;
+/* Sentence-case, readable headings by default. Condensed display type is now
+   opt-in via .display or the `font-display` utility — never forced globally. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
-/* Visible, consistent focus states for keyboard users */
+.display {
+  @apply font-display font-bold uppercase;
+  letter-spacing: 0.005em;
+}
+
+/* Small editorial label above headings / on nav accents. */
+.kicker {
+  @apply font-mono text-[11px] font-semibold uppercase text-ep-red;
+  letter-spacing: 0.2em;
+}
+
+/* Visible, consistent focus states for keyboard users. */
 :focus-visible {
   outline: 2px solid var(--ep-red);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 3px;
+}
+/* Elements that manage their own ring don't need the default outline. */
+[data-focus-ring="custom"]:focus-visible {
+  outline: none;
 }
 
 ::selection {
@@ -52,8 +59,24 @@ h1 {
   color: #fff;
 }
 
+/* Quiet, thin scrollbars inside app panels. */
+.scroll-quiet {
+  scrollbar-width: thin;
+  scrollbar-color: #d7d1c9 transparent;
+}
+.scroll-quiet::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.scroll-quiet::-webkit-scrollbar-thumb {
+  background: #d7d1c9;
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+
 @layer components {
-  /* Signature motif: three swept wing stripes, echoing the EP eagle. */
+  /* Retained EPHS motif, now used sparingly (footer, focused shells). */
   .wing-stripes {
     display: inline-flex;
     align-items: center;
@@ -61,64 +84,65 @@ h1 {
   }
   .wing-stripes > i {
     display: block;
-    height: 12px;
-    transform: skewX(-28deg);
+    height: 10px;
+    transform: skewX(-24deg);
     background: var(--ep-red);
     border-radius: 1px;
   }
-  .wing-stripes > i:nth-child(1) {
-    width: 34px;
-  }
-  .wing-stripes > i:nth-child(2) {
-    width: 20px;
-    opacity: 0.72;
-  }
-  .wing-stripes > i:nth-child(3) {
-    width: 11px;
-    opacity: 0.45;
-  }
-  .wing-stripes--light > i {
-    background: #fff;
-  }
-
-  /* Dark panel texture: faint diagonal grain, like a printed program cover. */
-  .panel-grain {
-    background-image: repeating-linear-gradient(
-        -55deg,
-        rgba(255, 255, 255, 0.028) 0px,
-        rgba(255, 255, 255, 0.028) 1px,
-        transparent 1px,
-        transparent 9px
-      ),
-      radial-gradient(
-        1100px 520px at 88% -10%,
-        rgba(216, 39, 46, 0.32),
-        transparent 60%
-      );
-  }
-
-  /* Kicker label above headlines. */
-  .kicker {
-    @apply font-mono text-[11px] font-semibold uppercase;
-    letter-spacing: 0.22em;
-  }
+  .wing-stripes > i:nth-child(1) { width: 30px; }
+  .wing-stripes > i:nth-child(2) { width: 18px; opacity: 0.7; }
+  .wing-stripes > i:nth-child(3) { width: 10px; opacity: 0.45; }
+  .wing-stripes--light > i { background: #fff; }
 }
 
 /* Blinking caret shown while the assistant is streaming. */
 .stream-caret::after {
   content: "";
   display: inline-block;
-  width: 0.55em;
+  width: 0.5em;
   height: 1em;
   margin-left: 2px;
   vertical-align: text-bottom;
   background: var(--ep-red);
   animation: caret-blink 0.9s steps(1) infinite;
 }
-
 @keyframes caret-blink {
-  50% {
-    opacity: 0;
+  50% { opacity: 0; }
+}
+
+/* Safe-area helper for the mobile tab bar. */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.h-safe {
+  height: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* ===== Reduced motion: remove transforms, don't just shorten them ===== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  /* Neutralise entrance transforms so nothing lands mid-slide. */
+  .animate-fade-up,
+  .animate-scale-in,
+  .animate-slide-in-right,
+  .animate-slide-up-sheet,
+  [data-reveal] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .stream-caret::after {
+    animation: none !important;
   }
 }
 

@@ -94,25 +94,27 @@ export function AuthLoginCard({
 
   return (
     <div className="mx-auto w-full max-w-md">
-      <div className="overflow-hidden rounded-2xl border border-ep-border-soft bg-white shadow-panel">
+      <div className="overflow-hidden rounded-2xl border border-ep-border-soft bg-ep-card shadow-pop">
         <div
-          className={`relative px-6 py-6 ${isAdmin ? "bg-ep-coal" : "bg-ep-red"} text-white`}
+          className={`relative px-6 py-7 ${isAdmin ? "bg-ep-coal" : "bg-ep-red"} text-white`}
         >
-          <span className="wing-stripes wing-stripes--light absolute right-5 top-5" aria-hidden>
-            <i /> <i /> <i />
-          </span>
-          <div className="flex items-center gap-2.5">
-            {isAdmin ? (
-              <ShieldCheck aria-hidden className="h-7 w-7" />
-            ) : (
-              <GraduationCap aria-hidden className="h-7 w-7" />
-            )}
+          <div className="flex items-center gap-3">
+            <span
+              aria-hidden
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/15"
+            >
+              {isAdmin ? (
+                <ShieldCheck className="h-6 w-6" />
+              ) : (
+                <GraduationCap className="h-6 w-6" />
+              )}
+            </span>
             <div>
-              <p className="kicker text-white/70">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-white/70">
                 {isAdmin ? "Staff & Counselors" : "Eden Prairie Students"}
               </p>
-              <h1 className="font-display text-3xl font-bold uppercase leading-none text-white">
-                {isAdmin ? "Administrator Sign In" : "Student Sign In"}
+              <h1 className="mt-0.5 text-2xl font-bold tracking-tight text-white">
+                {isAdmin ? "Administrator sign in" : "Student sign in"}
               </h1>
             </div>
           </div>
@@ -139,7 +141,7 @@ export function AuthLoginCard({
               type="button"
               onClick={signIn}
               disabled={loading}
-              className="flex w-full items-center justify-center gap-3 rounded-lg border border-ep-border bg-white px-4 py-3 text-sm font-semibold text-ep-charcoal shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover disabled:cursor-not-allowed disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-3 rounded-lg border border-ep-border bg-ep-card px-4 py-3 text-sm font-semibold text-ep-charcoal shadow-xs transition-all hover:bg-ep-bg-sunken disabled:cursor-not-allowed disabled:opacity-60"
             >
               {loading ? (
                 <Loader2 aria-hidden className="h-5 w-5 animate-spin text-ep-red" />
@@ -149,7 +151,7 @@ export function AuthLoginCard({
               {loading ? "Redirecting to Google…" : "Continue with Google"}
             </button>
           ) : (
-            <div className="rounded-r-lg border-l-4 border-amber-400 bg-amber-50 p-3.5 text-sm text-amber-900">
+            <div className="rounded-r-lg border-l-4 border-ep-warn bg-ep-warn-soft p-3.5 text-sm text-ep-warn">
               Google sign-in isn&apos;t configured on this environment yet. An
               administrator needs to set the Supabase and Google OAuth
               credentials (see the project&apos;s <code>.env.example</code>).

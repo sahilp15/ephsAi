@@ -130,19 +130,17 @@ export function ClubDetailModal({
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
-        className="flex max-h-full w-full max-w-2xl flex-col overflow-hidden bg-white shadow-panel sm:max-h-[90vh] sm:rounded-xl"
+        className="flex max-h-full w-full max-w-2xl flex-col overflow-hidden bg-ep-card shadow-panel sm:max-h-[90vh] sm:rounded-2xl"
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-ep-border-soft bg-white px-5 py-4">
+        <div className="flex items-start justify-between gap-4 border-b border-ep-border-soft bg-ep-card px-5 py-4">
           <div className="min-w-0">
-            <span className="inline-flex -skew-x-12 items-center rounded-[2px] bg-ep-coal px-1.5 py-0.5 text-white">
-              <span className="skew-x-12 font-mono text-[10px] font-semibold uppercase tracking-wide">
-                {club.category}
-              </span>
+            <span className="inline-flex items-center rounded-md bg-ep-charcoal px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide text-white">
+              {club.category}
             </span>
             <h2
               id={titleId}
-              className="mt-2 font-display text-2xl font-bold uppercase leading-tight tracking-wide text-ep-charcoal"
+              className="mt-2 text-2xl font-bold leading-tight tracking-tight text-ep-charcoal"
             >
               {club.name}
             </h2>
@@ -213,7 +211,7 @@ export function ClubDetailModal({
             {email ? (
               <a
                 href={`mailto:${email}`}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-white px-3 py-1.5 text-sm font-medium text-ep-charcoal transition-colors hover:border-ep-red hover:text-ep-red-dark"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-ep-card px-3 py-1.5 text-sm font-medium text-ep-charcoal transition-colors hover:border-ep-red hover:text-ep-red-dark"
               >
                 <Mail aria-hidden className="h-3.5 w-3.5" />
                 {email}
@@ -224,7 +222,7 @@ export function ClubDetailModal({
                 href={website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-white px-3 py-1.5 text-sm font-medium text-ep-charcoal transition-colors hover:border-ep-red hover:text-ep-red-dark"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-ep-card px-3 py-1.5 text-sm font-medium text-ep-charcoal transition-colors hover:border-ep-red hover:text-ep-red-dark"
               >
                 <ExternalLink aria-hidden className="h-3.5 w-3.5" />
                 Website

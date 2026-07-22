@@ -122,13 +122,13 @@ export function TranscriptUploader({
         className={`flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-10 text-center transition-colors ${
           dragging
             ? "border-ep-red bg-ep-red-soft"
-            : "border-ep-border bg-white hover:border-ep-red/50"
+            : "border-ep-border bg-ep-card hover:border-ep-red/50"
         } ${busy ? "pointer-events-none opacity-70" : ""}`}
       >
         {busy ? (
           <>
             <Loader2 className="h-8 w-8 animate-spin text-ep-red" aria-hidden />
-            <p className="mt-3 font-display text-lg font-bold uppercase text-ep-charcoal">
+            <p className="mt-3 text-lg font-bold tracking-tight text-ep-charcoal">
               {phase === "uploading" ? "Uploading…" : "Reading your transcript…"}
             </p>
             {phase === "uploading" ? (
@@ -146,7 +146,7 @@ export function TranscriptUploader({
         ) : (
           <>
             <FileUp className="h-8 w-8 text-ep-red" aria-hidden />
-            <p className="mt-3 font-display text-lg font-bold uppercase text-ep-charcoal">
+            <p className="mt-3 text-lg font-bold tracking-tight text-ep-charcoal">
               Drag &amp; drop your transcript
             </p>
             <p className="mt-1 text-sm text-ep-muted">

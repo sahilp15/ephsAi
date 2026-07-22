@@ -24,6 +24,8 @@ export interface CatalogFilters {
   newCourse?: boolean;
   pathway?: string;
   gradRequirement?: boolean;
+  /** Result ordering. Defaults to relevance when searching, else title A–Z. */
+  sort?: "relevance" | "title" | "department";
   page?: number;
   pageSize?: number;
   /** Course ids an administrator has deactivated; hidden from students. */
@@ -91,6 +93,7 @@ export function searchCatalog(filters: CatalogFilters): CatalogPage {
     newCourse,
     pathway,
     gradRequirement,
+    sort,
     page = 1,
     pageSize = 24,
     excludeIds,
@@ -126,10 +129,21 @@ export function searchCatalog(filters: CatalogFilters): CatalogPage {
     matched.push({ doc, score });
   }
 
-  matched.sort(
-    (a, b) =>
-      b.score - a.score || a.doc.course.title.localeCompare(b.doc.course.title),
-  );
+  const byTitle = (a: { doc: SearchDoc }, b: { doc: SearchDoc }) =>
+    a.doc.course.title.localeCompare(b.doc.course.title);
+  if (sort === "title") {
+    matched.sort(byTitle);
+  } else if (sort === "department") {
+    matched.sort(
+      (a, b) =>
+        a.doc.course.primary_department.localeCompare(
+          b.doc.course.primary_department,
+        ) || byTitle(a, b),
+    );
+  } else {
+    // Relevance (default): score first, then title as a stable tiebreaker.
+    matched.sort((a, b) => b.score - a.score || byTitle(a, b));
+  }
 
   const total = matched.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));

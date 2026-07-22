@@ -13,22 +13,19 @@ const FOOTER_LINKS = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 bg-ep-coal text-white">
-      <div aria-hidden className="h-1 w-full bg-ep-red" />
-      <div className="mx-auto max-w-shell px-4 py-10 sm:px-6">
+    <footer className="mt-20 bg-ep-coal text-white">
+      <div aria-hidden className="h-0.5 w-full bg-ep-red" />
+      <div className="mx-auto max-w-shell px-4 py-12 sm:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="max-w-xl">
             <EPHSLogo onDark withLink={false} />
-            <span className="wing-stripes mt-4" aria-hidden>
-              <i /><i /><i />
-            </span>
-            <p className="mt-4 text-xs leading-relaxed text-white/60">
+            <p className="mt-5 text-sm leading-relaxed text-white/60">
               A course-planning tool grounded in the official Eden Prairie High
               School Course Guide 2026-27. Course facts shown here come only
               from that guide; final scheduling and graduation decisions always
               require counselor verification.
             </p>
-            <p className="mt-3 text-xs leading-relaxed text-white/60">
+            <p className="mt-3 text-sm leading-relaxed text-white/60">
               Privacy: your plan and profile are stored on your own device.
               Assistant requests send anonymized planning context only, never
               your name or contact information.
@@ -36,25 +33,25 @@ export function Footer() {
           </div>
           <nav
             aria-label="Footer"
-            className="grid grid-cols-2 gap-x-10 gap-y-2 md:grid-cols-1"
+            className="grid grid-cols-2 gap-x-10 gap-y-2.5 md:grid-cols-1"
           >
             {FOOTER_LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="font-display text-sm font-semibold uppercase tracking-wider text-white/70 transition-colors hover:text-ep-red"
+                className="text-sm font-medium text-white/70 transition-colors hover:text-white"
               >
                 {l.label}
               </Link>
             ))}
           </nav>
         </div>
-        <div className="mt-10 flex flex-col gap-2 border-t border-white/10 pt-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
+        <div className="mt-12 flex flex-col gap-2 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/35">
             Eden Prairie Eagles · 2026-27 Course Guide · Not an official EPHS
             publication
           </p>
-          <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/45">
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/45">
             Developed by Sahil Parasharami with Eden Prairie Schools
           </p>
         </div>

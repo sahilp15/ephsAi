@@ -55,7 +55,7 @@ export function ChipInput({
       <label htmlFor={inputId} className="block text-sm font-semibold text-ep-charcoal">
         {label}
       </label>
-      <div className="mt-1.5 flex flex-wrap items-center gap-1.5 rounded-md border border-ep-border bg-white p-1.5 focus-within:border-ep-red">
+      <div className="mt-1.5 flex flex-wrap items-center gap-1.5 rounded-md border border-ep-border bg-ep-card p-1.5 focus-within:border-ep-red">
         {values.map((v) => (
           <span
             key={v}

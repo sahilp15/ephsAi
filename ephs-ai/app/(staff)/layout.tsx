@@ -26,7 +26,7 @@ export default function StaffLayout({
           </div>
           <div className="flex items-center gap-3 text-sm">
             <Link
-              href="/dashboard"
+              href="/demo"
               className="font-medium text-ep-muted hover:text-ep-charcoal"
             >
               Student view

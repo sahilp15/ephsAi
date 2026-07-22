@@ -52,6 +52,14 @@ export const chatRequestSchema = z.object({
   messages: z.array(chatMessageSchema).min(1).max(24),
   profile: z
     .object({
+      /**
+       * The signed-in student's name, sent so the assistant can personalize
+       * answers and identify the student's assigned counselor/dean by last
+       * name. Optional and length-capped; empty when no profile name is set.
+       */
+      displayName: z.string().max(120).optional(),
+      firstName: z.string().max(80).optional(),
+      lastName: z.string().max(80).optional(),
       graduationYear: z.number().int().min(2026).max(2035),
       currentGrade: z.union([
         z.literal(9),

@@ -125,6 +125,7 @@ export function ChatClient({
           body: JSON.stringify({
             messages: history.slice(-MAX_TURNS_SENT),
             profile: {
+              displayName: profile.displayName,
               graduationYear: profile.graduationYear,
               currentGrade: profile.currentGrade,
               interests: profile.interests,
@@ -222,7 +223,7 @@ export function ChatClient({
     <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]">
       {/* ===== chat panel ===== */}
       <section
-        aria-label="EPHS AI Assistant conversation"
+        aria-label="EPHS Student Helper conversation"
         className="flex min-h-[72vh] flex-col overflow-hidden rounded-2xl border border-ep-border-soft bg-ep-card shadow-card"
       >
         {/* panel header */}
@@ -236,7 +237,7 @@ export function ChatClient({
             </span>
             <div className="leading-tight">
               <p className="text-sm font-bold text-ep-charcoal">
-                EPHS AI Assistant
+                EPHS Student Helper
               </p>
               <p className="flex items-center gap-1.5 text-[11px] text-ep-muted">
                 <span
@@ -378,7 +379,7 @@ export function ChatClient({
         >
           <div className="flex items-end gap-2 rounded-xl border border-ep-border bg-ep-card p-2 focus-within:border-ep-red">
             <label htmlFor="chat-input" className="sr-only">
-              Ask the EPHS AI Assistant
+              Ask the EPHS Student Helper
             </label>
             <textarea
               id="chat-input"
@@ -450,8 +451,9 @@ export function ChatClient({
             <li className="flex gap-2.5">
               <ShieldCheck aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-ep-red" />
               <span>
-                Requests carry anonymized planning context only. Your name is
-                never sent.
+                When you are signed in, the Helper uses your profile
+                automatically, including your name, so it can greet you and
+                point you to your assigned counselor and dean by last name.
               </span>
             </li>
           </ul>
@@ -463,7 +465,8 @@ export function ChatClient({
               <>
                 Your profile is active: grade {profile.currentGrade}, class of{" "}
                 {profile.graduationYear}. Eligibility checks use your completed
-                courses automatically.
+                courses automatically. Try asking &ldquo;who is my
+                counselor?&rdquo; to see your assigned team.
               </>
             ) : (
               <>

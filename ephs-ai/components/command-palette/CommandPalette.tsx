@@ -78,7 +78,7 @@ export function CommandPalette({
     const actions: Command[] = [
       {
         id: "act:ask",
-        label: "Ask EPHS AI a question",
+        label: "Ask the EPHS Student Helper a question",
         hint: "Grounded in the Course Guide",
         icon: Sparkles,
         group: "Actions",

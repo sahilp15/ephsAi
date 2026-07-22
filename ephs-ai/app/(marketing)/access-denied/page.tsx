@@ -35,8 +35,8 @@ export default function AccessDeniedPage({
                 Schools staff accounts and explicitly approved addresses.
               </p>
               <p className="text-ep-muted">
-                If you believe you should have access, contact the EPHS AI
-                administrator to be added to the approved list. Choosing the
+                If you believe you should have access, contact the EPHS Student
+                Helper administrator to be added to the approved list. Choosing the
                 &ldquo;Administrator&rdquo; option never grants access on its
                 own — every account is verified on the server.
               </p>

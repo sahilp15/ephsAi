@@ -14,7 +14,7 @@ export default function PrivacyPage() {
 
       <div className="space-y-4 rounded-xl border border-ep-border-soft bg-ep-card p-6 text-sm leading-relaxed text-ep-ink shadow-card">
         <p>
-          EPHS AI is a course-planning tool. It is designed around
+          EPHS Student Helper is a course-planning tool. It is designed around
           privacy-first defaults for student users:
         </p>
         <ul className="list-inside list-disc space-y-1.5">

@@ -41,7 +41,7 @@ export const APP_NAV: NavGroup[] = [
     label: "Explore",
     items: [
       { href: "/clubs", label: "Clubs", icon: Users },
-      { href: "/chat", label: "Ask EPHS AI", icon: Sparkles, short: "Ask AI" },
+      { href: "/chat", label: "Ask the Helper", icon: Sparkles, short: "Helper" },
     ],
   },
   {
@@ -58,7 +58,7 @@ export const MOBILE_PRIMARY: NavItem[] = [
   { href: "/dashboard", label: "Home", icon: LayoutDashboard, short: "Home" },
   { href: "/courses", label: "Courses", icon: BookOpen, short: "Courses" },
   { href: "/plan", label: "Plan", icon: CalendarRange, short: "Plan" },
-  { href: "/chat", label: "Ask AI", icon: Sparkles, short: "Ask AI" },
+  { href: "/chat", label: "Ask the Helper", icon: Sparkles, short: "Helper" },
 ];
 
 /** Destinations tucked behind the mobile "More" sheet. */

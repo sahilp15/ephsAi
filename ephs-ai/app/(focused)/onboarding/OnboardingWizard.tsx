@@ -178,7 +178,7 @@ export function OnboardingWizard({
           <div className="space-y-4">
             <p className="text-sm text-ep-muted">
               Welcome{firstName ? `, ${firstName}` : ""}! Let&apos;s set up your
-              EPHS AI plan. You can change any of this later from your profile.
+              EPHS Student Helper plan. You can change any of this later from your profile.
             </p>
             <Field label="Preferred first name">
               <input

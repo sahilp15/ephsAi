@@ -41,7 +41,7 @@ export function AppSidebar({
       >
         <Link
           href="/dashboard"
-          aria-label="EPHS AI home"
+          aria-label="EPHS Student Helper home"
           className="flex items-center gap-2.5"
         >
           <Image

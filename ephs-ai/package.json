@@ -2,7 +2,7 @@
   "name": "ephs-ai",
   "version": "1.0.0",
   "private": true,
-  "description": "EPHS AI - student course-planning platform for Eden Prairie High School, grounded in the official 2026-27 Course Guide.",
+  "description": "EPHS Student Helper - student course-planning platform for Eden Prairie High School, grounded in the official 2026-27 Course Guide.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

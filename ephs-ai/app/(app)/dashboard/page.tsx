@@ -147,9 +147,9 @@ export default async function DashboardPage() {
           </div>
         </section>
 
-        {/* Ask EPHS AI — dark supporting block */}
+        {/* Ask the Helper — dark supporting block */}
         <section className="flex flex-col rounded-2xl bg-ep-coal p-5 text-white shadow-card">
-          <p className="kicker text-ep-red">Ask EPHS AI</p>
+          <p className="kicker text-ep-red">Ask the Helper</p>
           <p className="mt-2 text-sm leading-relaxed text-white/70">
             Grounded in the official Course Guide. Ask about eligibility,
             requirements, or pathways.

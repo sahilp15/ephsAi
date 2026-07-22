@@ -35,7 +35,7 @@ const QUICK_ACTIONS = [
   { href: "/courses", label: "Browse courses", icon: BookOpen },
   { href: "/demo/plan", label: "Open planner", icon: CalendarRange },
   { href: "/demo/transcript", label: "Upload transcript", icon: Upload },
-  { href: "/chat", label: "Ask EPHS AI", icon: MessageCircle },
+  { href: "/chat", label: "Ask the Helper", icon: MessageCircle },
 ];
 
 // Sample student used only for the preview.
@@ -91,7 +91,7 @@ export default function DemoDashboardPage() {
       <DemoBanner />
 
       <div>
-        <p className="kicker text-ep-red">EPHS AI</p>
+        <p className="kicker text-ep-red">EPHS Student Helper</p>
         <h1 className="mt-1 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
           Welcome back, {name}
         </h1>

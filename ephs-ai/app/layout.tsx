@@ -26,8 +26,8 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "EPHS AI - Course Planning for Eden Prairie High School",
-    template: "%s · EPHS AI",
+    default: "EPHS Student Helper - Course Planning for Eden Prairie High School",
+    template: "%s · EPHS Student Helper",
   },
   description:
     "Explore the catalog, build a four-year plan, and get answers grounded in the official 2026-27 EPHS Course Guide.",

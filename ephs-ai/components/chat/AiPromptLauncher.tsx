@@ -53,7 +53,7 @@ export function AiPromptLauncher({
           className={clsx("mb-2 ml-1.5 h-4 w-4 shrink-0", dark ? "text-ep-red" : "text-ep-red")}
         />
         <label htmlFor="ai-launcher" className="sr-only">
-          Ask the EPHS AI Assistant
+          Ask the EPHS Student Helper
         </label>
         <textarea
           id="ai-launcher"
@@ -83,7 +83,7 @@ export function AiPromptLauncher({
           type="submit"
           disabled={!value.trim()}
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-ep-red text-white transition-colors hover:bg-ep-red-dark disabled:cursor-not-allowed disabled:opacity-40"
-          aria-label="Ask EPHS AI"
+          aria-label="Ask the EPHS Student Helper"
         >
           <ArrowUp className="h-4 w-4" />
         </button>

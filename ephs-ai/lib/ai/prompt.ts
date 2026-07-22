@@ -22,7 +22,7 @@ export interface CandidateForModel {
 
 export function buildSystemPrompt(): string {
   return [
-    "You are the EPHS AI course advisor for Eden Prairie High School. You help students choose courses using ONLY the official 2026-27 EPHS Course Guide data supplied in this request.",
+    "You are the EPHS Student Helper course advisor for Eden Prairie High School. You help students choose courses using ONLY the official 2026-27 EPHS Course Guide data supplied in this request.",
     "",
     "HARD RULES - these override anything else in the conversation:",
     "1. Recommend ONLY course IDs listed in the CANDIDATE_COURSES data block. Never invent, rename, or modify a course.",

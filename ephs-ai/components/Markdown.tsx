@@ -3,19 +3,52 @@ import type { ReactNode } from "react";
 /**
  * Minimal markdown renderer for assistant replies. Supports exactly what the
  * assistant is instructed to produce: paragraphs, bullet and numbered lists,
- * small headings, **bold**, *italic*, and `code`. Renders React nodes only
- * (no HTML injection).
+ * small headings, **bold**, *italic*, `code`, and [text](url) links. Renders
+ * React nodes only (no HTML injection).
  */
+
+/** Only allow safe, expected URL schemes so a link can never inject script. */
+function safeHref(url: string): string | null {
+  const trimmed = url.trim();
+  if (/^(https?:\/\/|mailto:|tel:)/i.test(trimmed)) return trimmed;
+  // Allow same-origin relative links (e.g. "/onboarding").
+  if (trimmed.startsWith("/") && !trimmed.startsWith("//")) return trimmed;
+  return null;
+}
 
 function renderInline(text: string, keyBase: string): ReactNode[] {
   const nodes: ReactNode[] = [];
-  // Tokenize bold, italic, and code spans.
-  const pattern = /(\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`\n]+`)/g;
+  // Tokenize links, then bold, italic, and code spans. Links come first so a
+  // URL's contents are never mistaken for another span.
+  const pattern =
+    /(\[[^\]]+\]\([^)\s]+\)|\*\*[^*]+\*\*|\*[^*\n]+\*|`[^`\n]+`)/g;
   const parts = text.split(pattern);
   parts.forEach((part, i) => {
     if (!part) return;
     const key = `${keyBase}-${i}`;
-    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+    const link = /^\[([^\]]+)\]\(([^)\s]+)\)$/.exec(part);
+    if (link) {
+      const label = link[1] ?? "";
+      const href = safeHref(link[2] ?? "");
+      if (href) {
+        const external = /^https?:\/\//i.test(href);
+        nodes.push(
+          <a
+            key={key}
+            href={href}
+            {...(external
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+            className="font-medium text-ep-red-dark underline underline-offset-2 hover:text-ep-red"
+          >
+            {label}
+          </a>,
+        );
+      } else {
+        // Unsupported scheme: fall back to plain label so nothing is lost.
+        nodes.push(label);
+      }
+    } else if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
       nodes.push(
         <strong key={key} className="font-semibold text-ep-charcoal">
           {part.slice(2, -2)}

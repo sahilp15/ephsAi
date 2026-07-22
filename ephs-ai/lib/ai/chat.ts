@@ -14,6 +14,11 @@ import {
   buildSchoolKnowledgeBlock,
   COUNSELOR_SCHEDULING_URL,
 } from "./school-knowledge";
+import {
+  buildCounselingStaffBlock,
+  findAssignment,
+  lastNameFromDisplayName,
+} from "./counseling-staff";
 
 /**
  * Grounded chat assistant pipeline.
@@ -225,8 +230,26 @@ export async function buildChatSystemPrompt(req: ChatRequest): Promise<string> {
   const allClubs = await getActiveClubs();
   const clubs = retrieveClubs(req.messages, allClubs);
 
+  // Resolve the signed-in student's last name (explicit field first, then the
+  // last token of their display name) so the assistant can identify their
+  // assigned counselor, social worker, and dean.
+  const lastName =
+    req.profile?.lastName?.trim() ||
+    (req.profile?.displayName
+      ? lastNameFromDisplayName(req.profile.displayName)
+      : "");
+  const firstName =
+    req.profile?.firstName?.trim() ||
+    (req.profile?.displayName
+      ? req.profile.displayName.trim().split(/\s+/)[0] ?? ""
+      : "");
+  const assignedTeam = lastName ? findAssignment(lastName) : null;
+
   const studentContext = req.profile
     ? JSON.stringify({
+        firstName: firstName || undefined,
+        lastName: lastName || undefined,
+        displayName: req.profile.displayName || undefined,
         currentGrade: req.profile.currentGrade,
         graduationYear: req.profile.graduationYear,
         interests: req.profile.interests,
@@ -236,11 +259,23 @@ export async function buildChatSystemPrompt(req: ChatRequest): Promise<string> {
         pathwayIds: req.profile.pathwayIds,
         completedCourseCount: req.completedCourseIds.length,
         plannedCourseCount: req.plannedCourseIds.length,
+        assignedCounselingTeam: assignedTeam
+          ? {
+              studentCenter: assignedTeam.center,
+              counselor: assignedTeam.counselor.name,
+              counselorPhone: assignedTeam.counselor.phone,
+              socialWorker: assignedTeam.socialWorker.name,
+              dean: assignedTeam.dean.name,
+            }
+          : "Not resolved from last name; use the counseling roster below.",
       })
     : "No profile set up yet.";
 
   return [
-    "You are the EPHS AI Assistant, the course- and activity-planning chat assistant for Eden Prairie High School (EPHS) in Eden Prairie, Minnesota. You are built on the official EPHS Course Guide for 2026-27 and the official EPHS clubs and activities data.",
+    "You are the EPHS Student Helper, the course- and activity-planning chat assistant for Eden Prairie High School (EPHS) in Eden Prairie, Minnesota. You are built on the official EPHS Course Guide for 2026-27 and the official EPHS clubs and activities data.",
+    firstName
+      ? `You are helping ${firstName}, a signed-in EPHS student. Their profile below is already loaded, so use it automatically: reflect their grade, completed courses, interests, and assigned counseling team without asking them to repeat information you already have. You may greet them by their first name.`
+      : "",
     "",
     `Today's date: ${today}. The data below covers the 2026-27 school year (source: "${ds.generated_from.document_title}", ${ds.generated_from.page_count} pages, dataset ${ds.dataset_id}). Use today's date to reason about timing, for example which registration year students are planning for.`,
     "",
@@ -248,7 +283,8 @@ export async function buildChatSystemPrompt(req: ChatRequest): Promise<string> {
     "1. EPHS data only. Every factual claim must come from the DATA blocks below. Course facts (prerequisites, credits, grades, pathways, and graduation rules) come only from the Course Guide data. Club facts (advisor, meeting days/time, location, how to join, eligibility) come only from the CLUBS data blocks. General school facts come only from the EPHS SCHOOL INFORMATION block. Never use outside knowledge about EPHS or any other school, and never invent courses, clubs, advisors, meeting times, rooms, numbers, teachers, schedules, seat counts, fees, or GPA effects.",
     "2. If the DATA blocks do not contain the answer, say so plainly. For a club field shown as \"Not listed\", say it is not listed and suggest the Activities Office or the official clubs page; for course facts, direct the student to their counselor or the EPHS counseling office (952-975-6940). Never guess.",
     "3. Stay on topic for EPHS. You help with EPHS course planning, clubs and activities, graduation requirements, pathways, academic programs, four-year and schedule planning, transcripts, and general EPHS questions. Connect courses and clubs when a student describes an interest (for example engineering, business, or pre-med) - recommend both relevant courses and relevant clubs. For clearly unrelated requests (homework answers, other schools, general trivia, coding help, etc.), politely decline in one sentence and steer back to EPHS.",
-    `4. Counselor scheduling. When a student wants to book, schedule, or meet with a counselor (or asks how to reach one), point them to the online scheduling page: ${COUNSELOR_SCHEDULING_URL} . Share this exact link as a markdown link and mention the counseling office phone (952-975-6940) as an alternative.`,
+    `4. Counselor scheduling. When a student wants to book, schedule, or meet with a counselor (or asks how to reach one), point them to the online scheduling page: ${COUNSELOR_SCHEDULING_URL} . Always share this exact URL as a markdown link in the form [Schedule a counselor appointment](${COUNSELOR_SCHEDULING_URL}) - never paste the bare URL or leave it as plain text - and mention the counseling office phone (952-975-6940) as an alternative.`,
+    "4b. Who is my counselor/dean. EPHS assigns each student a counselor, social worker, and dean by the first letters of their LAST NAME (see the EPHS COUNSELING STUDENT SUPPORT TEAMS data). When a signed-in student asks who their counselor, dean, social worker, or Student Center is, use the assignedCounselingTeam already resolved in STUDENT_PROFILE, or match their last name against the roster. Give the specific name(s) and the direct line, present them as 'as published,' and offer the main counseling office (952-975-6940) and directory to confirm. If a last name falls on a range boundary or is unknown, say so, name the two possible counselors, and point them to the office. If no last name is available, ask for it (or share the roster) rather than guessing.",
     "5. Dates and operational details change year to year. Present calendar dates, staff, and contacts from the EPHS SCHOOL INFORMATION block as 'as published' and, for anything date-sensitive, tell the student to confirm on the official district calendar (my.edenpr.org/calendars) or with the counseling office. Do not state a date the data does not contain.",
     "6. If an engineEligibilityForThisStudent status is provided for a course, treat it as authoritative. Never claim a student is eligible when the engine says otherwise; instead explain what the guide requires.",
     "7. Prerequisites: quote the guide's exact prerequisite wording when discussing them, and distinguish hard prerequisites from recommendations.",
@@ -269,6 +305,8 @@ export async function buildChatSystemPrompt(req: ChatRequest): Promise<string> {
     studentContext,
     "",
     buildSchoolKnowledgeBlock(),
+    "",
+    buildCounselingStaffBlock(lastName),
     "",
     "DATA: ACADEMIC CALENDAR MODEL",
     JSON.stringify(ds.academic_calendar_model),
@@ -317,6 +355,36 @@ export function trimmedHistory(messages: ChatMessage[]): ChatMessage[] {
 export async function offlineAnswer(req: ChatRequest): Promise<string> {
   const lastUser = [...req.messages].reverse().find((m) => m.role === "user");
   const q = (lastUser?.content ?? "").toLowerCase();
+
+  // "Who is my counselor / dean / social worker?" - answer from the roster
+  // using the signed-in student's last name when we have it.
+  if (/\b(counsel|counsellor|counselor|dean|social worker|advisor|adviser|student center)\b/.test(q) &&
+      /\b(who|which|my|assigned|is)\b/.test(q)) {
+    const ln =
+      req.profile?.lastName?.trim() ||
+      (req.profile?.displayName ? lastNameFromDisplayName(req.profile.displayName) : "");
+    const team = ln ? findAssignment(ln) : null;
+    if (team) {
+      return [
+        `Based on your last name (${team.lastName}), your EPHS Student Support Team is in Student Center ${team.center}:`,
+        "",
+        `- **Counselor:** ${team.counselor.name} (last names ${team.counselor.rangeLabel}), ${team.counselor.phone}`,
+        `- **Social worker:** ${team.socialWorker.name}, ${team.socialWorker.phone}`,
+        `- **Dean:** ${team.dean.name} (as published; confirm)`,
+        "",
+        `These are as published and can change year to year. To confirm or book time, call the counseling office at 952-975-6940 or [schedule an appointment](${COUNSELOR_SCHEDULING_URL}).`,
+      ].join("\n");
+    }
+    if (!ln) {
+      return [
+        "EPHS assigns your counselor, social worker, and dean by the first letters of your last name.",
+        "",
+        "Tell me your last name and I will point you to your team, or call the counseling office at 952-975-6940.",
+        "",
+        `You can also [schedule a counselor appointment](${COUNSELOR_SCHEDULING_URL}).`,
+      ].join("\n");
+    }
+  }
   if (
     /\b(counsel|counsellor|counselor|schedule|appointment|meet|book)\b/.test(q) &&
     /\b(counsel|counsellor|counselor|appointment|meeting|talk|see|book|schedule)\b/.test(q)

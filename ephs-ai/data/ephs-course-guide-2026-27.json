@@ -17,7 +17,7 @@
       "white": "#FFFFFF",
       "light_gray_suggested_for_app_background": "#F5F5F5"
     },
-    "logo_policy": "Use the official EPHS AI logo supplied by the project owner. Do not fabricate, redraw, recolor, stretch, or replace it. Until the asset is supplied, use a text-only EPHS AI fallback mark."
+    "logo_policy": "Use the official EPHS Student Helper logo supplied by the project owner. Do not fabricate, redraw, recolor, stretch, or replace it. Until the asset is supplied, use a text-only EPHS Student Helper fallback mark."
   },
   "academic_calendar_model": {
     "terms_per_school_year": 4,

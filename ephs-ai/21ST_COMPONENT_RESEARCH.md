@@ -166,3 +166,121 @@ testimonials. None are used.
 18, Tailwind 3, lucide-react, clsx, Supabase, zod). All motion is CSS; all
 interactive primitives are hand-written and accessible. This is the single most
 important consequence of adapting rather than installing.
+
+---
+
+## As-built component dossier (5-point documentation)
+
+Each EPHS-native component below is documented against: **(1)** 21st.dev
+reference · **(2)** interaction/layout principles reproduced · **(3)** what
+changed for EPHS · **(4)** mobile behavior · **(5)** accessibility &
+reduced-motion.
+
+### AppSidebar — `components/app-shell/AppSidebar.tsx`
+1. Based on **`@arunjdass/dashboard-sidebar`**.
+2. Reproduced: expand/collapse with an icon-only rail, grouped navigation
+   sections with small caps labels, an active-item indicator, and a persistent
+   account block pinned to the footer.
+3. Changed for EPHS: real grouped destinations (Planning / Explore / Student),
+   EPHS red active state + left accent bar, EPHS logo lockup, collapse state
+   persisted to `localStorage`; removed all demo branding, analytics filler, and
+   the reference's color system and motion dependency.
+4. Mobile: not rendered — the sidebar is `hidden lg:flex`; phones get the bottom
+   tab bar instead, so there's never a squeezed desktop sidebar.
+5. A11y/motion: `<aside aria-label>`, `aria-current="page"` on the active link,
+   collapse is a real `<button aria-pressed>`, tooltips via `title` when
+   collapsed; width animates via a CSS `transition-[width]` that reduced-motion
+   collapses to an instant change.
+
+### MobileTabBar + MoreSheet — `components/navigation/`
+1. Based on **`@easemize/modern-mobile-menu`**.
+2. Reproduced: a fixed five-slot bottom bar (four destinations + "More") and a
+   slide-up sheet for secondary destinations.
+3. Changed for EPHS: the five items are Home / Courses / Plan / Ask AI / More;
+   the sheet holds Pathways, Requirements, Clubs, Transcript, Profile and a sign
+   out; safe-area padding via `env(safe-area-inset-bottom)`.
+4. Mobile: this *is* the mobile navigation (`lg:hidden`); 44px+ targets, no
+   hover dependence, active state by route.
+5. A11y/motion: sheet is `role="dialog" aria-modal`, focus-trapped, Escape to
+   close, backdrop dismiss, body scroll lock, focus restored to the trigger; the
+   slide-up transform is removed under reduced-motion.
+
+### CommandPalette — `components/command-palette/CommandPalette.tsx`
+1. Based on **`@rafa-porto/command-palette`** (feature model) + the low-dep
+   **`@jatin-yadav05/command-palette`** (lean structure).
+2. Reproduced: ⌘/Ctrl-K global open, single query field, grouped results
+   (Actions / Go to / Courses), full keyboard navigation, Enter to run.
+3. Changed for EPHS: live search over the **real** loaded catalog plus real
+   navigation and actions (open planner, upload transcript, ask AI, profile);
+   zero dependencies; EPHS styling.
+4. Mobile: same overlay, responsive width, opened via the top-bar search
+   launcher (the ⌘K hint is hidden on small screens).
+5. A11y/motion: `role="dialog"`, combobox + `role="listbox"`/`option` with
+   `aria-activedescendant`, Escape closes, focus captured on open and restored
+   on close; entrance uses `scale-in` which reduced-motion neutralizes.
+
+### Bento dashboard — `app/(app)/dashboard/page.tsx`
+1. Based on **`@aceternity/bento-grid`**.
+2. Reproduced: deliberate grid hierarchy — one dominant block, supporting
+   blocks, and smaller utility tiles that reflow on small screens.
+3. Changed for EPHS: one dominant "Continue your plan" block, a dark "Ask EPHS
+   AI" block, graduation progress, transcript status, and the setup checklist —
+   all from real student data; no decorative skew, glow, or demo imagery.
+4. Mobile: the `lg:grid-cols-3` spans collapse to a single column in a
+   sensible reading order.
+5. A11y/motion: labelled `<section>`s, status uses icon + text label (not color
+   alone); no entrance animation on the data blocks.
+
+### AiPromptLauncher — `components/chat/AiPromptLauncher.tsx`
+1. Based on **`@kokonutd/ai-input-with-suggestions`**.
+2. Reproduced: an autosizing prompt field with a row of suggestion chips and a
+   send affordance.
+3. Changed for EPHS: real EPHS suggestion prompts (never generic email/image
+   prompts); submitting hands off to `/chat?q=…` so the existing streaming
+   pipeline is untouched; light + dark tones.
+4. Mobile: full-width, chips wrap, textarea caps its growth so the mobile
+   keyboard never hides it.
+5. A11y/motion: labelled textarea (`sr-only` label), Enter submits / Shift+Enter
+   newlines, disabled send when empty; no transforms.
+
+### Chat composer — `app/(app)/chat/ChatClient.tsx`
+1. Based on **`@Alwurts/chat-input`**.
+2. Reproduced: autosizing composer, send/stop affordance, Enter-to-send.
+3. Changed for EPHS: wraps the **existing** streaming/stop/retry/persistence/
+   `?about=`/offline-mode logic verbatim — only presentation changed; messages
+   render as calm readable content, not giant colored bubbles.
+4. Mobile: composer pinned inside the panel with safe max-height; suggestion
+   grid becomes one column.
+5. A11y/motion: live "thinking" status via `role="status"`, streaming caret
+   disabled under reduced-motion, stop button labelled.
+
+### Course filters — `app/(app)/courses/*`
+1. Based on **`@ruixen.ui/flexi-filter-table`** (interaction ideas only).
+2. Reproduced: faceted filtering, active-filter chips with clear-all, result
+   count, sort control.
+3. Changed for EPHS: kept the existing **URL-backed, no-JS GET form** and
+   server-side search/pagination; added grid/compact toggle and a mobile filter
+   drawer around the same form.
+4. Mobile: a "Filters" button opens an accessible right-side drawer; chips scroll
+   inline; one-column results.
+5. A11y/motion: drawer is focus-trapped `role="dialog"`, chips are links with
+   `sr-only` "Remove filter" text, result count is an `aria-live` status.
+
+### SetupChecklist — `components/dashboard/SetupChecklist.tsx`
+1. Based on **`@chowlol202/onboarding-checklist`**.
+2. Reproduced: a compact progress checklist with per-item completion.
+3. Changed for EPHS: items derive from real state (profile, transcript, plan,
+   interests); collapses when complete; permanently dismissible; never blocking.
+4. Mobile: full-width card, tappable rows.
+5. A11y/motion: progress bar has a labelled fill; dismiss is a labelled button.
+
+### ScrollReveal — `components/marketing/ScrollReveal.tsx`
+1. Based on **`@aceternity/container-scroll-animation`**.
+2. Reproduced: a single, restrained product reveal as the framed preview enters
+   the viewport.
+3. Changed for EPHS: IntersectionObserver + CSS only (no WebGL, no motion lib);
+   the preview is **real** catalog UI, used exactly once, only on the public
+   landing.
+4. Mobile: the 3D tilt is dropped for a plain fade/scale.
+5. A11y/motion: `[data-reveal]` renders flat and fully opaque immediately under
+   `prefers-reduced-motion`.

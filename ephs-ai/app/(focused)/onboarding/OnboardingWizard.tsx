@@ -40,6 +40,15 @@ const STEPS = [
   "Review",
 ];
 
+const STEP_DESCRIPTIONS = [
+  "Tell us who you are and where you are in high school.",
+  "Share your goals and the subjects you enjoy.",
+  "Choose how challenging you want your schedule to feel.",
+  "Let us know about commitments and plans after graduation.",
+  "Are you starting fresh or bringing existing courses?",
+  "Check everything over, then start planning.",
+];
+
 export function OnboardingWizard({
   initialDraft,
   pathways,
@@ -132,31 +141,39 @@ export function OnboardingWizard({
   const canContinue = step !== 4 || draft.studentType !== null;
 
   return (
-    <div className="mx-auto max-w-2xl">
+    <div className="mx-auto w-full max-w-2xl">
       {/* Progress */}
       <div className="mb-6">
         <div className="flex items-center justify-between">
-          <p className="kicker text-ep-red">
-            Step {step + 1} of {STEPS.length}
+          <p className="kicker">
+            Step {step + 1} of {STEPS.length} · {STEPS[step]}
           </p>
           <SaveIndicator state={saveState} />
         </div>
-        <div className="mt-2 flex gap-1.5" aria-hidden>
+        <div
+          className="mt-2 flex gap-1.5"
+          role="progressbar"
+          aria-valuenow={step + 1}
+          aria-valuemin={1}
+          aria-valuemax={STEPS.length}
+          aria-label={`Onboarding step ${step + 1} of ${STEPS.length}`}
+        >
           {STEPS.map((s, i) => (
             <div
               key={s}
-              className={`h-1.5 flex-1 rounded-full transition-colors ${
+              className={`h-1.5 flex-1 rounded-full transition-colors duration-panel ${
                 i <= step ? "bg-ep-red" : "bg-ep-border"
               }`}
             />
           ))}
         </div>
-        <h1 className="mt-4 font-display text-3xl font-bold uppercase leading-none text-ep-charcoal sm:text-4xl">
+        <h1 className="mt-4 text-2xl font-bold tracking-tight text-ep-charcoal sm:text-3xl">
           {STEPS[step]}
         </h1>
+        <p className="mt-1 text-sm text-ep-muted">{STEP_DESCRIPTIONS[step]}</p>
       </div>
 
-      <div className="rounded-2xl border border-ep-border-soft bg-white p-5 shadow-card sm:p-6">
+      <div className="rounded-2xl border border-ep-border-soft bg-ep-card p-5 shadow-card sm:p-6">
         {step === 0 && (
           <div className="space-y-4">
             <p className="text-sm text-ep-muted">
@@ -279,7 +296,7 @@ export function OnboardingWizard({
                     className={`rounded-lg border p-3 text-left transition-colors ${
                       draft.schedulePreference === value
                         ? "border-ep-red bg-ep-red-soft"
-                        : "border-ep-border bg-white hover:border-ep-red/40"
+                        : "border-ep-border bg-ep-card hover:border-ep-red/40"
                     }`}
                   >
                     <p className="font-semibold text-ep-charcoal">{title}</p>
@@ -299,7 +316,7 @@ export function OnboardingWizard({
                     className={`rounded-full border px-3 py-1.5 text-sm font-medium transition-colors ${
                       draft.programInterests.includes(p.id)
                         ? "border-ep-red bg-ep-red text-white"
-                        : "border-ep-border bg-white text-ep-ink hover:border-ep-red/40"
+                        : "border-ep-border bg-ep-card text-ep-ink hover:border-ep-red/40"
                     }`}
                   >
                     {p.label}
@@ -361,7 +378,7 @@ export function OnboardingWizard({
                     className={`rounded-lg border px-3 py-2.5 text-left text-sm font-medium transition-colors ${
                       draft.postGradPlan === p.id
                         ? "border-ep-red bg-ep-red-soft text-ep-red-dark"
-                        : "border-ep-border bg-white text-ep-ink hover:border-ep-red/40"
+                        : "border-ep-border bg-ep-card text-ep-ink hover:border-ep-red/40"
                     }`}
                   >
                     {p.label}
@@ -385,11 +402,11 @@ export function OnboardingWizard({
                 className={`rounded-xl border-2 p-4 text-left transition-colors ${
                   draft.studentType === "new"
                     ? "border-ep-red bg-ep-red-soft"
-                    : "border-ep-border bg-white hover:border-ep-red/40"
+                    : "border-ep-border bg-ep-card hover:border-ep-red/40"
                 }`}
               >
                 <GraduationCap className="h-6 w-6 text-ep-red" aria-hidden />
-                <p className="mt-2 font-display text-lg font-bold uppercase text-ep-charcoal">
+                <p className="mt-2 text-base font-bold text-ep-charcoal">
                   New student
                 </p>
                 <p className="mt-1 text-sm text-ep-muted">
@@ -403,11 +420,11 @@ export function OnboardingWizard({
                 className={`rounded-xl border-2 p-4 text-left transition-colors ${
                   draft.studentType === "returning"
                     ? "border-ep-red bg-ep-red-soft"
-                    : "border-ep-border bg-white hover:border-ep-red/40"
+                    : "border-ep-border bg-ep-card hover:border-ep-red/40"
                 }`}
               >
                 <Upload className="h-6 w-6 text-ep-red" aria-hidden />
-                <p className="mt-2 font-display text-lg font-bold uppercase text-ep-charcoal">
+                <p className="mt-2 text-base font-bold text-ep-charcoal">
                   Current / returning
                 </p>
                 <p className="mt-1 text-sm text-ep-muted">
@@ -498,7 +515,7 @@ export function OnboardingWizard({
 }
 
 const inputClass =
-  "w-full rounded-md border border-ep-border bg-white px-3 py-2 text-sm text-ep-charcoal outline-none focus:border-ep-red";
+  "w-full rounded-lg border border-ep-border bg-ep-card px-3 py-2 text-sm text-ep-charcoal outline-none focus:border-ep-red";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
@@ -527,7 +544,7 @@ function SaveIndicator({ state }: { state: "idle" | "saving" | "saved" | "error"
     );
   if (state === "saved")
     return (
-      <span className="inline-flex items-center gap-1 text-xs text-emerald-600">
+      <span className="inline-flex items-center gap-1 text-xs text-ep-success">
         <Check className="h-3 w-3" /> Saved
       </span>
     );

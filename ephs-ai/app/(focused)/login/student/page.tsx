@@ -12,7 +12,7 @@ export default function StudentLoginPage({
   searchParams: { error?: string; next?: string };
 }) {
   return (
-    <div className="py-6 sm:py-12">
+    <div className="flex flex-1 flex-col justify-center py-6 sm:py-10">
       <AuthLoginCard
         intent="student"
         configured={supabaseConfigured()}

@@ -7,149 +7,143 @@ import {
   GraduationCap,
   MessageCircle,
   ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 import { getCourses, getDataset, getPathways } from "@/lib/catalog/store";
-import { CounselorVerificationNotice, StatCard } from "@/components/ui";
+import { CourseCard } from "@/components/CourseCard";
+import { AiPromptLauncher } from "@/components/chat/AiPromptLauncher";
+import { ScrollReveal } from "@/components/marketing/ScrollReveal";
+import { CounselorVerificationNotice } from "@/components/ui";
+
+const HERO_SUGGESTIONS = [
+  "What can I take after Geometry?",
+  "Which graduation requirements am I missing?",
+  "Help me build a computer science pathway.",
+];
 
 export default function LandingPage() {
   const dataset = getDataset();
-  const courseCount = getCourses().length;
+  const courses = getCourses();
+  const courseCount = courses.length;
   const pathwayCount = getPathways().length;
 
-  const features = [
+  // Real catalog courses for the product preview — AP courses read well, fall
+  // back to the first few so the preview is never empty or fabricated.
+  const apCourses = courses.filter((c) => c.flags.ap);
+  const preview = (apCourses.length >= 3 ? apCourses : courses).slice(0, 3);
+
+  const capabilities = [
     {
       icon: BookOpen,
-      title: "Real course catalog",
-      body: `All ${courseCount} structured courses from the official guide: descriptions, prerequisites, credits, grades, and page citations.`,
+      title: "Explore the real catalog",
+      body: `All ${courseCount} courses from the official guide — descriptions, prerequisites, credits, grades, and page citations.`,
       href: "/courses",
       cta: "Browse courses",
     },
     {
       icon: CalendarRange,
-      title: "Four-year planner",
-      body: "Plan all four grades across EPHS's four-term year, with automatic eligibility and prerequisite checks after every change.",
-      href: "/plan",
-      cta: "Open planner",
+      title: "Build your four-year plan",
+      body: "Plan grades 9–12 across the four-term year, with automatic eligibility and prerequisite checks after every change.",
+      href: "/login/student",
+      cta: "Start planning",
     },
     {
       icon: GraduationCap,
-      title: "Requirement checks",
-      body: "Verified graduation rules for your class year, including the Class of 2027 technology rule and the Class of 2028+ personal finance rule.",
+      title: "Check requirements & pathways",
+      body: `Verified graduation rules for your class year and ${pathwayCount} official pathways with capstones.`,
       href: "/requirements",
-      cta: "Check requirements",
-    },
-    {
-      icon: Compass,
-      title: "Five official pathways",
-      body: "Explore capstones and supporting courses for every EPHS pathway and see how your plan aligns.",
-      href: "/pathways",
-      cta: "Explore pathways",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Privacy first",
-      body: "Your plan stays on your device. Assistant requests carry anonymized planning context only.",
-      href: "/privacy",
-      cta: "Read the notice",
+      cta: "See requirements",
     },
   ];
 
+  const steps = [
+    { n: "01", title: "Sign in", body: "Use your school Google account to load your profile and history." },
+    { n: "02", title: "Bring your history", body: "Upload a transcript or add completed courses — they flow into your plan." },
+    { n: "03", title: "Plan & ask", body: "Map future terms and ask the assistant anything, grounded in the guide." },
+  ];
+
   return (
-    <div className="space-y-14">
-      {/* ===== hero: the assistant ===== */}
-      <section className="panel-grain relative overflow-hidden rounded-2xl bg-ep-coal px-6 py-12 text-white shadow-panel sm:px-10 sm:py-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr]">
+    <div className="space-y-20">
+      {/* ===== Hero ===== */}
+      <section className="pt-6 sm:pt-10">
+        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
           <div className="animate-fade-up">
-            <p className="kicker text-white/50">
-              Eden Prairie High School · 2026-27
-            </p>
-            <h1 className="mt-3 text-5xl font-bold leading-[0.95] sm:text-6xl lg:text-7xl">
-              Every course.
-              <br />
-              Every requirement.
-              <br />
-              <span className="text-ep-red">One assistant.</span>
+            <p className="kicker">Eden Prairie High School · 2026-27</p>
+            <h1 className="mt-3 text-4xl font-bold leading-[1.05] tracking-tight text-ep-charcoal sm:text-5xl lg:text-6xl">
+              Plan your path <br className="hidden sm:block" />
+              through EPHS.
             </h1>
-            <span className="wing-stripes mt-5" aria-hidden>
-              <i /><i /><i />
-            </span>
-            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-              Chat with an assistant built only on the official{" "}
-              {dataset.generated_from.document_title}. It cites its pages, checks
-              your eligibility, and never makes things up.
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-ep-muted">
+              Explore courses, check requirements, build your four-year plan, and
+              get answers grounded in the official{" "}
+              {dataset.generated_from.document_title}.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+
+            <div className="mt-6 max-w-lg">
+              <AiPromptLauncher suggestions={HERO_SUGGESTIONS} />
+            </div>
+
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href="/login/student"
-                className="inline-flex -skew-x-12 items-center rounded-[3px] bg-ep-red px-6 py-3 shadow-[4px_4px_0_rgba(0,0,0,0.4)] transition-colors hover:bg-ep-red-dark"
+                className="inline-flex items-center gap-2 rounded-lg bg-ep-red px-5 py-3 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-ep-red-dark"
               >
-                <span className="flex skew-x-12 items-center gap-2 font-display text-lg font-bold uppercase tracking-wider text-white">
-                  <GraduationCap aria-hidden className="h-5 w-5" />
-                  Student Login
-                </span>
-              </Link>
-              <Link
-                href="/login/admin"
-                className="inline-flex -skew-x-12 items-center rounded-[3px] border border-white/25 bg-white/5 px-6 py-3 transition-colors hover:bg-white/10"
-              >
-                <span className="flex skew-x-12 items-center gap-2 font-display text-lg font-bold uppercase tracking-wider text-white/85">
-                  <ShieldCheck aria-hidden className="h-5 w-5" />
-                  Admin Login
-                </span>
-              </Link>
-            </div>
-            <div className="mt-4 flex flex-wrap items-center gap-4 text-sm">
-              <Link
-                href="/chat"
-                className="inline-flex items-center gap-1.5 font-semibold text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
-              >
-                <MessageCircle aria-hidden className="h-4 w-4" /> Ask EPHS AI
+                <GraduationCap aria-hidden className="h-4 w-4" />
+                Student sign in
               </Link>
               <Link
                 href="/courses"
-                className="font-semibold text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
+                className="inline-flex items-center gap-2 rounded-lg border border-ep-border bg-ep-card px-5 py-3 text-sm font-semibold text-ep-charcoal transition-colors hover:bg-ep-bg-sunken"
               >
                 Browse the catalog
+                <ArrowRight aria-hidden className="h-4 w-4" />
               </Link>
-              <Link
-                href="/demo"
-                className="font-semibold text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
-              >
-                Preview the student experience
-              </Link>
+            </div>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-ep-muted">
+              <span>
+                <span className="font-semibold text-ep-charcoal">{courseCount}</span>{" "}
+                courses
+              </span>
+              <span>
+                <span className="font-semibold text-ep-charcoal">{pathwayCount}</span>{" "}
+                pathways
+              </span>
+              <span>
+                <span className="font-semibold text-ep-charcoal">
+                  {dataset.generated_from.page_count}
+                </span>{" "}
+                source pages
+              </span>
             </div>
           </div>
 
-          {/* chat preview */}
-          <div
-            className="animate-fade-up overflow-hidden rounded-xl bg-white text-ep-charcoal shadow-panel [animation-delay:120ms]"
-            aria-label="Example conversation with the EPHS AI Assistant"
-          >
-            <div className="flex items-center gap-2.5 bg-ep-charcoal px-4 py-2.5 text-white">
+          {/* Chat preview card */}
+          <div className="animate-fade-up overflow-hidden rounded-2xl border border-ep-border-soft bg-ep-card shadow-pop [animation-delay:100ms]">
+            <div className="flex items-center gap-2.5 border-b border-ep-border-soft px-4 py-3">
               <span
                 aria-hidden
-                className="flex h-7 w-8 -skew-x-12 items-center justify-center rounded-[3px] bg-ep-red"
+                className="flex h-8 w-8 items-center justify-center rounded-lg bg-ep-red text-white"
               >
-                <span className="skew-x-12 font-display text-xs font-bold">EP</span>
+                <Sparkles className="h-4 w-4" />
               </span>
-              <p className="font-display text-sm font-bold uppercase tracking-wide">
+              <p className="text-sm font-bold text-ep-charcoal">
                 EPHS AI Assistant
               </p>
-              <span className="ml-auto font-mono text-[9px] uppercase tracking-[0.18em] text-white/50">
+              <span className="ml-auto flex items-center gap-1.5 text-[11px] text-ep-muted">
+                <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ep-success" />
                 Live · grounded
               </span>
             </div>
             <div className="space-y-3 px-4 py-4">
-              <div className="ml-auto w-fit max-w-[85%] rounded-xl rounded-br-sm bg-ep-coal px-3.5 py-2 text-[13px] text-white">
+              <div className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-md bg-ep-charcoal px-3.5 py-2 text-[13px] text-white">
                 Can I take AP Computer Science A next year?
               </div>
-              <div className="max-w-[92%] rounded-xl rounded-bl-sm bg-ep-bg px-3.5 py-2.5 text-[13px] leading-relaxed text-ep-ink">
+              <div className="max-w-[92%] text-[13px] leading-relaxed text-ep-ink">
                 <p>
                   The guide lists{" "}
                   <strong>AP Computer Science A (Java) A &amp; B</strong> for
-                  grades 9-12, with the stated prerequisite{" "}
-                  <em>&quot;AP Computer Science Principles.&quot;</em> Have you
-                  taken it?
+                  grades 9–12, with the stated prerequisite{" "}
+                  <em>“AP Computer Science Principles.”</em> Have you taken it?
                 </p>
                 <p className="mt-1.5 font-mono text-[10px] uppercase tracking-wide text-ep-faint">
                   Source: Guide, pp. 16, 33
@@ -167,82 +161,157 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ===== scoreboard ===== */}
-      <section
-        aria-label="Catalog statistics"
-        className="grid grid-cols-2 gap-4 lg:grid-cols-4"
-      >
-        <StatCard
-          label="Structured courses"
-          value={courseCount}
-          hint="From the official guide"
-        />
-        <StatCard label="Official pathways" value={pathwayCount} hint="With capstones" />
-        <StatCard
-          label="Source pages"
-          value={dataset.generated_from.page_count}
-          hint="Every fact is page-cited"
-        />
-        <StatCard label="Terms per year" value={4} hint="EPHS four-term model" />
+      {/* ===== Product reveal (real catalog UI) ===== */}
+      <section aria-label="Product preview">
+        <div className="text-center">
+          <p className="kicker justify-center">The real product</p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight text-ep-charcoal sm:text-3xl">
+            Real courses. Real data. No guesswork.
+          </h2>
+          <p className="mx-auto mt-2 max-w-prose text-sm text-ep-muted">
+            This is the actual catalog interface — every card below is a real
+            EPHS course with its official description and page citation.
+          </p>
+        </div>
+        <ScrollReveal className="mt-8">
+          <div className="rounded-2xl border border-ep-border bg-ep-bg-sunken/60 p-4 shadow-pop sm:p-6">
+            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {preview.map((c) => (
+                <li key={c.id}>
+                  <CourseCard course={c} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </ScrollReveal>
       </section>
 
-      {/* ===== features ===== */}
-      <section aria-label="Features">
-        <div className="flex items-end justify-between gap-4">
-          <h2 className="font-display text-3xl font-bold uppercase leading-none text-ep-charcoal sm:text-4xl">
-            The whole guide,
-            <span className="text-ep-red"> working for you</span>
-          </h2>
-          <span className="wing-stripes mb-1 hidden sm:inline-flex" aria-hidden>
-            <i /><i /><i />
-          </span>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {features.map((feature, i) => {
-            const FeatureIcon = feature.icon;
+      {/* ===== Capabilities ===== */}
+      <section aria-label="What you can do">
+        <div className="grid gap-4 md:grid-cols-3">
+          {capabilities.map((c) => {
+            const Icon = c.icon;
             return (
-              <Link
-                key={feature.title}
-                href={feature.href}
-                className="group relative overflow-hidden rounded-xl border border-ep-border-soft bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-ep-red/40 hover:shadow-card-hover"
+              <div
+                key={c.title}
+                className="flex flex-col rounded-2xl border border-ep-border-soft bg-ep-card p-5 shadow-card"
               >
-                <p className="font-mono text-[10px] font-medium tracking-[0.2em] text-ep-faint">
-                  {String(i + 1).padStart(2, "0")}
-                </p>
-                <FeatureIcon aria-hidden className="mt-3 h-6 w-6 text-ep-red" />
-                <h3 className="mt-3 font-display text-xl font-bold uppercase tracking-wide text-ep-charcoal">
-                  {feature.title}
+                <span
+                  aria-hidden
+                  className="flex h-10 w-10 items-center justify-center rounded-xl bg-ep-red-soft text-ep-red"
+                >
+                  <Icon className="h-5 w-5" />
+                </span>
+                <h3 className="mt-4 text-lg font-bold tracking-tight text-ep-charcoal">
+                  {c.title}
                 </h3>
-                <p className="mt-1.5 text-sm leading-relaxed text-ep-muted">
-                  {feature.body}
+                <p className="mt-1.5 flex-1 text-sm leading-relaxed text-ep-muted">
+                  {c.body}
                 </p>
-                <p className="mt-3 flex items-center gap-1 text-sm font-semibold text-ep-red-dark opacity-0 transition-opacity group-hover:opacity-100">
-                  {feature.cta}
+                <Link
+                  href={c.href}
+                  className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-ep-red-dark hover:text-ep-red"
+                >
+                  {c.cta}
                   <ArrowRight aria-hidden className="h-3.5 w-3.5" />
-                </p>
-              </Link>
+                </Link>
+              </div>
             );
           })}
-          {/* assistant card, dark, completes the grid */}
+        </div>
+      </section>
+
+      {/* ===== How it works ===== */}
+      <section aria-label="How it works">
+        <h2 className="text-2xl font-bold tracking-tight text-ep-charcoal sm:text-3xl">
+          How it works
+        </h2>
+        <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          {steps.map((s) => (
+            <div
+              key={s.n}
+              className="rounded-2xl border border-ep-border-soft bg-ep-card p-5 shadow-card"
+            >
+              <p className="font-mono text-xs font-semibold tracking-[0.2em] text-ep-red">
+                {s.n}
+              </p>
+              <h3 className="mt-3 text-base font-bold text-ep-charcoal">
+                {s.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ep-muted">
+                {s.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== Trust ===== */}
+      <section className="grid gap-4 sm:grid-cols-3">
+        {[
+          {
+            icon: BookOpen,
+            title: "Grounded in the guide",
+            body: "Every course fact and citation comes from the official 2026-27 Course Guide — nothing invented.",
+          },
+          {
+            icon: ShieldCheck,
+            title: "Privacy first",
+            body: "Your plan stays on your device. Assistant requests carry anonymized planning context only.",
+          },
+          {
+            icon: MessageCircle,
+            title: "Knows its limits",
+            body: "When the guide doesn't say, the assistant says so and points you to your counselor.",
+          },
+        ].map((t) => {
+          const Icon = t.icon;
+          return (
+            <div
+              key={t.title}
+              className="rounded-2xl border border-ep-border-soft bg-ep-card p-5 shadow-card"
+            >
+              <Icon aria-hidden className="h-5 w-5 text-ep-red" />
+              <h3 className="mt-3 text-base font-bold text-ep-charcoal">
+                {t.title}
+              </h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-ep-muted">
+                {t.body}
+              </p>
+            </div>
+          );
+        })}
+      </section>
+
+      {/* ===== Entry points + final CTA ===== */}
+      <section className="overflow-hidden rounded-2xl bg-ep-coal p-8 text-white shadow-panel sm:p-12">
+        <div className="max-w-2xl">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            Ready to plan your four years?
+          </h2>
+          <p className="mt-3 text-white/70">
+            Students, sign in with your school account. Staff can reach the
+            counselor and administrator tools from here too.
+          </p>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
           <Link
-            href="/chat"
-            className="group panel-grain relative overflow-hidden rounded-xl bg-ep-coal p-5 text-white shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+            href="/login/student"
+            className="inline-flex items-center gap-2 rounded-lg bg-ep-red px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-ep-red-dark"
           >
-            <p className="font-mono text-[10px] font-medium tracking-[0.2em] text-white/40">
-              06
-            </p>
-            <MessageCircle aria-hidden className="mt-3 h-6 w-6 text-ep-red" />
-            <h3 className="mt-3 font-display text-xl font-bold uppercase tracking-wide">
-              The EPHS AI Assistant
-            </h3>
-            <p className="mt-1.5 text-sm leading-relaxed text-white/70">
-              Trained on EPHS data only. Ask in plain language, get cited
-              answers, and know when to see your counselor.
-            </p>
-            <p className="mt-3 flex items-center gap-1 text-sm font-semibold text-ep-red">
-              Start chatting
-              <ArrowRight aria-hidden className="h-3.5 w-3.5" />
-            </p>
+            <GraduationCap aria-hidden className="h-4 w-4" /> Student sign in
+          </Link>
+          <Link
+            href="/login/admin"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          >
+            <ShieldCheck aria-hidden className="h-4 w-4" /> Administrator
+          </Link>
+          <Link
+            href="/counselor"
+            className="inline-flex items-center gap-2 rounded-lg border border-white/25 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          >
+            <Compass aria-hidden className="h-4 w-4" /> Counselor
           </Link>
         </div>
       </section>

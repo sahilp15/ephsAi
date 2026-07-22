@@ -48,7 +48,7 @@ export function AddToPlan({
   }
 
   return (
-    <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+    <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
       <h2 className="text-sm font-bold text-ep-charcoal">Add to my plan</h2>
       {state === "duplicate" ? (
         <p className="mt-2 flex items-center gap-1.5 text-sm text-ep-muted">
@@ -60,7 +60,7 @@ export function AddToPlan({
         <p className="mt-2 text-sm text-ep-red-dark">Couldn&apos;t add that course. Please try again.</p>
       ) : null}
       {state === "added" ? (
-        <p className="mt-2 flex items-center gap-1.5 text-sm text-emerald-700" role="status">
+        <p className="mt-2 flex items-center gap-1.5 text-sm text-ep-success" role="status">
           <CheckCircle2 aria-hidden className="h-4 w-4" />
           Added to your plan.{" "}
           <button
@@ -81,7 +81,7 @@ export function AddToPlan({
               id="add-grade"
               value={gradeYear}
               onChange={(e) => setGradeYear(Number(e.target.value) as GradeYear)}
-              className="mt-1 rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm"
+              className="mt-1 rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm"
             >
               {GRADE_YEARS.map((g) => (
                 <option key={g} value={g}>
@@ -98,7 +98,7 @@ export function AddToPlan({
               id="add-term"
               value={startTerm}
               onChange={(e) => setStartTerm(Number(e.target.value) as Term)}
-              className="mt-1 rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm"
+              className="mt-1 rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm"
             >
               {TERMS.map((t) => (
                 <option key={t} value={t}>

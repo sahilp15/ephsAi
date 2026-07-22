@@ -26,8 +26,8 @@ export const metadata: Metadata = { title: "Student Dashboard Demo" };
  */
 
 const STATE_STYLE: Record<RequirementState, { icon: typeof CheckCircle2; className: string }> = {
-  satisfied: { icon: CheckCircle2, className: "text-emerald-700" },
-  open: { icon: CircleDashed, className: "text-amber-700" },
+  satisfied: { icon: CheckCircle2, className: "text-ep-success" },
+  open: { icon: CircleDashed, className: "text-ep-warn" },
   needs_confirmation: { icon: HelpCircle, className: "text-ep-muted" },
 };
 
@@ -127,7 +127,7 @@ export default function DemoDashboardPage() {
               <Link
                 key={a.href}
                 href={a.href}
-                className="flex items-center gap-2.5 rounded-xl border border-ep-border-soft bg-white p-4 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
+                className="flex items-center gap-2.5 rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card transition-all hover:-translate-y-0.5 hover:shadow-card-hover"
               >
                 <Icon className="h-5 w-5 text-ep-red" aria-hidden />
                 <span className="text-sm font-semibold text-ep-charcoal">{a.label}</span>
@@ -151,7 +151,7 @@ export default function DemoDashboardPage() {
             return (
               <li
                 key={item.id}
-                className="flex items-start gap-3 rounded-xl border border-ep-border-soft bg-white p-3.5 shadow-card"
+                className="flex items-start gap-3 rounded-xl border border-ep-border-soft bg-ep-card p-3.5 shadow-card"
               >
                 <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${meta.className}`} aria-hidden />
                 <div>

@@ -64,8 +64,8 @@ export default async function TranscriptPage({
         </section>
       ) : null}
 
-      <section className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
-        <h2 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
+      <section className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.12em] text-ep-faint">
           Prefer to skip the upload?
         </h2>
         <p className="mt-1 text-sm text-ep-muted">
@@ -85,7 +85,7 @@ export default async function TranscriptPage({
           </Link>
           <Link
             href="/dashboard"
-            className="rounded-lg border border-ep-border bg-white px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
+            className="rounded-lg border border-ep-border bg-ep-card px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg-sunken"
           >
             {fromOnboarding ? "Skip for now" : "Back to dashboard"}
           </Link>

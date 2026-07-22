@@ -100,7 +100,7 @@ const ERROR_LABELS: Record<string, string> = {
 };
 
 const inputCls =
-  "w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red";
+  "w-full rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red";
 
 export function ClubsManager({
   initialClubs,
@@ -249,7 +249,7 @@ export function ClubsManager({
         <select
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
-          className="rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+          className="rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
         >
           <option value="">All categories</option>
           {categoryOptions.map((c) => (
@@ -261,7 +261,7 @@ export function ClubsManager({
         <select
           value={activeFilter}
           onChange={(e) => setActiveFilter(e.target.value as typeof activeFilter)}
-          className="rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+          className="rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
         >
           <option value="all">Active &amp; inactive</option>
           <option value="active">Active only</option>
@@ -280,12 +280,12 @@ export function ClubsManager({
         </div>
       </div>
 
-      {success ? <p className="text-sm font-semibold text-emerald-700">{success}</p> : null}
+      {success ? <p className="text-sm font-semibold text-ep-success">{success}</p> : null}
       {error ? <p className="text-sm text-ep-red-dark">{error}</p> : null}
 
       {/* Add / edit form */}
       {showForm ? (
-        <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+        <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
           <h3 className="text-sm font-bold text-ep-charcoal">
             {editing ? `Edit club` : "Add a club"}
           </h3>
@@ -537,7 +537,7 @@ export function ClubsManager({
             {filtered.map((c) => (
               <li
                 key={c.id}
-                className="flex items-center justify-between gap-3 rounded-lg border border-ep-border-soft bg-white px-3 py-2 text-sm"
+                className="flex items-center justify-between gap-3 rounded-lg border border-ep-border-soft bg-ep-card px-3 py-2 text-sm"
               >
                 <div className="min-w-0">
                   <p className="truncate font-semibold text-ep-ink">
@@ -606,7 +606,7 @@ export function ClubsManager({
                   type="button"
                   onClick={() => restore(c)}
                   disabled={!persistence || busyId === c.id}
-                  className="inline-flex items-center gap-1.5 rounded-md border border-ep-border bg-white px-2 py-1 text-xs font-semibold text-ep-muted hover:text-ep-charcoal disabled:opacity-40"
+                  className="inline-flex items-center gap-1.5 rounded-md border border-ep-border bg-ep-card px-2 py-1 text-xs font-semibold text-ep-muted hover:text-ep-charcoal disabled:opacity-40"
                 >
                   {busyId === c.id ? (
                     <Loader2 className="h-3.5 w-3.5 animate-spin" />

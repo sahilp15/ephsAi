@@ -10,7 +10,7 @@ export function ClearDataButton() {
 
   if (done) {
     return (
-      <p role="status" className="mt-3 text-sm font-medium text-emerald-700">
+      <p role="status" className="mt-3 text-sm font-medium text-ep-success">
         All planning data has been removed from this browser.
       </p>
     );
@@ -39,7 +39,7 @@ export function ClearDataButton() {
           <button
             type="button"
             onClick={() => setConfirming(false)}
-            className="rounded-lg border border-ep-border bg-white px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
+            className="rounded-lg border border-ep-border bg-ep-card px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
           >
             Cancel
           </button>

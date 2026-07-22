@@ -52,7 +52,7 @@ export function EquivalencyManager({
 
   return (
     <div className="space-y-5">
-      <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+      <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
         <h3 className="text-sm font-bold text-ep-charcoal">Add a course equivalency</h3>
         <p className="mt-0.5 text-xs text-ep-muted">
           Map a transcript course name (old title, transfer name, abbreviation) to an
@@ -64,12 +64,12 @@ export function EquivalencyManager({
             value={sourceName}
             onChange={(e) => setSourceName(e.target.value)}
             placeholder="Transcript course name"
-            className="rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+            className="rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
           />
           <select
             value={courseId}
             onChange={(e) => setCourseId(e.target.value)}
-            className="rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+            className="rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
           >
             <option value="">— No EPHS match (transfer) —</option>
             {catalog.map((c) => (
@@ -82,7 +82,7 @@ export function EquivalencyManager({
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Note (optional)"
-            className="rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+            className="rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
           />
           <label className="flex items-center gap-2 text-sm text-ep-ink">
             <input
@@ -117,7 +117,7 @@ export function EquivalencyManager({
             {initial.map((eq) => (
               <li
                 key={eq.id}
-                className="flex items-center justify-between rounded-lg border border-ep-border-soft bg-white px-3 py-2 text-sm"
+                className="flex items-center justify-between rounded-lg border border-ep-border-soft bg-ep-card px-3 py-2 text-sm"
               >
                 <span className="text-ep-ink">
                   <span className="font-semibold">{eq.source_name}</span> →{" "}

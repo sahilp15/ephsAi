@@ -29,7 +29,7 @@ export default function DemoTranscriptPage() {
         <DemoTranscriptUploader maxMb={getEnv().MAX_TRANSCRIPT_UPLOAD_MB} />
       </section>
 
-      <section className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+      <section className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
         <h2 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
           Prefer to skip the upload?
         </h2>
@@ -46,7 +46,7 @@ export default function DemoTranscriptPage() {
           </Link>
           <Link
             href="/demo/dashboard"
-            className="rounded-lg border border-ep-border bg-white px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
+            className="rounded-lg border border-ep-border bg-ep-card px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
           >
             Back to dashboard
           </Link>

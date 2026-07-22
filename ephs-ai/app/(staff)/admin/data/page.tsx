@@ -8,12 +8,12 @@ export const dynamic = "force-dynamic";
 
 function IdList({ title, ids }: { title: string; ids: string[] }) {
   return (
-    <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+    <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
       <h3 className="text-sm font-bold text-ep-charcoal">
         {title} <span className="font-normal text-ep-muted">({ids.length})</span>
       </h3>
       {ids.length === 0 ? (
-        <p className="mt-1 text-sm text-emerald-700">None - clean.</p>
+        <p className="mt-1 text-sm text-ep-success">None - clean.</p>
       ) : (
         <ul className="mt-1 max-h-48 list-inside list-disc overflow-y-auto text-xs text-ep-muted">
           {ids.map((id) => (
@@ -41,7 +41,7 @@ export default function AdminPage() {
         </p>
       </div>
 
-      <section aria-label="Active guide version" className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
+      <section aria-label="Active guide version" className="rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card">
         <h2 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
           Active guide version
         </h2>
@@ -91,12 +91,12 @@ export default function AdminPage() {
           undefined markers). They are shown to students as-is, never invented.
         </p>
         {audit.unresolvedPathwayNames.map((p) => (
-          <div key={p.pathway} className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+          <div key={p.pathway} className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
             <h3 className="text-sm font-bold text-ep-charcoal">
               {p.pathway} <span className="font-normal text-ep-muted">({p.names.length})</span>
             </h3>
             {p.names.length === 0 ? (
-              <p className="mt-1 text-sm text-emerald-700">All names resolved.</p>
+              <p className="mt-1 text-sm text-ep-success">All names resolved.</p>
             ) : (
               <ul className="mt-1 list-inside list-disc text-xs text-ep-muted">
                 {p.names.map((n) => (

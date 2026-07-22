@@ -64,13 +64,13 @@ export default function DemoLandingPage() {
             <Link
               key={stop.href}
               href={stop.href}
-              className="group relative overflow-hidden rounded-xl border border-ep-border-soft bg-white p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-ep-red/40 hover:shadow-card-hover"
+              className="group relative overflow-hidden rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card transition-all hover:-translate-y-0.5 hover:border-ep-red/40 hover:shadow-card-hover"
             >
               <p className="font-mono text-[10px] font-medium tracking-[0.2em] text-ep-faint">
                 {stop.step}
               </p>
               <Icon aria-hidden className="mt-3 h-6 w-6 text-ep-red" />
-              <h2 className="mt-3 font-display text-xl font-bold uppercase tracking-wide text-ep-charcoal">
+              <h2 className="mt-3 text-xl font-bold tracking-tight text-ep-charcoal">
                 {stop.title}
               </h2>
               <p className="mt-1.5 text-sm leading-relaxed text-ep-muted">
@@ -85,7 +85,7 @@ export default function DemoLandingPage() {
         })}
       </div>
 
-      <div className="flex items-center gap-3 rounded-xl border border-dashed border-ep-border bg-white p-4 text-sm text-ep-muted">
+      <div className="flex items-center gap-3 rounded-xl border border-dashed border-ep-border bg-ep-card p-4 text-sm text-ep-muted">
         <GraduationCap aria-hidden className="h-5 w-5 shrink-0 text-ep-red" />
         <span>
           Ready for the real thing? The live, persistent login is unchanged —{" "}

@@ -20,7 +20,7 @@ export interface CourseOverrideMap {
 const PAGE_SIZE = 50;
 
 const inputCls =
-  "rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red";
+  "rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red";
 
 export function CoursesManager({
   courses,
@@ -117,7 +117,7 @@ export function CoursesManager({
         </span>
       </div>
 
-      {success ? <p className="text-sm font-semibold text-emerald-700">{success}</p> : null}
+      {success ? <p className="text-sm font-semibold text-ep-success">{success}</p> : null}
       {error ? <p className="text-sm text-ep-red-dark">{error}</p> : null}
 
       {shown.length === 0 ? (
@@ -129,7 +129,7 @@ export function CoursesManager({
             return (
               <li
                 key={c.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-ep-border-soft bg-white px-3 py-2 text-sm"
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-ep-border-soft bg-ep-card px-3 py-2 text-sm"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate font-semibold text-ep-ink">

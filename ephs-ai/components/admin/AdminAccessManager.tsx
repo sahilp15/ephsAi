@@ -42,7 +42,7 @@ export function AdminAccessManager({
 
   return (
     <div className="space-y-5">
-      <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+      <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
         <h3 className="text-sm font-bold text-ep-charcoal">Approved from configuration</h3>
         <p className="mt-1 text-sm text-ep-ink">
           Any verified <span className="font-semibold">@{envDomain}</span> Google
@@ -58,20 +58,20 @@ export function AdminAccessManager({
         </p>
       </div>
 
-      <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+      <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
         <h3 className="text-sm font-bold text-ep-charcoal">Grant admin access to another account</h3>
         <div className="mt-3 flex flex-wrap items-center gap-2">
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="email@example.com"
-            className="flex-1 min-w-[14rem] rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+            className="flex-1 min-w-[14rem] rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
           />
           <input
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder="Note (optional)"
-            className="rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm outline-none focus:border-ep-red"
+            className="rounded-md border border-ep-border bg-ep-card px-2 py-1.5 text-sm outline-none focus:border-ep-red"
           />
           <button
             type="button"
@@ -97,7 +97,7 @@ export function AdminAccessManager({
             {initial.map((a) => (
               <li
                 key={a.email}
-                className="flex items-center justify-between rounded-lg border border-ep-border-soft bg-white px-3 py-2 text-sm"
+                className="flex items-center justify-between rounded-lg border border-ep-border-soft bg-ep-card px-3 py-2 text-sm"
               >
                 <span className="text-ep-ink">
                   <span className="font-semibold">{a.email}</span>

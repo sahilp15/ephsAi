@@ -10,7 +10,7 @@ export function PrintButton() {
     <button
       type="button"
       onClick={() => window.print()}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-white px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-ep-card px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
     >
       <Printer aria-hidden className="h-4 w-4" />
       Print summary

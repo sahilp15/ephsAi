@@ -31,7 +31,7 @@ export default async function AdminStudentPage({ params }: { params: { id: strin
         ← Back to students
       </Link>
 
-      <section className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
+      <section className="rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card">
         <h2 className="text-xl font-bold text-ep-charcoal">{profile.display_name || "Student"}</h2>
         <dl className="mt-3 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
           <Row label="Email">{profile.email}</Row>
@@ -47,7 +47,7 @@ export default async function AdminStudentPage({ params }: { params: { id: strin
       </section>
 
       {onboarding ? (
-        <section className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
+        <section className="rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card">
           <h3 className="text-sm font-bold uppercase tracking-wide text-ep-faint">Onboarding responses</h3>
           <dl className="mt-2 grid gap-x-8 gap-y-2 text-sm sm:grid-cols-2">
             <Row label="Goals">{onboarding.goals || "—"}</Row>
@@ -60,7 +60,7 @@ export default async function AdminStudentPage({ params }: { params: { id: strin
         </section>
       ) : null}
 
-      <section className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
+      <section className="rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card">
         <h3 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
           Transcripts ({transcripts.length})
         </h3>
@@ -78,7 +78,7 @@ export default async function AdminStudentPage({ params }: { params: { id: strin
         )}
       </section>
 
-      <section className="rounded-xl border border-ep-border-soft bg-white p-5 shadow-card">
+      <section className="rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card">
         <h3 className="text-sm font-bold uppercase tracking-wide text-ep-faint">
           Academic records ({records.length})
         </h3>

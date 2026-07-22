@@ -23,10 +23,10 @@ const STATUS_LABEL: Record<TranscriptStatus, string> = {
 };
 const STATUS_STYLE: Record<TranscriptStatus, string> = {
   uploaded: "bg-ep-bg text-ep-muted",
-  processing: "bg-amber-100 text-amber-800",
+  processing: "bg-ep-warn-soft text-ep-warn",
   processed: "bg-ep-red-soft text-ep-red-dark",
   failed: "bg-ep-red-soft text-ep-red-dark",
-  confirmed: "bg-emerald-100 text-emerald-800",
+  confirmed: "bg-ep-success-soft text-ep-success",
 };
 
 export function TranscriptList({ items }: { items: TranscriptListItem[] }) {
@@ -49,7 +49,7 @@ export function TranscriptList({ items }: { items: TranscriptListItem[] }) {
       {items.map((t) => (
         <li
           key={t.id}
-          className="rounded-xl border border-ep-border-soft bg-white p-3 shadow-card"
+          className="rounded-xl border border-ep-border-soft bg-ep-card p-3 shadow-card"
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
@@ -103,7 +103,7 @@ export function TranscriptList({ items }: { items: TranscriptListItem[] }) {
                 <button
                   type="button"
                   onClick={() => del(t.id, "file")}
-                  className="rounded-md border border-ep-border bg-white px-3 py-1.5 text-xs font-semibold text-ep-charcoal hover:bg-ep-bg"
+                  className="rounded-lg border border-ep-border bg-ep-card px-3 py-1.5 text-xs font-semibold text-ep-charcoal hover:bg-ep-bg-sunken"
                 >
                   Remove file only (keep courses)
                 </button>

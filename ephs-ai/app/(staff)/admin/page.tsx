@@ -35,16 +35,16 @@ export default async function AdminOverviewPage({
             name="q"
             defaultValue={q}
             placeholder="Search by name or email…"
-            className="w-full rounded-md border border-ep-border bg-white py-2 pl-8 pr-3 text-sm outline-none focus:border-ep-red"
+            className="w-full rounded-md border border-ep-border bg-ep-card py-2 pl-8 pr-3 text-sm outline-none focus:border-ep-red"
           />
         </form>
 
         {students.length === 0 ? (
-          <p className="rounded-xl border border-dashed border-ep-border bg-white p-6 text-center text-sm text-ep-muted">
+          <p className="rounded-xl border border-dashed border-ep-border bg-ep-card p-6 text-center text-sm text-ep-muted">
             {q ? "No students match that search." : "No students have registered yet."}
           </p>
         ) : (
-          <div className="overflow-x-auto rounded-xl border border-ep-border-soft bg-white shadow-card">
+          <div className="overflow-x-auto rounded-xl border border-ep-border-soft bg-ep-card shadow-card">
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-ep-border-soft text-xs uppercase tracking-wide text-ep-faint">
@@ -70,7 +70,7 @@ export default async function AdminOverviewPage({
                     <td className="px-4 py-2.5">
                       <span
                         className={`rounded-[2px] px-1.5 py-0.5 text-[10px] font-bold uppercase ${
-                          s.onboardingCompleted ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800"
+                          s.onboardingCompleted ? "bg-ep-success-soft text-ep-success" : "bg-ep-warn-soft text-ep-warn"
                         }`}
                       >
                         {s.onboardingCompleted ? "Complete" : "Pending"}

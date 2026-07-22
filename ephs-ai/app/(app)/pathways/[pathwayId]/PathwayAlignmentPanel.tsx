@@ -31,7 +31,7 @@ export function PathwayAlignmentPanel({
   }, [metaReady, profile.completedCourseIds, plan, pathwayId, pathwayName, resolvedCourseIds, catalogMeta]);
 
   return (
-    <div className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+    <div className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
       <h2 className="text-sm font-bold text-ep-charcoal">
         Your alignment with this pathway
       </h2>

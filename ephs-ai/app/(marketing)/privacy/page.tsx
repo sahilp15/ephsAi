@@ -12,7 +12,7 @@ export default function PrivacyPage() {
         Privacy Notice
       </h1>
 
-      <div className="space-y-4 rounded-xl border border-ep-border-soft bg-white p-6 text-sm leading-relaxed text-ep-ink shadow-card">
+      <div className="space-y-4 rounded-xl border border-ep-border-soft bg-ep-card p-6 text-sm leading-relaxed text-ep-ink shadow-card">
         <p>
           EPHS AI is a course-planning tool. It is designed around
           privacy-first defaults for student users:
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
         </p>
       </div>
 
-      <div className="rounded-xl border border-ep-border-soft bg-white p-6 shadow-card">
+      <div className="rounded-xl border border-ep-border-soft bg-ep-card p-6 shadow-card">
         <h2 className="text-base font-bold text-ep-charcoal">
           Delete my planning data
         </h2>

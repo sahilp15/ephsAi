@@ -101,7 +101,7 @@ export function Markdown({ text }: { text: string }) {
           return (
             <p
               key={bi}
-              className="pt-1 font-display text-base font-bold uppercase tracking-wide text-ep-charcoal"
+              className="pt-1 text-base font-bold text-ep-charcoal"
             >
               {renderInline(block.text, `h${bi}`)}
             </p>

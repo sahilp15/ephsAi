@@ -279,7 +279,7 @@ export function PlannerClient({
       ) : null}
 
       {toast ? (
-        <div role="status" className="rounded-r-lg border-l-4 border-amber-400 bg-amber-50 p-3 text-sm text-amber-900">
+        <div role="status" className="rounded-r-lg border-l-4 border-ep-warn bg-ep-warn-soft p-3 text-sm text-ep-warn">
           {toast}
         </div>
       ) : null}
@@ -293,7 +293,7 @@ export function PlannerClient({
       />
 
       {recommendations.length > 0 ? (
-        <section aria-label="Recommendations" className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+        <section aria-label="Recommendations" className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
           <h2 className="flex items-center gap-2 text-lg font-bold text-ep-charcoal">
             <Sparkles className="h-5 w-5 text-ep-red" aria-hidden /> Suggested next courses
           </h2>
@@ -400,7 +400,7 @@ export function PlannerClient({
         <button
           type="button"
           onClick={() => window.print()}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-white px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-ep-border bg-ep-card px-4 py-2 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg-sunken"
         >
           <Printer className="h-4 w-4" /> Print / export summary
         </button>
@@ -436,7 +436,7 @@ function severityRank(s: PlanWarning["severity"]): number {
 function OpenPeriodBlock() {
   return (
     <div
-      className="mb-1.5 flex items-center gap-1.5 rounded-lg border border-dashed border-ep-border bg-white/40 px-2 py-1.5 text-ep-faint"
+      className="mb-1.5 flex items-center gap-1.5 rounded-lg border border-dashed border-ep-border bg-ep-card/40 px-2 py-1.5 text-ep-faint"
       aria-label={`${OPEN_PERIOD_LABEL} — available block`}
     >
       <LockOpen className="h-3.5 w-3.5" aria-hidden />
@@ -450,11 +450,11 @@ function OpenPeriodBlock() {
 function HistoryChip({ entry, catalog }: { entry: PlanEntry; catalog: Map<string, CourseMeta> }) {
   const meta = catalog.get(entry.courseId);
   return (
-    <div className="mb-1.5 rounded-lg border border-emerald-200 bg-emerald-50 px-2 py-1.5">
-      <p className="text-xs font-semibold leading-snug text-emerald-900">
+    <div className="mb-1.5 rounded-lg border border-ep-success/20 bg-ep-success-soft px-2 py-1.5">
+      <p className="text-xs font-semibold leading-snug text-ep-success">
         {meta?.title ?? entry.courseId}
       </p>
-      <p className="text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+      <p className="text-[10px] font-bold uppercase tracking-wide text-ep-success">
         Completed
       </p>
     </div>
@@ -488,8 +488,8 @@ function FutureCard({
       draggable={!entry.locked}
       onDragStart={onDragStart}
       onDragEnd={onDragEnd}
-      className={`mb-1.5 rounded-lg border bg-white px-2 py-1.5 shadow-card ${
-        hasError ? "ring-1 ring-ep-red" : hasWarning ? "ring-1 ring-amber-400" : "border-ep-border-soft"
+      className={`mb-1.5 rounded-lg border bg-ep-card px-2 py-1.5 shadow-card ${
+        hasError ? "ring-1 ring-ep-red" : hasWarning ? "ring-1 ring-ep-warn" : "border-ep-border-soft"
       } ${entry.locked ? "" : "cursor-grab active:cursor-grabbing"}`}
     >
       <div className="flex items-start justify-between gap-1">
@@ -527,7 +527,7 @@ function FutureCard({
             onMove(g!, t!);
           }}
           disabled={entry.locked}
-          className="no-print rounded border border-ep-border bg-white px-1 py-0.5 text-[10px] disabled:opacity-50"
+          className="no-print rounded border border-ep-border bg-ep-card px-1 py-0.5 text-[10px] disabled:opacity-50"
           aria-label="Move course"
         >
           {GRADE_YEARS.flatMap((g) =>
@@ -572,7 +572,7 @@ function CoursePicker({
   }, [query, catalog, excluded]);
 
   return (
-    <section className="rounded-xl border border-ep-border-soft bg-white p-4 shadow-card">
+    <section className="rounded-xl border border-ep-border-soft bg-ep-card p-4 shadow-card">
       <h2 className="text-lg font-bold text-ep-charcoal">Add a course</h2>
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <div className="relative flex-1 min-w-[12rem]">
@@ -582,22 +582,22 @@ function CoursePicker({
             onChange={(e) => setQuery(e.target.value)}
             placeholder={metaReady ? "Search courses…" : "Loading catalog…"}
             disabled={!metaReady}
-            className="w-full rounded-md border border-ep-border bg-white py-2 pl-8 pr-3 text-sm outline-none focus:border-ep-red"
+            className="w-full rounded-lg border border-ep-border bg-ep-card py-2 pl-8 pr-3 text-sm outline-none focus:border-ep-red"
           />
         </div>
-        <select value={grade} onChange={(e) => setGrade(Number(e.target.value))} className="rounded-md border border-ep-border bg-white px-2 py-2 text-sm">
+        <select value={grade} onChange={(e) => setGrade(Number(e.target.value))} className="rounded-lg border border-ep-border bg-ep-card px-2 py-2 text-sm">
           {GRADE_YEARS.map((g) => (
             <option key={g} value={g}>Grade {g}</option>
           ))}
         </select>
-        <select value={term} onChange={(e) => setTerm(Number(e.target.value))} className="rounded-md border border-ep-border bg-white px-2 py-2 text-sm">
+        <select value={term} onChange={(e) => setTerm(Number(e.target.value))} className="rounded-lg border border-ep-border bg-ep-card px-2 py-2 text-sm">
           {TERMS.map((t) => (
             <option key={t} value={t}>Term {t}</option>
           ))}
         </select>
       </div>
       {results.length > 0 ? (
-        <ul className="mt-2 divide-y divide-ep-border-soft rounded-md border border-ep-border-soft">
+        <ul className="mt-2 divide-y divide-ep-border-soft rounded-lg border border-ep-border-soft overflow-hidden">
           {results.map((c) => (
             <li key={c.id} className="flex items-center justify-between gap-2 px-3 py-2">
               <div>

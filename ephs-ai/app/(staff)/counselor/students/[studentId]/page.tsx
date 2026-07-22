@@ -81,7 +81,7 @@ export default function CounselorStudentPage({
         ) : (
           <ul className="mt-2 flex flex-wrap gap-1.5 text-sm">
             {student.profile.completedCourseIds.map((id) => (
-              <li key={id} className="rounded-full border border-ep-border bg-white px-3 py-1 text-ep-ink">
+              <li key={id} className="rounded-full border border-ep-border bg-ep-card px-3 py-1 text-ep-ink">
                 {catalog.get(id)?.title ?? id}
               </li>
             ))}
@@ -168,7 +168,7 @@ export default function CounselorStudentPage({
         <h2 className="text-lg font-bold text-ep-charcoal">Counselor notes</h2>
         <ul className="mt-2 space-y-2">
           {student.counselorNotes.map((n) => (
-            <li key={n} className="rounded-lg border border-ep-border-soft bg-white p-3 text-sm text-ep-ink shadow-card">
+            <li key={n} className="rounded-lg border border-ep-border-soft bg-ep-card p-3 text-sm text-ep-ink shadow-card">
               {n}
             </li>
           ))}

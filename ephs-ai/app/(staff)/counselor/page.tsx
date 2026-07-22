@@ -41,7 +41,7 @@ export default function CounselorPage() {
               <li key={s.id}>
                 <Link
                   href={`/counselor/students/${s.id}`}
-                  className="group block h-full rounded-xl border border-ep-border-soft bg-white p-5 shadow-card transition-shadow hover:shadow-card-hover"
+                  className="group block h-full rounded-xl border border-ep-border-soft bg-ep-card p-5 shadow-card transition-shadow hover:shadow-card-hover"
                 >
                   <h2 className="font-bold text-ep-charcoal group-hover:text-ep-red-dark">
                     {s.profile.displayName}

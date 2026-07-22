@@ -28,11 +28,11 @@ interface ReviewRow extends ReviewRowInit {
 }
 
 const CONFIDENCE_STYLE: Record<string, string> = {
-  high: "bg-emerald-100 text-emerald-800",
-  possible: "bg-amber-100 text-amber-800",
+  high: "bg-ep-success-soft text-ep-success",
+  possible: "bg-ep-warn-soft text-ep-warn",
   needs_review: "bg-ep-red-soft text-ep-red-dark",
   none: "bg-ep-red-soft text-ep-red-dark",
-  confirmed: "bg-emerald-100 text-emerald-800",
+  confirmed: "bg-ep-success-soft text-ep-success",
 };
 const CONFIDENCE_LABEL: Record<string, string> = {
   high: "High confidence",
@@ -191,7 +191,7 @@ export function TranscriptReview({
   return (
     <div className="space-y-4">
       {warning ? (
-        <div className="flex items-start gap-2 rounded-r-lg border-l-4 border-amber-400 bg-amber-50 p-3 text-sm text-amber-900">
+        <div className="flex items-start gap-2 rounded-r-lg border-l-4 border-ep-warn bg-ep-warn-soft p-3 text-sm text-ep-warn">
           <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0" aria-hidden />
           <span>{warning}</span>
         </div>
@@ -210,7 +210,7 @@ export function TranscriptReview({
           return (
             <div
               key={r.key}
-              className={`rounded-xl border bg-white p-3 shadow-card ${
+              className={`rounded-xl border bg-ep-card p-3 shadow-card ${
                 low && r.include && !r.reviewed ? "border-ep-red" : "border-ep-border-soft"
               } ${!r.include ? "opacity-55" : ""}`}
             >
@@ -250,7 +250,7 @@ export function TranscriptReview({
                   <select
                     value={r.courseId ?? ""}
                     onChange={(e) => update(r.key, { courseId: e.target.value || null })}
-                    className="mt-1 w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm font-normal text-ep-charcoal outline-none focus:border-ep-red"
+                    className="mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm font-normal text-ep-charcoal outline-none focus:border-ep-red"
                   >
                     <option value="">— No match / transfer —</option>
                     {catalog.map((c) => (
@@ -267,7 +267,7 @@ export function TranscriptReview({
                     onChange={(e) =>
                       update(r.key, { recordType: e.target.value as ReviewRow["recordType"] })
                     }
-                    className="mt-1 w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm font-normal text-ep-charcoal outline-none focus:border-ep-red"
+                    className="mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm font-normal text-ep-charcoal outline-none focus:border-ep-red"
                   >
                     {RECORD_TYPES.map(([v, l]) => (
                       <option key={v} value={v}>
@@ -283,7 +283,7 @@ export function TranscriptReview({
                     onChange={(e) =>
                       update(r.key, { gradeLevel: e.target.value ? Number(e.target.value) : null })
                     }
-                    className="mt-1 w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm font-normal text-ep-charcoal outline-none focus:border-ep-red"
+                    className="mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm font-normal text-ep-charcoal outline-none focus:border-ep-red"
                   >
                     <option value="">—</option>
                     {[9, 10, 11, 12].map((g) => (
@@ -300,7 +300,7 @@ export function TranscriptReview({
                       value={r.term ?? ""}
                       onChange={(e) => update(r.key, { term: e.target.value || null })}
                       placeholder="S1"
-                      className="mt-1 w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm font-normal outline-none focus:border-ep-red"
+                      className="mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm font-normal outline-none focus:border-ep-red"
                     />
                   </label>
                   <label className="text-xs font-semibold text-ep-faint">
@@ -309,7 +309,7 @@ export function TranscriptReview({
                       value={r.finalGrade ?? ""}
                       onChange={(e) => update(r.key, { finalGrade: e.target.value || null })}
                       placeholder="A"
-                      className="mt-1 w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm font-normal outline-none focus:border-ep-red"
+                      className="mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm font-normal outline-none focus:border-ep-red"
                     />
                   </label>
                   <label className="text-xs font-semibold text-ep-faint">
@@ -323,7 +323,7 @@ export function TranscriptReview({
                       }
                       placeholder="0.5"
                       inputMode="decimal"
-                      className="mt-1 w-full rounded-md border border-ep-border bg-white px-2 py-1.5 text-sm font-normal outline-none focus:border-ep-red"
+                      className="mt-1 w-full rounded-lg border border-ep-border bg-ep-card px-2 py-1.5 text-sm font-normal outline-none focus:border-ep-red"
                     />
                   </label>
                 </div>

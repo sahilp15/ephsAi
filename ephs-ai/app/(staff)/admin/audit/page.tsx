@@ -15,11 +15,11 @@ export default async function AdminAuditPage() {
         </p>
       </div>
       {events.length === 0 ? (
-        <p className="rounded-xl border border-dashed border-ep-border bg-white p-6 text-center text-sm text-ep-muted">
+        <p className="rounded-xl border border-dashed border-ep-border bg-ep-card p-6 text-center text-sm text-ep-muted">
           No audit events recorded yet.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-ep-border-soft bg-white shadow-card">
+        <div className="overflow-x-auto rounded-xl border border-ep-border-soft bg-ep-card shadow-card">
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="border-b border-ep-border-soft text-xs uppercase tracking-wide text-ep-faint">

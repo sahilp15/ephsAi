@@ -16,12 +16,12 @@ export default function AccessDeniedPage({
 
   return (
     <div className="mx-auto max-w-lg py-10 sm:py-16">
-      <div className="overflow-hidden rounded-2xl border border-ep-border-soft bg-white shadow-panel">
+      <div className="overflow-hidden rounded-2xl border border-ep-border-soft bg-ep-card shadow-panel">
         <div className="flex items-center gap-3 bg-ep-coal px-6 py-5 text-white">
           <ShieldAlert aria-hidden className="h-7 w-7 text-ep-red" />
           <div>
             <p className="kicker text-white/70">Access check</p>
-            <h1 className="font-display text-3xl font-bold uppercase leading-none text-white">
+            <h1 className="text-3xl font-bold tracking-tight leading-tight text-white">
               We couldn&apos;t sign you in
             </h1>
           </div>
@@ -68,7 +68,7 @@ export default function AccessDeniedPage({
             </Link>
             <Link
               href="/"
-              className="rounded-lg border border-ep-border bg-white px-5 py-2.5 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
+              className="rounded-lg border border-ep-border bg-ep-card px-5 py-2.5 text-sm font-semibold text-ep-charcoal hover:bg-ep-bg"
             >
               Back to home
             </Link>

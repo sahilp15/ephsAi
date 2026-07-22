@@ -2,7 +2,7 @@ import Link from "next/link";
 import { EPHSLogo } from "./EPHSLogo";
 
 const FOOTER_LINKS = [
-  { href: "/chat", label: "EPHS AI Assistant" },
+  { href: "/chat", label: "EPHS Student Helper" },
   { href: "/courses", label: "Course Catalog" },
   { href: "/clubs", label: "Clubs & Activities" },
   { href: "/requirements", label: "Graduation Requirements" },

@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { AlertTriangle, BookOpen, Info, type LucideIcon } from "lucide-react";
 
 /**
- * Shared EPHS AI design-system primitives (server-safe).
+ * Shared EPHS Student Helper design-system primitives (server-safe).
  *
  * "Academic editorial": calm neutrals, moderate radii, soft elevation, red
  * reserved for primary actions and brand accents. Sentence-case headings;

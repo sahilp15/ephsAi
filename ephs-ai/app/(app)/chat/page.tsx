@@ -5,7 +5,7 @@ import { aiEnabled } from "@/lib/env";
 import { ChatClient } from "./ChatClient";
 
 export const metadata: Metadata = {
-  title: "EPHS AI Assistant",
+  title: "EPHS Student Helper",
   description:
     "Chat with an assistant that answers only from the official 2026-27 EPHS Course Guide.",
 };

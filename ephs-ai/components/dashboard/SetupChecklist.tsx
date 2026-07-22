@@ -49,7 +49,7 @@ export function SetupChecklist({ hasTranscript }: { hasTranscript: boolean }) {
         href: "/plan",
       },
       {
-        label: "Ask EPHS AI a question",
+        label: "Ask the EPHS Student Helper a question",
         done: profile.interests.length > 0,
         href: "/chat",
       },

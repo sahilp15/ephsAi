@@ -13,7 +13,7 @@ export function AppTopbar({ onOpenPalette }: { onOpenPalette: () => void }) {
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-ep-border bg-ep-bg/85 px-4 backdrop-blur supports-[backdrop-filter]:bg-ep-bg/70 sm:px-6">
       {/* Mobile brand */}
-      <Link href="/dashboard" aria-label="EPHS AI home" className="lg:hidden">
+      <Link href="/dashboard" aria-label="EPHS Student Helper home" className="lg:hidden">
         <Image
           src="/branding/ephs-ai-logo.png"
           alt=""
@@ -45,7 +45,7 @@ export function AppTopbar({ onOpenPalette }: { onOpenPalette: () => void }) {
         className="inline-flex h-10 items-center gap-1.5 rounded-lg bg-ep-charcoal px-3.5 text-sm font-semibold text-white transition-colors hover:bg-ep-coal"
       >
         <Sparkles aria-hidden className="h-4 w-4" />
-        <span className="hidden sm:inline">Ask EPHS AI</span>
+        <span className="hidden sm:inline">Ask the Helper</span>
         <span className="sm:hidden">Ask</span>
       </Link>
     </header>

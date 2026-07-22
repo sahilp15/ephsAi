@@ -71,10 +71,10 @@ export function CourseCard({ course }: { course: Course }) {
           <Link
             href={`/chat?about=${encodeURIComponent(course.title)}`}
             className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-ep-muted transition-colors hover:bg-ep-bg-sunken hover:text-ep-red-dark"
-            title={`Ask EPHS AI about ${course.title}`}
+            title={`Ask the Helper about ${course.title}`}
           >
             <Sparkles aria-hidden className="h-3.5 w-3.5" />
-            Ask AI
+            Ask Helper
           </Link>
           <Link
             href={`/courses/${course.id}`}

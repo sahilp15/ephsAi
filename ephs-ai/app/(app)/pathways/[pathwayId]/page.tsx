@@ -142,7 +142,7 @@ export default function PathwayDetailPage({
             className="flex items-center gap-2 rounded-xl border border-ep-border-soft bg-ep-card p-4 text-sm font-semibold text-ep-charcoal shadow-card transition-colors hover:bg-ep-bg-sunken"
           >
             <Sparkles aria-hidden className="h-5 w-5 text-ep-red" />
-            Ask EPHS AI about this pathway
+            Ask the Helper about this pathway
           </Link>
           <WarningBanner severity="info" title="About pathway progress">
             The guide does not define official pathway-completion criteria, so

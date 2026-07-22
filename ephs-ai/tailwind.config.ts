@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 /**
- * EPHS AI design tokens — "academic editorial".
+ * EPHS Student Helper design tokens — "academic editorial".
  *
  * Evolved from the original varsity system: the same official EP red and
  * charcoal from the 2026-27 Course Guide, but tuned toward a calm, premium

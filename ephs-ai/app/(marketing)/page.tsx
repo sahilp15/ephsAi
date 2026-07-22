@@ -127,7 +127,7 @@ export default function LandingPage() {
                 <Sparkles className="h-4 w-4" />
               </span>
               <p className="text-sm font-bold text-ep-charcoal">
-                EPHS AI Assistant
+                EPHS Student Helper
               </p>
               <span className="ml-auto flex items-center gap-1.5 text-[11px] text-ep-muted">
                 <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-ep-success" />

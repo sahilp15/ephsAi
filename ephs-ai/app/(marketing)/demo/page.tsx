@@ -6,7 +6,7 @@ import { DemoBanner } from "@/components/DemoBanner";
 export const metadata: Metadata = { title: "Student Experience Demo" };
 
 /**
- * Public, no-login preview of the student side of EPHS AI.
+ * Public, no-login preview of the student side of EPHS Student Helper.
  *
  * Google sign-in is not yet approved for the school domain, so this route
  * exists solely to let reviewers walk through what a student sees: the
@@ -54,7 +54,7 @@ export default function DemoLandingPage() {
       <DemoBanner />
 
       <div>
-        <p className="kicker text-ep-red">EPHS AI · Preview</p>
+        <p className="kicker text-ep-red">EPHS Student Helper · Preview</p>
         <h1 className="mt-1 text-4xl font-bold leading-none text-ep-charcoal sm:text-5xl">
           See the student experience
         </h1>

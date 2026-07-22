@@ -52,7 +52,7 @@ export function PublicHeader() {
             className="inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold text-ep-red-dark transition-colors hover:bg-ep-red-soft"
           >
             <Sparkles aria-hidden className="h-4 w-4" />
-            Ask EPHS AI
+            Ask the Helper
           </Link>
           <Link
             href="/login/student"
@@ -81,7 +81,7 @@ export function PublicHeader() {
           aria-label="Primary"
           className="animate-fade-in border-t border-ep-border/70 bg-ep-bg px-4 py-3 md:hidden"
         >
-          {[...LINKS, { href: "/chat", label: "Ask EPHS AI" }].map((l) => (
+          {[...LINKS, { href: "/chat", label: "Ask the Helper" }].map((l) => (
             <Link
               key={l.href}
               href={l.href}

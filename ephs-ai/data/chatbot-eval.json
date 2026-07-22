@@ -1,6 +1,6 @@
 {
   "schema_version": "chatbot-eval-1.0",
-  "description": "Evaluation prompts for the EPHS AI assistant. Each record states the question, category, expected intent, and the expected data + safety behavior. These are behavioral expectations for manual and automated review, grounded in the official course and club data; the assistant must never fabricate school-specific facts.",
+  "description": "Evaluation prompts for the EPHS Student Helper assistant. Each record states the question, category, expected intent, and the expected data + safety behavior. These are behavioral expectations for manual and automated review, grounded in the official course and club data; the assistant must never fabricate school-specific facts.",
   "intents": [
     "find-club", "find-course", "compare-clubs", "compare-courses", "recommend-clubs",
     "recommend-courses", "build-pathway", "check-grade-eligibility", "check-prerequisites",

@@ -3,13 +3,13 @@ import Image from "next/image";
 import clsx from "clsx";
 
 /**
- * EPHS AI logo lockup.
+ * EPHS Student Helper logo lockup.
  *
  * Pairs the official Eden Prairie Schools logo (supplied at
- * `public/branding/ephs-ai-logo.png`) with the "EPHS AI" wordmark. The image
- * asset is used exactly as provided — not cropped, stretched, recolored, or
- * redrawn — and `next/image` preserves its native square aspect ratio. The
- * mark reads clearly on both light and dark backgrounds.
+ * `public/branding/ephs-ai-logo.png`) with the "EPHS Student Helper" wordmark.
+ * The image asset is used exactly as provided — not cropped, stretched,
+ * recolored, or redrawn — and `next/image` preserves its native square aspect
+ * ratio. The mark reads clearly on both light and dark backgrounds.
  */
 export function EPHSLogo({
   withLink = true,
@@ -32,11 +32,11 @@ export function EPHSLogo({
       <span className="flex flex-col leading-none">
         <span
           className={clsx(
-            "font-display text-xl font-bold uppercase tracking-wide",
+            "font-display text-lg font-bold uppercase tracking-tight sm:text-xl",
             onDark ? "text-white" : "text-ep-charcoal",
           )}
         >
-          EPHS <span className="text-ep-red">AI</span>
+          EPHS <span className="text-ep-red">Student Helper</span>
         </span>
         <span
           className={clsx(
@@ -53,7 +53,7 @@ export function EPHSLogo({
   return (
     <Link
       href="/"
-      aria-label="EPHS AI home"
+      aria-label="EPHS Student Helper home"
       className="inline-flex rounded focus-visible:outline-ep-red"
     >
       {mark}

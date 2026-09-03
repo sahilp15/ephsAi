@@ -91,4 +91,42 @@ describe("historyToPlanEntries", () => {
     const entries = historyToPlanEntries(dupes);
     expect(entries.filter((e) => e.courseId === "dup")).toHaveLength(1);
   });
+
+  it("marks in-progress coursework as in progress, not completed", () => {
+    const entries = historyToPlanEntries(records);
+    const apush = entries.find((e) => e.courseId === "ap-us-history");
+    expect(apush?.status).toBe("in_progress");
+  });
+
+  it("places an ungraded in-progress course in the student's current grade", () => {
+    // A junior's current courses carry no grade level of their own. Without the
+    // current grade they used to default to 9, dropping a junior's schedule into
+    // freshman year.
+    const current: AcademicRecordInput[] = [
+      { id: "ip1", courseId: "ap-lang", recordType: "in_progress", gradeLevel: null, term: null },
+    ];
+    expect(historyToPlanEntries(current, { currentGrade: 11 })[0]?.gradeYear).toBe(11);
+  });
+
+  it("still defaults completed courses with no grade level to grade 9", () => {
+    const unknown: AcademicRecordInput[] = [
+      { id: "c1", courseId: "mystery", recordType: "completed", gradeLevel: null, term: null },
+    ];
+    expect(historyToPlanEntries(unknown, { currentGrade: 11 })[0]?.gradeYear).toBe(9);
+  });
+
+  it("reports a genuinely overloaded year as taken rather than relocating history", () => {
+    // Six real courses in one term is a validation warning for the student to
+    // resolve - not something to silently reshuffle after the fact.
+    const overloaded: AcademicRecordInput[] = Array.from({ length: 6 }, (_, i) => ({
+      id: `o${i}`,
+      courseId: `over-${i}`,
+      recordType: "completed" as const,
+      gradeLevel: 10,
+      term: "T1",
+    }));
+    const entries = historyToPlanEntries(overloaded);
+    expect(entries).toHaveLength(6);
+    expect(entries.every((e) => e.startTerm === 1)).toBe(true);
+  });
 });

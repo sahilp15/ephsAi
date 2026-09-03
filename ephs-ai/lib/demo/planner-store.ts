@@ -18,6 +18,14 @@ import type { PlannerPersistence } from "@/app/(app)/plan/PlannerClient";
 
 const RECORDS_KEY = "ephs-ai:demo:records:v1";
 const FUTURE_KEY = "ephs-ai:demo:future:v1";
+const META_KEY = "ephs-ai:demo:meta:v1";
+
+/** Document-level facts carried over from the imported transcript. */
+export interface DemoImportMeta {
+  /** Grade the transcript says the student is in now, e.g. 11. */
+  currentGrade: number | null;
+  currentSchoolYear: string | null;
+}
 
 function readJSON<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") return fallback;
@@ -53,11 +61,19 @@ export function readDemoFuture(): FuturePlanEntry[] {
   return readJSON<FuturePlanEntry[]>(FUTURE_KEY, []);
 }
 
+export function readDemoMeta(): DemoImportMeta {
+  return readJSON<DemoImportMeta>(META_KEY, {
+    currentGrade: null,
+    currentSchoolYear: null,
+  });
+}
+
 export function clearDemoPlanner(): void {
   if (typeof window === "undefined") return;
   try {
     window.localStorage.removeItem(RECORDS_KEY);
     window.localStorage.removeItem(FUTURE_KEY);
+    window.localStorage.removeItem(META_KEY);
   } catch {
     /* ignore */
   }
@@ -69,7 +85,10 @@ export function clearDemoPlanner(): void {
  * become transfer or unmatched records, and a fresh confirmation replaces any
  * previously imported preview history.
  */
-export function saveConfirmedRecords(rows: ConfirmRow[]): number {
+export function saveConfirmedRecords(
+  rows: ConfirmRow[],
+  meta?: DemoImportMeta,
+): number {
   const included = rows.filter((r) => r.include);
   const records: AcademicRecordInput[] = included.map((r) => {
     let recordType = r.recordType;
@@ -88,6 +107,7 @@ export function saveConfirmedRecords(rows: ConfirmRow[]): number {
     };
   });
   writeJSON(RECORDS_KEY, records);
+  if (meta) writeJSON(META_KEY, meta);
   return records.length;
 }
 

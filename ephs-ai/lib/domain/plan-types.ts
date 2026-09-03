@@ -29,7 +29,13 @@ export const OPEN_PERIOD_LABEL = "Open Period";
 /** Sentinel course id used for Open Period blocks so they never collide with a real course. */
 export const OPEN_PERIOD_COURSE_ID = "__open_period__";
 
-export type PlanEntryStatus = "planned" | "completed" | "considering";
+/**
+ * `in_progress` is deliberately distinct from `completed`: a course the student
+ * is sitting right now occupies a slot and satisfies prerequisites for the next
+ * term, but it has no grade and no earned credit yet. Collapsing the two makes
+ * the planner claim coursework is finished a full year early.
+ */
+export type PlanEntryStatus = "planned" | "completed" | "in_progress" | "considering";
 
 export interface PlanEntry {
   id: string;

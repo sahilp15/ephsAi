@@ -1,6 +1,6 @@
 import "server-only";
-import { parseTranscriptText } from "./parse";
-import { extractPdfCourseRows } from "./pdf-text";
+import { parseTranscriptDocument } from "./parse";
+import { extractPdfTranscript } from "./pdf-text";
 import type {
   ExtractionInput,
   ExtractionResult,
@@ -40,9 +40,14 @@ export const heuristicProvider: TranscriptExtractionProvider = {
     // reader below cannot.
     if (isPdf) {
       try {
-        const pdfRows = await extractPdfCourseRows(input.bytes);
-        if (pdfRows && pdfRows.length > 0) {
-          return { rows: pdfRows, provider: this.name, warnings: [] };
+        const parsed = await extractPdfTranscript(input.bytes);
+        if (parsed && parsed.rows.length > 0) {
+          return {
+            rows: parsed.rows,
+            provider: this.name,
+            warnings: parsed.warnings,
+            meta: parsed.meta,
+          };
         }
       } catch {
         // Fall through to the raw-bytes reader below.
@@ -55,13 +60,13 @@ export const heuristicProvider: TranscriptExtractionProvider = {
         "We couldn't read much text from this PDF (it may be a scan). Please review carefully or add courses manually.",
       );
     }
-    const rows = parseTranscriptText(text);
+    const { rows, meta } = parseTranscriptDocument(text);
     if (rows.length === 0 && warnings.length === 0) {
       warnings.push(
         "No courses were detected automatically. You can add your completed courses manually.",
       );
     }
-    return { rows, provider: this.name, warnings };
+    return { rows, provider: this.name, warnings, meta };
   },
 };
 

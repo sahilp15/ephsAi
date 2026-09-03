@@ -6,7 +6,12 @@ import {
 } from "@/lib/domain/transcript-match";
 import { getEquivalencyMap } from "@/lib/data/equivalencies";
 import { getExtractionProvider } from "./provider";
-import type { ExtractionInput, TranscriptExtractionProvider } from "./types";
+import {
+  EMPTY_TRANSCRIPT_META,
+  type ExtractionInput,
+  type TranscriptExtractionProvider,
+  type TranscriptMeta,
+} from "./types";
 
 /**
  * A single extracted transcript row after it has been matched against the
@@ -42,6 +47,8 @@ export interface ExtractAndMatchResult {
   provider: string;
   rows: MatchedTranscriptRow[];
   warnings: string[];
+  /** Document-level facts (current grade / school year) read off the transcript. */
+  meta: TranscriptMeta;
 }
 
 /**
@@ -93,5 +100,10 @@ export async function extractAndMatchTranscript(
     };
   });
 
-  return { provider: provider.name, rows, warnings: result.warnings };
+  return {
+    provider: provider.name,
+    rows,
+    warnings: result.warnings,
+    meta: result.meta ?? EMPTY_TRANSCRIPT_META,
+  };
 }

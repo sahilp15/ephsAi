@@ -17,11 +17,12 @@ export default async function PlanPage({
   searchParams: { imported?: string };
 }) {
   const user = await requireStudent();
-  const state = await loadPlannerState(user.id);
   const p = user.profile;
 
   const graduationYear = p?.graduation_year ?? DEFAULT_PROFILE.graduationYear;
   const currentGrade = p?.current_grade ?? DEFAULT_PROFILE.currentGrade;
+
+  const state = await loadPlannerState(user.id, { currentGrade });
 
   // Recommendations from the deterministic engine, informed by confirmed history.
   const catalog = getCourseMetaList();

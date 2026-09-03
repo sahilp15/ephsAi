@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseTranscriptText } from "@/lib/transcript/parse";
+import { parseTranscriptText, parseTranscriptDocument } from "@/lib/transcript/parse";
 
 const SAMPLE = `
 Eden Prairie High School - Official Transcript
@@ -46,5 +46,46 @@ describe("parseTranscriptText", () => {
     expect(apush?.inProgress).toBe(true);
     const spanish = rows.find((r) => r.rawCourseName.toLowerCase().includes("spanish"));
     expect(spanish?.isTransfer).toBe(true);
+  });
+});
+
+/**
+ * The plain-text fallback has to understand the same document structure the
+ * PDF reader does: zero-padded section grades, a current-grade statement, and
+ * an in-progress block that belongs to the year the student is starting.
+ */
+const PADDED = `
+Courses Taken 2024-2025 Grade 09
+Honors English 9A     A    1.0 cr
+Current Grade: 11
+In-Progress Courses
+AP Statistics    2.0 cr
+Credit Summary
+Math   10.0 cr
+`;
+
+describe("parseTranscriptDocument", () => {
+  const { rows, meta } = parseTranscriptDocument(PADDED);
+
+  it("reads zero-padded section grade levels", () => {
+    const english = rows.find((r) => r.rawCourseName.toLowerCase().includes("english"));
+    expect(english?.gradeLevel).toBe(9);
+  });
+
+  it("reads the student's current grade without treating it as a section", () => {
+    expect(meta.currentGrade).toBe(11);
+  });
+
+  it("assigns in-progress courses to the current grade with no earned credit", () => {
+    const stats = rows.find((r) => r.rawCourseName.toLowerCase().includes("statistics"));
+    expect(stats?.inProgress).toBe(true);
+    expect(stats?.gradeLevel).toBe(11);
+    expect(stats?.finalGrade).toBeNull();
+    expect(stats?.creditsEarned).toBeNull();
+  });
+
+  it("stops a section grade from leaking into the credit summary", () => {
+    const mathSummary = rows.find((r) => r.rawCourseName.toLowerCase() === "math");
+    expect(mathSummary).toBeUndefined();
   });
 });

@@ -103,7 +103,10 @@ export async function POST(request: NextRequest) {
     gradeLevel: r.gradeLevel,
     term: r.term,
     finalGrade: r.finalGrade,
-    creditsEarned: r.creditsEarned,
+    // An in-progress course has earned nothing yet, so carry the credit it is
+    // attempting - the projection buckets it by record type, and dropping it
+    // would understate the student's current load.
+    creditsEarned: r.inProgress ? r.creditsAttempted : r.creditsEarned,
     isHonors: r.isHonors,
     isAp: r.isAp,
     isTransfer: r.isTransfer,
@@ -115,5 +118,9 @@ export async function POST(request: NextRequest) {
     filename: file.name.slice(0, 200),
     rows,
     warnings: extracted.warnings,
+    // The grade the transcript says the student is in now. The planner needs it
+    // to place in-progress coursework in the right year.
+    currentGrade: extracted.meta.currentGrade,
+    currentSchoolYear: extracted.meta.currentSchoolYear,
   });
 }

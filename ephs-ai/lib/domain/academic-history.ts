@@ -10,7 +10,7 @@
  */
 
 import type { GradeYear, PlanEntry, Term } from "./plan-types";
-import { GRADE_YEARS, TERMS, MAX_COURSES_PER_TERM } from "./plan-types";
+import { GRADE_YEARS, TERMS } from "./plan-types";
 
 export type AcademicRecordType =
   | "completed"
@@ -84,34 +84,63 @@ export function parseTerm(term: string | null | undefined): { startTerm: Term; s
   return { startTerm: i.startTerm, span: i.span };
 }
 
-function clampGrade(grade: number | null | undefined): GradeYear {
+/**
+ * Resolve a record's grade year.
+ *
+ * A missing grade is a gap in what we read, not evidence of grade 9. Callers
+ * pass the best fallback they have (the student's current grade for unfinished
+ * work, grade 9 otherwise) so an unreadable row is never silently presented as
+ * freshman history.
+ */
+function clampGrade(
+  grade: number | null | undefined,
+  fallback: GradeYear = 9,
+): GradeYear {
   if (grade && GRADE_YEARS.includes(grade as GradeYear)) return grade as GradeYear;
-  return 9;
+  return fallback;
 }
 
 /**
- * Turn confirmed history into completed plan entries for display in the
- * four-year planner. These are historical, not draggable future courses; the
- * caller marks them `status: "completed"`.
+ * Turn confirmed history into plan entries for display in the four-year
+ * planner. These are historical, not draggable future courses: finished work
+ * is marked `completed` and current coursework `in_progress`.
  *
- * Placement rules (this is the fix for "everything lands in Term 1"):
+ * Grade placement:
+ *   - A record's own grade level wins.
+ *   - An in-progress record without one falls back to `options.currentGrade`
+ *     (the year the student is sitting), never to grade 9.
+ *
+ * Term placement (this is the fix for "everything lands in Term 1"):
  *   1. Records with an explicit transcript term keep it exactly.
  *   2. Records with no term signal are distributed across the grade's four
  *      terms by filling the least-occupied term first, so a year's courses
  *      spread out instead of stacking.
- *   3. No term is filled past four blocks; overflow spills to the next term.
+ *
+ * Note that history is reported as it was actually taken: a year in which the
+ * student really carried more than `MAX_COURSES_PER_TERM` blocks is shown that
+ * way, and the planner surfaces it as an over-capacity warning rather than
+ * silently relocating coursework that has already happened.
  *
  * Duplicate course ids within the same grade are collapsed so a course that
  * shows up twice on a transcript does not occupy two slots.
  */
-export function historyToPlanEntries(records: AcademicRecordInput[]): PlanEntry[] {
+export function historyToPlanEntries(
+  records: AcademicRecordInput[],
+  options: { currentGrade?: number | null } = {},
+): PlanEntry[] {
+  // An unfinished course with no grade of its own belongs to the year the
+  // student is sitting now, not to grade 9.
+  const currentGrade = clampGrade(options.currentGrade);
+  const gradeFor = (rec: AcademicRecordInput): GradeYear =>
+    clampGrade(rec.gradeLevel, rec.recordType === "in_progress" ? currentGrade : 9);
+
   // Only matched completed/in-progress courses take a planner slot; de-dupe by
   // (gradeYear, courseId) so repeated transcript lines collapse to one block.
   const seen = new Set<string>();
   const placeable = records.filter((rec) => {
     if (!rec.courseId) return false;
     if (rec.recordType !== "completed" && rec.recordType !== "in_progress") return false;
-    const key = `${clampGrade(rec.gradeLevel)}:${rec.courseId}`;
+    const key = `${gradeFor(rec)}:${rec.courseId}`;
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -119,7 +148,7 @@ export function historyToPlanEntries(records: AcademicRecordInput[]): PlanEntry[
 
   const byGrade = new Map<GradeYear, AcademicRecordInput[]>();
   for (const rec of placeable) {
-    const g = clampGrade(rec.gradeLevel);
+    const g = gradeFor(rec);
     (byGrade.get(g) ?? byGrade.set(g, []).get(g)!).push(rec);
   }
 
@@ -142,6 +171,9 @@ export function historyToPlanEntries(records: AcademicRecordInput[]): PlanEntry[
       else unknown.push(rec);
     }
 
+    const statusFor = (rec: AcademicRecordInput): PlanEntry["status"] =>
+      rec.recordType === "in_progress" ? "in_progress" : "completed";
+
     // 1. Place explicit-term courses first and record their occupancy.
     for (const k of known) {
       occupy(k.startTerm, k.span);
@@ -151,30 +183,26 @@ export function historyToPlanEntries(records: AcademicRecordInput[]): PlanEntry[
         gradeYear,
         startTerm: k.startTerm,
         termSpan: k.span,
-        status: "completed",
+        status: statusFor(k.rec),
       });
     }
 
-    // 2. Spread unlabeled courses into the least-occupied term (respecting the
-    //    four-block cap; if every term is full, fall back to the emptiest one).
+    // 2. Spread unlabeled courses into the least-occupied term. Picking the
+    //    emptiest term each time keeps a year's courses balanced across all
+    //    four terms instead of stacking them in Term 1.
     for (const rec of unknown) {
       let best: Term = 1;
       for (const term of TERMS) {
         if (load[term] < load[best]) best = term;
       }
-      const target =
-        load[best] < MAX_COURSES_PER_TERM
-          ? best
-          : // all terms at cap: still pick the emptiest to keep things balanced
-            best;
-      occupy(target, 1);
+      occupy(best, 1);
       entries.push({
         id: `history-${rec.id}`,
         courseId: rec.courseId!,
         gradeYear,
-        startTerm: target,
+        startTerm: best,
         termSpan: 1,
-        status: "completed",
+        status: statusFor(rec),
       });
     }
   }

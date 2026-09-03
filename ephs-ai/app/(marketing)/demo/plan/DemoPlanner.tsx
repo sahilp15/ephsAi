@@ -15,7 +15,9 @@ import { PlannerClient, type Recommendation } from "@/app/(app)/plan/PlannerClie
 import {
   readDemoRecords,
   readDemoFuture,
+  readDemoMeta,
   createDemoPlannerPersistence,
+  type DemoImportMeta,
 } from "@/lib/demo/planner-store";
 
 /**
@@ -29,12 +31,17 @@ export function DemoPlanner() {
   const searchParams = useSearchParams();
   const { profile, catalogList, metaReady } = useStudent();
   const [records, setRecords] = useState<AcademicRecordInput[]>([]);
-  const [initialFuture, setInitialFuture] = useState<FuturePlanEntry[]>([]);
+  const [storedFuture, setStoredFuture] = useState<FuturePlanEntry[]>([]);
+  const [importMeta, setImportMeta] = useState<DemoImportMeta>({
+    currentGrade: null,
+    currentSchoolYear: null,
+  });
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     setRecords(readDemoRecords());
-    setInitialFuture(readDemoFuture());
+    setStoredFuture(readDemoFuture());
+    setImportMeta(readDemoMeta());
     setLoaded(true);
   }, []);
 
@@ -44,10 +51,30 @@ export function DemoPlanner() {
   );
 
   const projection = useMemo(() => projectHistory(records), [records]);
-  const history = useMemo(() => historyToPlanEntries(records), [records]);
 
+  // The transcript is the better authority on where the student actually is:
+  // the preview profile defaults to grade 9 for anyone who skipped onboarding,
+  // which would strand a junior's in-progress courses in the wrong year.
+  const currentGrade =
+    importMeta.currentGrade ?? profile.currentGrade ?? DEFAULT_PROFILE.currentGrade;
+  // Graduation follows from the current grade unless onboarding set it.
   const graduationYear = profile.graduationYear ?? DEFAULT_PROFILE.graduationYear;
-  const currentGrade = profile.currentGrade ?? DEFAULT_PROFILE.currentGrade;
+
+  const history = useMemo(
+    () => historyToPlanEntries(records, { currentGrade }),
+    [records, currentGrade],
+  );
+
+  // A course that now appears in imported history must not also sit in the plan
+  // as a future/recommended entry - that is what made an already-completed
+  // course show up again as a senior-year recommendation.
+  const initialFuture = useMemo(() => {
+    const taken = new Set([
+      ...projection.completedCourseIds,
+      ...projection.inProgressCourseIds,
+    ]);
+    return storedFuture.filter((f) => !taken.has(f.courseId));
+  }, [storedFuture, projection]);
 
   const recommendations: Recommendation[] = useMemo(() => {
     if (!metaReady || catalogList.length === 0) return [];
@@ -57,7 +84,7 @@ export function DemoPlanner() {
       ...DEFAULT_PROFILE,
       displayName: profile.displayName,
       graduationYear,
-      currentGrade,
+      currentGrade: currentGrade as StudentProfile["currentGrade"],
       interests: profile.interests,
       careerIdeas: profile.careerIdeas,
       rigor: profile.rigor,

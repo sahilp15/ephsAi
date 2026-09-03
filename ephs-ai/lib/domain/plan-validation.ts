@@ -50,6 +50,12 @@ function isRealBlock(e: PlanEntry): boolean {
   return e.status !== "considering";
 }
 
+/** Whether a real block spans the given term (multi-term courses occupy each). */
+function occupiesTerm(e: PlanEntry, term: number): boolean {
+  if (!isRealBlock(e)) return false;
+  return e.startTerm <= term && term <= e.startTerm + e.termSpan - 1;
+}
+
 /**
  * Count the real course blocks occupying a given (grade, term). A multi-term
  * course occupies each term it spans. Open Periods are never stored as entries,
@@ -139,14 +145,25 @@ export function validatePlan(input: PlanValidationInput): PlanWarning[] {
   for (const grade of [9, 10, 11, 12] as GradeYear[]) {
     for (const term of [1, 2, 3, 4] as Term[]) {
       const n = countTermBlocks(entries, grade, term);
-      if (n > MAX_COURSES_PER_TERM) {
-        warnings.push({
-          id: `capacity-${grade}-${term}`,
-          severity: "error",
-          title: `Grade ${grade}, Term ${term} is over capacity`,
-          detail: `This term has ${n} course blocks, but a term holds at most ${MAX_COURSES_PER_TERM}. Move a course to a term with room or remove one.`,
-        });
-      }
+      if (n <= MAX_COURSES_PER_TERM) continue;
+      // A term made up entirely of coursework already on the student's record
+      // is a fact, not a scheduling mistake: it usually means extra courses
+      // taken online or over the summer. Telling a student to "move or remove"
+      // a course they have already taken is advice they cannot act on, so
+      // report it as information instead of an error.
+      const historical = entries
+        .filter((e) => e.gradeYear === grade && occupiesTerm(e, term))
+        .every((e) => e.status === "completed" || e.status === "in_progress");
+      warnings.push({
+        id: `capacity-${grade}-${term}`,
+        severity: historical ? "info" : "error",
+        title: historical
+          ? `Grade ${grade}, Term ${term} carried a heavy load`
+          : `Grade ${grade}, Term ${term} is over capacity`,
+        detail: historical
+          ? `Your record shows ${n} course blocks in this term, more than the ${MAX_COURSES_PER_TERM} a term normally holds. That is usually online or summer coursework taken alongside a full schedule - nothing to fix here.`
+          : `This term has ${n} course blocks, but a term holds at most ${MAX_COURSES_PER_TERM}. Move a course to a term with room or remove one.`,
+      });
     }
   }
 

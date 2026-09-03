@@ -38,7 +38,10 @@ export default async function TranscriptReviewPage({
     gradeLevel: r.grade_level,
     term: r.term,
     finalGrade: r.final_grade,
-    creditsEarned: r.credits_earned,
+    // An in-progress course has earned nothing yet, so carry the credit it is
+    // attempting - the projection buckets it by record type, and dropping it
+    // would understate the student's current load.
+    creditsEarned: r.in_progress ? r.credits_attempted : r.credits_earned,
     isHonors: r.is_honors,
     isAp: r.is_ap,
     isTransfer: r.is_transfer,

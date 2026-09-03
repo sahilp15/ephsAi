@@ -73,6 +73,16 @@ const SOURCE_LABEL: Record<string, string> = {
   student: "Your choice",
 };
 
+/**
+ * The school year a grade runs for a student graduating in `graduationYear`.
+ * Grade 12 is the year ending at graduation, so grade 9 is three years earlier:
+ * a 2028 graduate sits grade 9 in 2024-25.
+ */
+function schoolYearLabel(graduationYear: number, grade: number): string {
+  const endYear = graduationYear - (12 - grade);
+  return `${endYear - 1}-${String(endYear).slice(2)}`;
+}
+
 export function PlannerClient({
   profile,
   initialFuture,
@@ -324,11 +334,19 @@ export function PlannerClient({
       <div className="space-y-6">
         {GRADE_YEARS.map((grade) => (
           <section key={grade} aria-label={`Grade ${grade}`}>
-            <h2 className="mb-2 text-lg font-bold text-ep-charcoal">
-              Grade {grade}
-              <span className="ml-2 text-sm font-normal text-ep-muted">
-                Class of {profile.graduationYear - (12 - grade)}
+            <h2 className="mb-2 flex flex-wrap items-center gap-2 text-lg font-bold text-ep-charcoal">
+              <span>Grade {grade}</span>
+              {/* The school year this grade runs, not a graduating class: the
+                  student belongs to exactly one class (their graduation year),
+                  so labelling grade 9 "Class of 2025" was simply wrong. */}
+              <span className="text-sm font-normal text-ep-muted">
+                {schoolYearLabel(profile.graduationYear, grade)}
               </span>
+              {grade === profile.currentGrade ? (
+                <span className="rounded-full bg-ep-red-soft px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-ep-red-dark">
+                  Current year
+                </span>
+              ) : null}
             </h2>
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {TERMS.map((term) => {
@@ -447,15 +465,35 @@ function OpenPeriodBlock() {
   );
 }
 
+/**
+ * A course already on the student's record. Courses in progress are shown
+ * distinctly from finished ones: they are underway, not done, and they carry no
+ * grade or earned credit yet.
+ */
 function HistoryChip({ entry, catalog }: { entry: PlanEntry; catalog: Map<string, CourseMeta> }) {
   const meta = catalog.get(entry.courseId);
+  const inProgress = entry.status === "in_progress";
   return (
-    <div className="mb-1.5 rounded-lg border border-ep-success/20 bg-ep-success-soft px-2 py-1.5">
-      <p className="text-xs font-semibold leading-snug text-ep-success">
+    <div
+      className={`mb-1.5 rounded-lg border px-2 py-1.5 ${
+        inProgress
+          ? "border-ep-warn/30 bg-ep-warn-soft"
+          : "border-ep-success/20 bg-ep-success-soft"
+      }`}
+    >
+      <p
+        className={`text-xs font-semibold leading-snug ${
+          inProgress ? "text-ep-warn" : "text-ep-success"
+        }`}
+      >
         {meta?.title ?? entry.courseId}
       </p>
-      <p className="text-[10px] font-bold uppercase tracking-wide text-ep-success">
-        Completed
+      <p
+        className={`text-[10px] font-bold uppercase tracking-wide ${
+          inProgress ? "text-ep-warn" : "text-ep-success"
+        }`}
+      >
+        {inProgress ? "In progress" : "Completed"}
       </p>
     </div>
   );

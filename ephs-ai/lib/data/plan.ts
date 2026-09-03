@@ -81,13 +81,23 @@ export async function getOrCreatePlan(userId: string): Promise<string | null> {
   return created?.id ?? null;
 }
 
-/** Load the full planner state: history-derived data + future plan entries. */
-export async function loadPlannerState(userId: string): Promise<PlannerState> {
+/**
+ * Load the full planner state: history-derived data + future plan entries.
+ *
+ * `currentGrade` places in-progress coursework that carries no grade level of
+ * its own in the year the student is actually sitting.
+ */
+export async function loadPlannerState(
+  userId: string,
+  options: { currentGrade?: number | null } = {},
+): Promise<PlannerState> {
   const supabase = createSupabaseServerClient();
   const records = await listAcademicRecords(userId);
   const recordInputs = records.map(toRecordInput);
   const projection = projectHistory(recordInputs);
-  const history = historyToPlanEntries(recordInputs);
+  const history = historyToPlanEntries(recordInputs, {
+    currentGrade: options.currentGrade,
+  });
 
   if (!supabase) {
     return { planId: null, future: [], history, projection };

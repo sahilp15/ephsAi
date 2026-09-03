@@ -1,7 +1,10 @@
 import "server-only";
 import { createRequire } from "node:module";
 import { join } from "node:path";
-import type { ExtractedCourseRow } from "./types";
+import type { ExtractedCourseRow, TranscriptMeta } from "./types";
+import { parseTranscriptColumns, type TranscriptParseResult } from "./transcript-layout";
+
+export type { TranscriptParseResult };
 
 /**
  * Text extraction for real, text-based transcript PDFs.
@@ -12,6 +15,10 @@ import type { ExtractedCourseRow } from "./types";
  * cannot read them, so we use pdf.js (`pdfjs-dist`) to get positioned text and
  * then reconstruct course rows: split each page into columns, group text into
  * visual lines, merge wrapped course-name lines, and pull out grade and credit.
+ *
+ * This module is only responsible for turning a PDF into ordered visual lines.
+ * Interpreting those lines (sections, in-progress block, current grade) lives
+ * in `transcript-layout.ts`, which is pure and unit tested.
  *
  * pdf.js runs only on the server and is loaded lazily so it never enters the
  * client bundle. If anything fails (encrypted, image-only, or an unexpected
@@ -38,100 +45,11 @@ interface PositionedItem {
   s: string;
 }
 
-// A course line begins with a course code, e.g. 01001E12, OL10157G12S1, 502072G8.
-// The code must contain a letter so page numbers / addresses are not mistaken
-// for courses.
-const COURSE_CODE = /^(?:OL)?\d{4,6}[A-Z]\d{0,2}(?:S\d)?$|^\d{5,6}[A-Z]\d?$/;
-const SECTION = /Courses Taken\s+(\d{4})-(\d{4})\s+Grade\s+(\d{1,2})/i;
-// Structural labels that are never part of a wrapped course name. Ambiguous
-// academic words (Science, English, Math, Health) are intentionally excluded:
-// credit-summary rows carry a trailing credit number and are filtered by that
-// instead, so those words remain usable inside real course names.
-const LABEL =
-  /^(?:Course|Total|from |Mark|Weight|Credit|Cumulative|Transcript|EPHS|Business\/Work|Elective|Student|State|Current|Birth|Gender|Generated|Page|Tel:|Fax:|Eden Prairie|GPA|Valley View)\b/i;
-const CREDIT_NUMBER = /\d\.\d{3}/;
-
-function parseCourseText(text: string): {
-  name: string;
-  finalGrade: string | null;
-  credits: number | null;
-} {
-  let m = text.match(
-    /^(.*?)\s+([A-F][+-]?|P|NP|IP|I|W)\s+(\d\.\d{4})\s+(\d\.\d{3})\s*(.*)$/,
-  );
-  if (m) {
-    return {
-      name: `${m[1]} ${m[5]}`.replace(/\s+/g, " ").trim(),
-      finalGrade: m[2]!,
-      credits: Number(m[4]),
-    };
-  }
-  m = text.match(/^(.*?)\s+([A-F][+-]?|P|NP|IP|I|W)\s+(\d\.\d{3})\s*(.*)$/);
-  if (m) {
-    return {
-      name: `${m[1]} ${m[4]}`.replace(/\s+/g, " ").trim(),
-      finalGrade: m[2]!,
-      credits: Number(m[3]),
-    };
-  }
-  return {
-    name: text.replace(/\s+\d\.\d{3,4}/g, "").replace(/\s+/g, " ").trim(),
-    finalGrade: null,
-    credits: null,
-  };
-}
-
-function toRow(
-  code: string,
-  text: string,
-  gradeLevel: number | null,
-  schoolYear: string | null,
-): ExtractedCourseRow | null {
-  const parsed = parseCourseText(text);
-  // Transcripts glue the section letter to the year/level ("English 9A",
-  // "French 2B"); the catalog writes them apart ("English 9 A & B"). Split a
-  // digit directly followed by a capital letter so titles line up for matching,
-  // and expand the common "Comp Sci" abbreviation to its catalog spelling.
-  const name = parsed.name
-    .replace(/(\d)([A-Z])/g, "$1 $2")
-    .replace(/\bComp Sci\b/gi, "Computer Science")
-    .replace(/\s+/g, " ")
-    .trim();
-  const { finalGrade, credits } = parsed;
-  if (!name || name.replace(/[^a-z]/gi, "").length < 3) return null;
-
-  const lower = name.toLowerCase();
-  const inProgress = finalGrade === "IP";
-  // EPHS course codes encode the four-term year as an S1-S4 suffix. These are
-  // terms, not semesters, so normalize them to T1-T4 (a bare S1/S2 would be
-  // misread as a two-term semester downstream).
-  const termMatch = code.match(/S([1-4])\b/);
-  return {
-    rawCourseName: name,
-    rawCourseCode: code,
-    schoolYear,
-    gradeLevel,
-    term: termMatch ? `T${termMatch[1]}` : null,
-    finalGrade: inProgress ? null : finalGrade,
-    creditsEarned: credits,
-    creditsAttempted: credits,
-    isHonors: /\bhonors?\b|\bhon\b/.test(lower),
-    isAp: /\bap\b|advanced placement/.test(lower),
-    inProgress,
-    isRepeat: false,
-    isIncomplete: finalGrade === "I",
-    isTransfer: false,
-  };
-}
-
 /**
- * Extract structured course rows from a text-based transcript PDF. Returns null
- * when the document can't be read as text (so the caller can fall back), and an
- * empty array only when it was read but held no recognizable courses.
+ * Read a transcript PDF into ordered visual lines, one array per page column.
+ * Returns null when the document can't be read as text.
  */
-export async function extractPdfCourseRows(
-  bytes: Buffer,
-): Promise<ExtractedCourseRow[] | null> {
+async function readColumns(bytes: Buffer): Promise<string[][] | null> {
   let pdfjs: typeof import("pdfjs-dist/legacy/build/pdf.mjs");
   try {
     // Load pdf.js at runtime via a non-analyzable dynamic import so webpack
@@ -172,7 +90,7 @@ export async function extractPdfCourseRows(
     });
     const doc = await loadingTask.promise;
 
-    const rows: ExtractedCourseRow[] = [];
+    const allColumns: string[][] = [];
     for (let p = 1; p <= doc.numPages; p++) {
       const page = await doc.getPage(p);
       const viewport = page.getViewport({ scale: 1 });
@@ -196,57 +114,50 @@ export async function extractPdfCourseRows(
           list.push(it);
           byRow.set(key, list);
         }
-        const visualLines = [...byRow.entries()]
-          .sort((a, b) => b[0] - a[0])
-          .map(([, parts]) =>
-            parts
-              .sort((a, b) => a.x - b.x)
-              .map((q) => q.s)
-              .join(" ")
-              .replace(/\s+/g, " ")
-              .trim(),
-          );
-
-        let year: string | null = null;
-        let grade: number | null = null;
-        let current: { code: string; text: string; grade: number | null; year: string | null } | null =
-          null;
-        for (const line of visualLines) {
-          const sm = line.match(SECTION);
-          if (sm) {
-            year = `${sm[1]}-${sm[2]}`;
-            grade = Number(sm[3]);
-            current = null;
-            continue;
-          }
-          const first = line.split(" ")[0] ?? "";
-          if (COURSE_CODE.test(first)) {
-            if (current) {
-              const row = toRow(current.code, current.text, current.grade, current.year);
-              if (row) rows.push(row);
-            }
-            current = { code: first, text: line.slice(first.length).trim(), grade, year };
-          } else if (current && !LABEL.test(line) && !CREDIT_NUMBER.test(line)) {
-            // Wrapped continuation of the current course name.
-            current.text += ` ${line}`;
-          } else {
-            if (current) {
-              const row = toRow(current.code, current.text, current.grade, current.year);
-              if (row) rows.push(row);
-            }
-            current = null;
-          }
-        }
-        if (current) {
-          const row = toRow(current.code, current.text, current.grade, current.year);
-          if (row) rows.push(row);
-        }
+        allColumns.push(
+          [...byRow.entries()]
+            .sort((a, b) => b[0] - a[0])
+            .map(([, parts]) =>
+              parts
+                .sort((a, b) => a.x - b.x)
+                .map((q) => q.s)
+                .join(" ")
+                .replace(/\s+/g, " ")
+                .trim(),
+            ),
+        );
       }
     }
 
-    return rows;
+    return allColumns;
   } catch (err) {
     console.error("[transcript] pdf.js parse failed:", err instanceof Error ? err.message : err);
     return null;
   }
 }
+
+/**
+ * Extract structured course rows plus document meta (current grade, current
+ * school year) from a text-based transcript PDF. Returns null when the document
+ * can't be read as text, so the caller can fall back to the raw-text reader.
+ */
+export async function extractPdfTranscript(
+  bytes: Buffer,
+): Promise<TranscriptParseResult | null> {
+  const columns = await readColumns(bytes);
+  if (!columns) return null;
+  return parseTranscriptColumns(columns);
+}
+
+/**
+ * Row-only view of {@link extractPdfTranscript}, kept for callers that do not
+ * need the document meta.
+ */
+export async function extractPdfCourseRows(
+  bytes: Buffer,
+): Promise<ExtractedCourseRow[] | null> {
+  const result = await extractPdfTranscript(bytes);
+  return result ? result.rows : null;
+}
+
+export type { TranscriptMeta };

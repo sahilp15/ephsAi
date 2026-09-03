@@ -16,6 +16,9 @@ interface StoredUpload {
   filename?: string;
   rows: ReviewRowInit[];
   warnings?: string[];
+  /** "Current Grade: 11" from the transcript, when it states one. */
+  currentGrade?: number | null;
+  currentSchoolYear?: string | null;
 }
 
 /**
@@ -47,7 +50,10 @@ export function DemoTranscriptReview({
   }, [transcriptId]);
 
   function handleConfirm(rows: ConfirmRow[]): boolean {
-    saveConfirmedRecords(rows);
+    saveConfirmedRecords(rows, {
+      currentGrade: stored?.currentGrade ?? null,
+      currentSchoolYear: stored?.currentSchoolYear ?? null,
+    });
     return true;
   }
 
